@@ -3,7 +3,8 @@ import time
 import sys
 import os
 import json
-from flask import Flask, Request, Response
+from flask import Flask, Request, Response, url_for,render_template
+
 
 application = app = Flask('wsgi')
 #admin
@@ -12,7 +13,22 @@ from flask.ext.admin import Admin
 #
 @app.route('/')
 def welcome():
-    return 'welcome to appfog!'
+    return render_template('home.html')
+
+
+@app.route('/static')
+def static():
+    return url_for('static')
+
+
+@app.route('/uppo/<upponame>')
+def show_uppo_profile(upponame):
+    return 'uppo %s' % upponame
+
+
+@app.route('/kn/<int:kid>')
+def show_kn_post(kid):
+    return 'keng %d' % kid
 
 
 @app.route('/env')
@@ -53,7 +69,10 @@ def mongodb_uri():
 
 
 if __name__ == '__main__':
+    # module
     Admin(app)
+    #
     port = int(os.environ.get('PORT', 5000))
-    app.run(debug=False, host='0.0.0.0', port=port)
+    app.debug = True
+    app.run(host='0.0.0.0', port=port)
 
