@@ -15,8 +15,7 @@ from flask.ext.admin import Admin
 #
 @app.route('/')
 def welcome():
-    return render_template('home.html')
-
+    return render_template('pixtch/home.html')
 
 # @app.route('/static')
 # def static():
