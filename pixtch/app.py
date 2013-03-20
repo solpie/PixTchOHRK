@@ -18,14 +18,14 @@ def welcome():
     return render_template('home.html')
 
 
-@app.route('/static')
-def static():
-    return url_for('static')
-
-
-@app.route('/static/css')
-def static_css():
-    return url_for('static')
+# @app.route('/static')
+# def static():
+#     return url_for('static')
+#
+#
+# @app.route('/static/css')
+# def static_css():
+#     return url_for('static_css')
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -83,7 +83,7 @@ def show_entries():
 def add_entry():
     if not session.get('logged_in'):
         abort(401)
-    g.db.execute('insert into entries (title, text) value(?, ?)', [request.form['title'], request.form['text']])
+    g.db.execute('insert into entries (title, text) values (?, ?)', [request.form['title'], request.form['text']])
     g.db.commit()
     flash('New entry was successfully posted')
     return redirect(url_for('show_entries'))
@@ -165,8 +165,10 @@ if __name__ == '__main__':
     # module
     Admin(app)
     init_db()
+    print os.path.abspath('')
+
     #
     port = int(os.environ.get('PORT', 5000))
     app.debug = True
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='127.0.0.1', port=port)
 
