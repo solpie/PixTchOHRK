@@ -153,7 +153,9 @@ def mongodb_uri():
         return uri
     else:
         raise Exception, "No services configured"
-
+'''
+error
+'''
 
 @app.errorhandler(404)
 def error404(error):
