@@ -115,12 +115,14 @@ def init_db():
 
 @app.before_request
 def before_request():
-    g.db = connect_db()
+    # g.db = connect_db()
+    pass
 
 
 @app.teardown_request
 def teardown_request(e):
-    g.db.close()
+    # g.db.close()
+    pass
 
 
 @app.route('/mongo')
