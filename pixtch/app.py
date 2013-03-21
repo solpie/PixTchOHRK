@@ -165,7 +165,7 @@ def error404(error):
 if __name__ == '__main__':
     # module
     Admin(app)
-    init_db()
+    # init_db()
     #
     port = int(os.environ.get('PORT', 5000))
     app.debug = True
