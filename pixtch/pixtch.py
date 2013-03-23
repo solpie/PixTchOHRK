@@ -6,11 +6,11 @@ import json
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, Request, Response, url_for, render_template, request, session, flash, redirect, g, abort
 from admin.views import admin
+from kn.views import app as kn
 
 application = app = Flask(__name__)
 
 #admin
-# from pixtch.admin import Admin
 from flask.ext.admin import Admin
 #
 @app.route('/')
@@ -37,11 +37,6 @@ def upload_file():
 @app.route('/uppo/<upponame>')
 def show_uppo_profile(upponame):
     return 'uppo %s' % upponame
-
-
-@app.route('/kn/<int:kid>')
-def show_kn_post(kid):
-    return 'keng %d' % kid
 
 
 @app.route('/env')
@@ -139,7 +134,6 @@ def mongodb_uri():
 error
 '''
 
-
 @app.errorhandler(404)
 def error404(error):
     return render_template('404.html')
@@ -149,8 +143,9 @@ if __name__ == '__main__':
     # module
     Admin(app)
     app.register_module(admin)
+    app.register_blueprint(kn, url_prefix='/kn')
     # app.register_module(admin, url_prefix='/admin')
-    # init_db()
+    init_db()
     #
     port = int(os.environ.get('PORT', 5000))
     app.debug = True

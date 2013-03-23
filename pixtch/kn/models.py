@@ -8,6 +8,7 @@ class Kn(db.model):
     title = db.Column(db.String(120))
     slug = db.Column(db.String(120))
     text = db.Column(db.Text)
+
     def __init__(self, username):
         self.username = username
 
