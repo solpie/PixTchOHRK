@@ -5,7 +5,7 @@ import os
 import json
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, Request, Response, url_for, render_template, request, session, flash, redirect, g, abort
-
+from admin.views import admin
 
 application = app = Flask(__name__)
 
@@ -15,7 +15,7 @@ from flask.ext.admin import Admin
 #
 @app.route('/')
 def welcome():
-    return render_template('pixtch/home.html')
+    return render_template('pixtch/index.html')
 
 # @app.route('/static')
 # def static():
@@ -47,28 +47,6 @@ def show_kn_post(kid):
 @app.route('/env')
 def env():
     return os.environ.get("VCAP_SERVICES", "{}")
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    error = None
-    if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME']:
-            error = 'Invalid username'
-        elif request.form['password'] != app.config['PASSWORD']:
-            error = 'Invalid password'
-        else:
-            session['logged_in'] = True
-            flash('You were logged in')
-            return redirect(url_for('show_entries'))
-    return render_template('pixtch/login.html', error=error)
-
-
-@app.route('/logout')
-def logout():
-    session.pop('logged_in', None)
-    flash('You were logged out')
-    return redirect(url_for('show_entries'))
 
 
 @app.route('/show')
@@ -115,13 +93,13 @@ def init_db():
 
 @app.before_request
 def before_request():
-    # g.db = connect_db()
+    g.db = connect_db()
     pass
 
 
 @app.teardown_request
 def teardown_request(e):
-    # g.db.close()
+    g.db.close()
     pass
 
 
@@ -155,9 +133,12 @@ def mongodb_uri():
         return uri
     else:
         raise Exception, "No services configured"
+
+
 '''
 error
 '''
+
 
 @app.errorhandler(404)
 def error404(error):
@@ -167,6 +148,8 @@ def error404(error):
 if __name__ == '__main__':
     # module
     Admin(app)
+    app.register_module(admin)
+    # app.register_module(admin, url_prefix='/admin')
     # init_db()
     #
     port = int(os.environ.get('PORT', 5000))

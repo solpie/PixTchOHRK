@@ -1,1 +1,1 @@
-web: python pixtch/app.py
+web: python pixtch/pixtch.py

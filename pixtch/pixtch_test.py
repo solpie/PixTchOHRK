@@ -1,20 +1,20 @@
 __author__ = 'SolPie'
 import os
-import app
+import pixtch
 import unittest
 import tempfile
 
 
 class AppTestCase(unittest.TestCase):
     def setUp(self):
-        self.db_fd, app.app.config['DATABASE'] = tempfile.mkstemp()
+        self.db_fd, pixtch.app.config['DATABASE'] = tempfile.mkstemp()
         # app.app.config['TESTING'] = True
-        self.app = app.app.test_client()
-        app.init_db()
+        self.app = pixtch.app.test_client()
+        pixtch.init_db()
 
     def tearDown(self):
         os.close(self.db_fd)
-        os.unlink(app.app.config['DATABASE'])
+        os.unlink(pixtch.app.config['DATABASE'])
 
     def test_empty_db(self):
         rv = self.app.get('/show')
@@ -22,8 +22,8 @@ class AppTestCase(unittest.TestCase):
 
     def test_messages(self):
         """Test that messages work"""
-        self.login(app.app.config['USERNAME'],
-                   app.app.config['PASSWORD'])
+        self.login(pixtch.app.config['USERNAME'],
+                   pixtch.app.config['PASSWORD'])
         rv = self.app.post('/add', data=dict(
             title='<Hello>',
             text='<strong>HTML</strong> allowed here'
