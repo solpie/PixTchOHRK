@@ -5,7 +5,6 @@ __author__ = 'SolPie'
 
 # uncomment for sqlalchemy support
 from flask.ext.sqlalchemy import SQLAlchemy
-
 db = SQLAlchemy()
 
 

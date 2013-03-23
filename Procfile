@@ -1,1 +1,1 @@
-web: python pixtch/pixtch.py
+web: python pixtch/runserver.py

@@ -25,6 +25,13 @@ def welcome():
 # @app.route('/static/css')
 # def static_css():
 #     return url_for('static_css')
+from database import db_session
+
+
+@app.teardown_request
+def shutdown_session(exception=None):
+    db_session.remove()
+    pass
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -134,6 +141,7 @@ def mongodb_uri():
 error
 '''
 
+
 @app.errorhandler(404)
 def error404(error):
     return render_template('404.html')
@@ -145,6 +153,9 @@ if __name__ == '__main__':
     app.register_module(admin)
     app.register_blueprint(kn, url_prefix='/kn')
     # app.register_module(admin, url_prefix='/admin')
+    print 'create_db'
+    from database import init_db as create_db
+    create_db()
     init_db()
     #
     port = int(os.environ.get('PORT', 5000))

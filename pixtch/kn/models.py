@@ -1,16 +1,21 @@
 __author__ = 'SolPie'
-from pixtch.db.database import db
+from sqlalchemy import Column, Integer, String, DateTime, Text
+from pixtch.database import Base
 
 
-class Kn(db.model):
-    id = db.Column(db.Integer, primary_key=True)
-    pub_date = db.Column(db.DateTime)
-    title = db.Column(db.String(120))
-    slug = db.Column(db.String(120))
-    text = db.Column(db.Text)
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), unique=True)
+    email = Column(String(120), unique=True)
+    pub_date = Column(DateTime)
+    title = Column(String(120))
+    slug = Column(String(120))
+    text = Column(Text)
 
-    def __init__(self, username):
-        self.username = username
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<User %r>' % self.name
