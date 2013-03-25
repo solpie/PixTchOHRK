@@ -1,6 +1,7 @@
 __author__ = 'SolPie'
 from sqlalchemy import Column, Integer, String, DateTime, Text
-from pixtch.database import Base
+from database import Base
+
 
 
 class User(Base):
@@ -18,4 +19,4 @@ class User(Base):
         self.email = email
 
     def __repr__(self):
-        return '<User %r>' % self.name
+        return '<User %r>2' % self.name

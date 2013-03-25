@@ -1,10 +1,6 @@
 __author__ = 'SolPie'
 # -*- coding:utf-8 -*-
 
-#--- SQLALCHEMY SUPPORT
-
-# uncomment for sqlalchemy support
-# from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base

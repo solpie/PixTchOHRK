@@ -1,20 +1,21 @@
 from flask.ext.admin import Admin
-from flask import Module
-from flask import Flask, Request, Response, url_for, render_template, request, session, flash, redirect
+from flask import Flask, Request, Response, url_for, render_template, request, session, flash, redirect, Blueprint
+
+app = Blueprint('adminbackend', __name__)
 
 
-admin = Module(__name__, 'admin2')
-
-config = dict()
-
-
-
-@admin.route('/')
-def index():
-    pass
+# class Backend(AdminIndexView):
+#     def __init__(self):
+#         super(Backend, self).__init__()
+#
+#     @expose('/')
+#     def index(self):
+#         return self.render(self._template)
 
 
-@admin.route('/login', methods=['GET', 'POST'])
+
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
     if request.method == 'POST':
@@ -29,7 +30,7 @@ def login():
     return render_template('pixtch/login.html', error=error)
 
 
-@admin.route('/logout')
+@app.route('/logout')
 def logout():
     session.pop('logged_in', None)
     flash('You were logged out')

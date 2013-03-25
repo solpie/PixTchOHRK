@@ -1,17 +1,15 @@
 __author__ = 'SolPie'
+
 import time
 import sys
+
+sys.path.insert(0, 'libs')
 import os
 import json
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, Request, Response, url_for, render_template, request, session, flash, redirect, g, abort
-from admin.views import admin
-from kn.views import app as kn
 
 application = app = Flask(__name__)
-
-#admin
-from flask.ext.admin import Admin
 #
 @app.route('/')
 def welcome():
@@ -147,14 +145,37 @@ def error404(error):
     return render_template('404.html')
 
 
+def regBluePrint():
+    from kn.views import app as kn
+
+    app.register_blueprint(kn, url_prefix='/kn')
+    from login.views import app as login
+
+    app.register_blueprint(login, url_prefix='/login')
+
+    from admin.views import app as admin
+
+    app.register_blueprint(admin, url_prefix='/backend')
+    pass
+
+
+def init_admin():
+    from flask.ext.admin import Admin
+    from flask.ext.admin.contrib.sqlamodel import ModelView
+    admin = Admin(app, name='Pixtch')
+    from kn.models import User
+    from database import db_session
+    admin.add_view(ModelView(User, db_session))
+
+
 if __name__ == '__main__':
     # module
-    Admin(app)
-    app.register_module(admin)
-    app.register_blueprint(kn, url_prefix='/kn')
-    # app.register_module(admin, url_prefix='/admin')
+    regBluePrint()
+    init_admin()
+
     print 'create_db'
     from database import init_db as create_db
+
     create_db()
     init_db()
     #

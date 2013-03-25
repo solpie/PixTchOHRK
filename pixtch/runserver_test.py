@@ -17,10 +17,10 @@ class AppTestCase(unittest.TestCase):
         os.unlink(runserver.app.config['DATABASE'])
 
     def test_addUser(self):
-        from pixtch.database import db_session
-        from pixtch.kn.models import User
+        from database import db_session
+        from kn.models import User
 
-        u = User('admin2', 'admin@localhost')
+        u = User('admin2', 'admin2@localhost')
         db_session.add(u)
         ret = db_session.commit()
         print ret
