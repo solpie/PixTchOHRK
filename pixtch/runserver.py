@@ -162,7 +162,7 @@ def regBluePrint():
 def init_admin():
     from flask.ext.admin import Admin
     from flask.ext.admin.contrib.sqlamodel import ModelView
-    admin = Admin(app, name='Pixtch')
+    admin = Admin(app, name='Pixtch Backend')
     from kn.models import User
     from database import db_session
     admin.add_view(ModelView(User, db_session))
