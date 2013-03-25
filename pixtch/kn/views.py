@@ -9,8 +9,9 @@ app = Blueprint('kn', __name__)
 def show_kn_post(kid):
     return 'keng %d' % kid
 
-
+from pixtch.auth.views import permission_admin
 @app.route('/')
+# @permission_admin.require()
 def show():
     try:
         return render_template('pixtch/kn/show.html')

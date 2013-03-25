@@ -66,40 +66,40 @@ def add_entry():
     return redirect(url_for('show_entries'))
 
 
-'''
-database
-'''
-from contextlib import closing
-# configuration
-DATABASE = 'db/flaskr.db'
-DEBUG = True
-SECRET_KEY = 'dev key'
-USERNAME = 'admin'
-PASSWORD = '-+'
-app.config.from_object(__name__)
-app.config.from_envvar('APP_SETTINGS', silent=True)
-
-
-def connect_db():
-    return sqlite3.connect(app.config['DATABASE'])
-
-
-def init_db():
-    with closing(connect_db()) as db:
-        with app.open_resource('db/schema.sql') as f:
-            db.cursor().executescript(f.read())
-        db.commit()
+# '''
+# database
+# '''
+# from contextlib import closing
+# # configuration
+# DATABASE = 'db/flaskr.db'
+# DEBUG = True
+# SECRET_KEY = 'dev key'
+# USERNAME = 'admin'
+# PASSWORD = '-+'
+# app.config.from_object(__name__)
+# app.config.from_envvar('APP_SETTINGS', silent=True)
+#
+#
+# def connect_db():
+#     return sqlite3.connect(app.config['DATABASE'])
+#
+#
+# def init_db():
+#     with closing(connect_db()) as db:
+#         with app.open_resource('db/schema.sql') as f:
+#             db.cursor().executescript(f.read())
+#         db.commit()
 
 
 @app.before_request
 def before_request():
-    g.db = connect_db()
+    # g.db = connect_db()
     pass
 
 
 @app.teardown_request
 def teardown_request(e):
-    g.db.close()
+    # g.db.close()
     pass
 
 
@@ -134,7 +134,6 @@ def mongodb_uri():
     else:
         raise Exception, "No services configured"
 
-
 '''
 error
 '''
@@ -143,21 +142,25 @@ error
 @app.errorhandler(404)
 def error404(error):
     return render_template('404.html')
+'''
+init
+'''
 
 
-def regBluePrint():
+def init_bluePrint():
+
+    from auth.views import app as auth
+    app.register_blueprint(auth, url_prefix='/login')
     from kn.views import app as kn
-
     app.register_blueprint(kn, url_prefix='/kn')
-    from login.views import app as login
-
-    app.register_blueprint(login, url_prefix='/login')
-
     from admin.views import app as admin
 
     app.register_blueprint(admin, url_prefix='/backend')
     pass
 
+def init_database():
+    from database import init_db
+    init_db()
 
 def init_admin():
     from flask.ext.admin import Admin
@@ -169,15 +172,11 @@ def init_admin():
 
 
 if __name__ == '__main__':
-    # module
-    regBluePrint()
+    init_database()
+    init_bluePrint()
     init_admin()
+    print 'init_end'
 
-    print 'create_db'
-    from database import init_db as create_db
-
-    create_db()
-    init_db()
     #
     port = int(os.environ.get('PORT', 5000))
     app.debug = True
