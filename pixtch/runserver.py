@@ -10,11 +10,16 @@ from flask import Flask, Request, Response, url_for, render_template, request, s
 
 application = app = Flask(__name__)
 #
-@app.route('/')
-def welcome():
-    return render_template('pixtch/index.html')
+# @app.route('/')
+# def welcome():
+#     return render_template('pixtch/index.html')
+@app.before_request
+def before_request():
+    # g.db = connect_db()
+    pass
 
 from database import db_session
+
 
 @app.teardown_request
 def shutdown_session(exception=None):
@@ -46,48 +51,10 @@ def show_entries():
     return render_template('pixtch/postDetail.html', entries=entries)
 
 
-@app.before_request
-def before_request():
-    # g.db = connect_db()
-    pass
 
 
-@app.teardown_request
-def teardown_request(e):
-    # g.db.close()
-    pass
 
 
-@app.route('/mongo')
-def mongotest():
-    from pymongo import Connection
-
-    uri = mongodb_uri()
-    conn = Connection(uri)
-    coll = conn.db['ts']
-    coll.insert(dict(now=int(time.time())))
-    last_few = [str(x['now']) for x in coll.find(sort=[("_id", -1)], limit=10)]
-    body = "\n".join(last_few)
-    return Response(body, content_type="text/plain;charset=UTF-8")
-
-
-def mongodb_uri():
-    local = os.environ.get("MONGODB", None)
-    if local:
-        return local
-    services = json.loads(os.environ.get("VCAP_SERVICES", "{}"))
-    if services:
-        creds = services['mongodb-1.8'][0]['credentials']
-        uri = "mongodb://%s:%s@%s:%d/%s" % (
-            creds['username'],
-            creds['password'],
-            creds['hostname'],
-            creds['port'],
-            creds['db'])
-        print >> sys.stderr, uri
-        return uri
-    else:
-        raise Exception, "No services configured"
 
 
 '''
@@ -106,15 +73,19 @@ init
 
 
 def init_bluePrint():
-    from auth.views import mod as auth
+    from auth.views import route_auth
 
-    app.register_blueprint(auth, url_prefix='/auth')
-    from kn.views import mod as kn
+    # app.register_blueprint(route_auth)
+    app.register_blueprint(route_auth, url_prefix='/login')
+    from kn.views import route_kn
 
-    app.register_blueprint(kn, url_prefix='/kn')
+    app.register_blueprint(route_kn, url_prefix='/kn')
     from admin.views import mod as admin
 
-    app.register_blueprint(admin, url_prefix='/backend')
+    # app.register_blueprint(admin)
+    app.register_blueprint(admin, url_prefix='/admin')
+
+
     pass
 
 
@@ -139,8 +110,10 @@ if __name__ == '__main__':
     init_database()
     init_bluePrint()
     init_admin()
+    # from test import bp
+    # app.register_blueprint(bp)
     print 'init_end'
-
+    # print app.url_rule_class.alias
     #
     port = int(os.environ.get('PORT', 5000))
     app.debug = True
