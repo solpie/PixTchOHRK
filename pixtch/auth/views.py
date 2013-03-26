@@ -1,7 +1,7 @@
 #coding=utf-8
 __author__ = 'SolPie'
-from flask import Response, Blueprint, current_app, request,render_template
-from flask.ext.principal import Principal, Permission, RoleNeed, PermissionDenied
+from flask import Response, Blueprint, current_app, request, render_template
+from flask.ext.principal import Principal, Permission, RoleNeed, PermissionDenied,identity_changed,Identity
 
 route_auth = Blueprint('auth', __name__)
 
@@ -41,10 +41,10 @@ permission_uppo = Permission(RoleNeed('uppo'))
 #     return redirect(url_for('show_entries'))
 
 # protect a view with a principal for that need
-@route_auth.route('/')
-@permission_admin.require()
-def do_admin_index():
-    return Response('Only if you are an admin')
+# @route_auth.route('/')
+# @permission_admin.require()
+# def do_admin_index():
+#     return Response('Only if you are an admin')
 
 
 @route_auth.errorhandler(PermissionDenied)
@@ -62,17 +62,19 @@ def do_articles():
 @route_auth.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
-    config=dict()
-    config['USERNAME']='user'
+    config = dict()
+    config['USERNAME'] = 'admin'
+    config['PASSWORD'] = '-+'
     if request.method == 'POST':
         if request.form['username'] != config['USERNAME']:
             error = 'Invalid username'
         elif request.form['password'] != config['PASSWORD']:
             error = 'Invalid password'
-        # else:
-        #     session['logged_in'] = True
-        #     flash('You were logged in')
-        #     return redirect(url_for('show_entries'))
+        else:
+            identity_changed.send(current_app, identity=Identity(request.form['username']))
+            #     session['logged_in'] = True
+            # flash('You were logged in')
+            #     return redirect(url_for('show_entries'))
     return render_template('pixtch/login.html', error=error)
 
 #
