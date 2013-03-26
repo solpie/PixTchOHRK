@@ -6,7 +6,6 @@ import sys
 sys.path.insert(0, 'libs')
 import os
 import json
-from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, Request, Response, url_for, render_template, request, session, flash, redirect, g, abort
 
 application = app = Flask(__name__)
@@ -15,16 +14,7 @@ application = app = Flask(__name__)
 def welcome():
     return render_template('pixtch/index.html')
 
-# @app.route('/static')
-# def static():
-#     return url_for('static')
-#
-#
-# @app.route('/static/css')
-# def static_css():
-#     return url_for('static_css')
 from database import db_session
-
 
 @app.teardown_request
 def shutdown_session(exception=None):
@@ -54,41 +44,6 @@ def show_entries():
     cur = g.db.execute('select title, text from entries order by id desc')
     entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
     return render_template('pixtch/postDetail.html', entries=entries)
-
-
-@app.route('/add', methods=['POST'])
-def add_entry():
-    if not session.get('logged_in'):
-        abort(401)
-    g.db.execute('insert into entries (title, text) values (?, ?)', [request.form['title'], request.form['text']])
-    g.db.commit()
-    flash('New entry was successfully posted')
-    return redirect(url_for('show_entries'))
-
-
-# '''
-# database
-# '''
-# from contextlib import closing
-# # configuration
-# DATABASE = 'db/flaskr.db'
-# DEBUG = True
-# SECRET_KEY = 'dev key'
-# USERNAME = 'admin'
-# PASSWORD = '-+'
-# app.config.from_object(__name__)
-# app.config.from_envvar('APP_SETTINGS', silent=True)
-#
-#
-# def connect_db():
-#     return sqlite3.connect(app.config['DATABASE'])
-#
-#
-# def init_db():
-#     with closing(connect_db()) as db:
-#         with app.open_resource('db/schema.sql') as f:
-#             db.cursor().executescript(f.read())
-#         db.commit()
 
 
 @app.before_request
@@ -134,6 +89,7 @@ def mongodb_uri():
     else:
         raise Exception, "No services configured"
 
+
 '''
 error
 '''
@@ -142,32 +98,40 @@ error
 @app.errorhandler(404)
 def error404(error):
     return render_template('404.html')
+
+
 '''
 init
 '''
 
 
 def init_bluePrint():
+    from auth.views import mod as auth
 
-    from auth.views import app as auth
-    app.register_blueprint(auth, url_prefix='/login')
-    from kn.views import app as kn
+    app.register_blueprint(auth, url_prefix='/auth')
+    from kn.views import mod as kn
+
     app.register_blueprint(kn, url_prefix='/kn')
-    from admin.views import app as admin
+    from admin.views import mod as admin
 
     app.register_blueprint(admin, url_prefix='/backend')
     pass
 
+
 def init_database():
     from database import init_db
+
     init_db()
+
 
 def init_admin():
     from flask.ext.admin import Admin
     from flask.ext.admin.contrib.sqlamodel import ModelView
+
     admin = Admin(app, name='Pixtch Backend')
     from kn.models import User
     from database import db_session
+
     admin.add_view(ModelView(User, db_session))
 
 
