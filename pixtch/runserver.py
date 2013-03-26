@@ -10,9 +10,9 @@ from flask import Flask, Request, Response, url_for, render_template, request, s
 
 application = app = Flask(__name__)
 #
-# @app.route('/')
-# def welcome():
-#     return render_template('pixtch/index.html')
+@app.route('/')
+def welcome():
+    return render_template('pixtch/index.html')
 @app.before_request
 def before_request():
     # g.db = connect_db()
