@@ -1,22 +1,23 @@
 __author__ = 'SolPie'
-
-import time
-import sys
-
-sys.path.insert(0, 'libs')
 import os
-import json
-from flask import Flask, Request, Response, url_for, render_template, request, session, flash, redirect, g, abort
+
+from flask import Flask,  render_template, request,  g
 
 application = app = Flask(__name__)
+app.config.from_object(__name__)
+app.secret_key= "yeah, not actually a secret"
+# SECRET_KEY = "yeah, not actually a secret"
 #
 @app.route('/')
 def welcome():
     return render_template('pixtch/index.html')
+
+
 @app.before_request
 def before_request():
     # g.db = connect_db()
     pass
+
 
 from database import db_session
 
@@ -51,7 +52,6 @@ def show_entries():
     return render_template('pixtch/postDetail.html', entries=entries)
 
 
-
 '''
 error
 '''
@@ -79,14 +79,13 @@ def init_bluePrint():
     # app.register_blueprint(admin)
     app.register_blueprint(admin, url_prefix='/admin')
 
-
     pass
 
 
 def init_database():
     from database import init_db
-
     init_db()
+
 
 
 def init_admin():
@@ -94,13 +93,20 @@ def init_admin():
     from flask.ext.admin.contrib.sqlamodel import ModelView
 
     admin = Admin(app, name='Pixtch Backend')
-    from kn.models import User
+    from auth.models import User
     from database import db_session
 
     admin.add_view(ModelView(User, db_session))
 
 
+def init_Path():
+    import sys
+
+    sys.path.insert(0, 'libs')
+
+
 if __name__ == '__main__':
+    init_Path()
     init_database()
     init_bluePrint()
     init_admin()

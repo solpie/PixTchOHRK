@@ -1,7 +1,6 @@
 __author__ = 'SolPie'
 from flask import Blueprint, render_template, abort, session, request, redirect, flash, url_for
 from jinja2 import TemplateNotFound
-from pixtch.permissions import admin
 
 route_kn = Blueprint('kn', __name__)
 
@@ -10,9 +9,8 @@ route_kn = Blueprint('kn', __name__)
 def show_kn_post(kid):
     return 'keng %d' % kid
 
-from pixtch.auth.views import permission_admin
 @route_kn.route('/')
-@admin.require(401)
+# @admin.require(401)
 def show():
     try:
         return render_template('pixtch/kn/show.html')
