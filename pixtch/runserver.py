@@ -52,11 +52,6 @@ def show_entries():
 
 
 
-
-
-
-
-
 '''
 error
 '''
@@ -75,8 +70,7 @@ init
 def init_bluePrint():
     from auth.views import route_auth
 
-    # app.register_blueprint(route_auth)
-    app.register_blueprint(route_auth, url_prefix='/login')
+    app.register_blueprint(route_auth)
     from kn.views import route_kn
 
     app.register_blueprint(route_kn, url_prefix='/kn')
