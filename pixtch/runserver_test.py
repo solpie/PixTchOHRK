@@ -21,7 +21,7 @@ class AppTestCase(unittest.TestCase):
 
     def test_addUser(self):
         from database import db_session
-        from kn.models import User
+        from auth.models import User
         # db_session
         # u = User('admin2', 'admin2@localhost')
         # db_session.add(u)

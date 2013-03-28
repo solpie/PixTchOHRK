@@ -4,14 +4,8 @@ __author__ = 'SolPie'
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from flask.ext.sqlalchemy import SQLAlchemy
-
-from flask import current_app
 
 import os
-
-from migrate.versioning import api
-
 engine = create_engine('sqlite:///db/test.db', convert_unicode=True)
 db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 Base = declarative_base()
