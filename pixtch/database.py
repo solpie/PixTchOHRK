@@ -4,18 +4,35 @@ __author__ = 'SolPie'
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from flask.ext.sqlalchemy import SQLAlchemy
+
+from flask import current_app
+
+import os
+
+from migrate.versioning import api
 
 engine = create_engine('sqlite:///db/test.db', convert_unicode=True)
 db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 Base = declarative_base()
 Base.query = db_session.query_property()
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db', 'app.db')
+SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+
 
 def init_db():
     import kn.models
     import auth.models
+
     Base.metadata.create_all(bind=engine)
 
+    # if not os.path.exists(SQLALCHEMY_MIGRATE_REPO):
+    #     api.create(SQLALCHEMY_MIGRATE_REPO, 'database reppsitory')
+    #     api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO)
+    # else:
+    #     api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO, api.version(SQLALCHEMY_MIGRATE_REPO))
 
 
 # @app.route('/mongo')
