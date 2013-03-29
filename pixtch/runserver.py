@@ -72,10 +72,9 @@ def init_bluePrint():
     from kn.views import route_kn
 
     app.register_blueprint(route_kn, url_prefix='/kn')
-    from admin.views import mod as admin
+    from admin.views import route_admin as admin
 
-    # app.register_blueprint(admin)
-    app.register_blueprint(admin, url_prefix='/admin')
+    app.register_blueprint(admin)
 
     pass
 
@@ -85,30 +84,14 @@ from database import db_session
 
 def init_database():
     from database import init_db
+
     init_db()
 
 
 def init_admin():
     from admin.views import init
+
     init(app)
-    # from flask.ext.admin import Admin
-    # admin = Admin(app, name='Pixtch Backend')
-    #
-    # from flask.ext.admin.contrib.sqlamodel import ModelView
-    # from auth.models import User
-    # admin.add_view(ModelView(User, db_session))
-    # #
-    # from kn.models import KnPost, KnCategory, Tag
-    # admin.add_view(ModelView(Tag, db_session))
-
-    # admin.add_view(ModelView(name='Hello 1', endpoint='KnPost', category='坑'))
-
-    #
-    # from flask.ext.admin.contrib.fileadmin import FileAdmin
-    #
-    # path = os.path.join(os.path.dirname(__file__), 'static')
-    # admin.add_view(FileAdmin(path, '/static/', name='Static Files'))
-    #
 
 
 def init_Path():
