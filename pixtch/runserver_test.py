@@ -4,6 +4,8 @@ import runserver
 import unittest
 import tempfile
 
+from database import db_session
+
 
 class AppTestCase(unittest.TestCase):
     def setUp(self):
@@ -20,17 +22,29 @@ class AppTestCase(unittest.TestCase):
         pass
 
     def test_addUser(self):
-        from database import db_session
         from auth.models import User
         # db_session
         # u = User('admin2', 'admin2@localhost')
         # db_session.add(u)
         # ret = db_session.commit()
 
+    def test_kn_addTag(self):
+        from kn.models import Tag
+        tag = Tag()
+        tag.name = 'tag test'
+        db_session.add(tag)
+        db_session.commit()
+
+    def test_kn_addKnPost(self):
+        from kn.models import KnPost
+
+        knPost = KnPost("test")
+        db_session.add(knPost)
+        db_session.commit()
 
     def test_home(self):
         rv = self.app.get('/')
-        assert 'jinja2' in rv.data
+        assert 'home' in rv.data
 
     def test_kn_index(self):
         rv = self.app.get('/kn/')

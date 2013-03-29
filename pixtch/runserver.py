@@ -89,27 +89,33 @@ def init_database():
 
 
 def init_admin():
-    from flask.ext.admin import Admin
-    from flask.ext.admin.contrib.sqlamodel import ModelView
+    from admin.views import init
+    init(app)
+    # from flask.ext.admin import Admin
+    # admin = Admin(app, name='Pixtch Backend')
+    #
+    # from flask.ext.admin.contrib.sqlamodel import ModelView
+    # from auth.models import User
+    # admin.add_view(ModelView(User, db_session))
+    # #
+    # from kn.models import KnPost, KnCategory, Tag
+    # admin.add_view(ModelView(Tag, db_session))
 
-    admin = Admin(app, name='Pixtch Backend')
-    from auth.models import User
-    from kn.models import KnPost, KnCategory
-    from database import db_session
-
-    admin.add_view(ModelView(User, db_session))
     # admin.add_view(ModelView(name='Hello 1', endpoint='KnPost', category='坑'))
-    # admin.add_view(ModelView(name='Hello 1', endpoint='KnPost', category='坑'))
-    from flask.ext.admin.contrib.fileadmin import FileAdmin
 
-    path = os.path.join(os.path.dirname(__file__), 'static')
-    admin.add_view(FileAdmin(path, '/static/', name='Static Files'))
+    #
+    # from flask.ext.admin.contrib.fileadmin import FileAdmin
+    #
+    # path = os.path.join(os.path.dirname(__file__), 'static')
+    # admin.add_view(FileAdmin(path, '/static/', name='Static Files'))
+    #
 
 
 def init_Path():
     import sys
 
     sys.path.insert(0, 'libs')
+    print app.config.root_path
 
 
 if __name__ == '__main__':
