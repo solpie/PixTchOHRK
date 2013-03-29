@@ -1,11 +1,12 @@
+# -*- coding:utf-8 -*-
 __author__ = 'SolPie'
 import os
 
-from flask import Flask,  render_template, request,  g
+from flask import Flask, render_template, request, g
 
 application = app = Flask(__name__)
 app.config.from_object(__name__)
-app.secret_key= "yeah, not actually a secret"
+app.secret_key = "yeah, not actually a secret"
 # SECRET_KEY = "yeah, not actually a secret"
 #
 @app.route('/')
@@ -17,9 +18,6 @@ def welcome():
 def before_request():
     # g.db = connect_db()
     pass
-
-
-from database import db_session
 
 
 @app.teardown_request
@@ -82,10 +80,12 @@ def init_bluePrint():
     pass
 
 
+from database import db_session
+
+
 def init_database():
     from database import init_db
     init_db()
-
 
 
 def init_admin():
@@ -94,9 +94,16 @@ def init_admin():
 
     admin = Admin(app, name='Pixtch Backend')
     from auth.models import User
+    from kn.models import KnPost, KnCategory
     from database import db_session
 
     admin.add_view(ModelView(User, db_session))
+    # admin.add_view(ModelView(name='Hello 1', endpoint='KnPost', category='坑'))
+    # admin.add_view(ModelView(name='Hello 1', endpoint='KnPost', category='坑'))
+    from flask.ext.admin.contrib.fileadmin import FileAdmin
+
+    path = os.path.join(os.path.dirname(__file__), 'static')
+    admin.add_view(FileAdmin(path, '/static/', name='Static Files'))
 
 
 def init_Path():
