@@ -4,9 +4,10 @@ __author__ = 'SolPie'
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from flask.ext.sqlalchemy import SQLAlchemy
 
 import os
-engine = create_engine('sqlite:///db/test.db', convert_unicode=True)
+engine = create_engine('sqlite:///db/test.db', convert_unicode=True,echo=True)
 db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 Base = declarative_base()
 Base.query = db_session.query_property()
@@ -19,8 +20,8 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 def init_db():
     import kn.models
     import auth.models
-
     Base.metadata.create_all(bind=engine)
+    print 'create db'
 
     # if not os.path.exists(SQLALCHEMY_MIGRATE_REPO):
     #     api.create(SQLALCHEMY_MIGRATE_REPO, 'database reppsitory')
@@ -59,3 +60,6 @@ def mongodb_uri():
         return uri
     else:
         raise Exception, "No services configured"
+
+if __name__ == '__main__':
+    init_db()

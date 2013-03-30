@@ -9,10 +9,7 @@ class User(Base):
     name = Column(String(50), unique=True)
     email = Column(String(120), unique=True)
     password = Column(String(20), unique=True)
-    pub_date = Column(DateTime)
-    title = Column(String(120))
-    slug = Column(String(120))
-    text = Column(Text)
+    signup_date = Column(DateTime)
 
     def __init__(self, name, email, password):
         self.name = name

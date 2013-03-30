@@ -12,7 +12,7 @@ class AppTestCase(unittest.TestCase):
         # self.db_fd, runserver.app.config['DATABASE'] = tempfile.mkstemp()
         # app.app.config['TESTING'] = True
         self.app = runserver.app.test_client()
-        # runserver.init_database()
+        runserver.init_database()
         # runserver.init_admin()
         # runserver.init_bluePrint()
 
@@ -23,13 +23,16 @@ class AppTestCase(unittest.TestCase):
 
     def test_addUser(self):
         from auth.models import User
-        # db_session
-        # u = User('admin2', 'admin2@localhost')
-        # db_session.add(u)
-        # ret = db_session.commit()
+        print User.query.filter(User.name == 'admin')
+        if not User.query.filter(User.name == 'admin'):
+            u = User('admin', 'admin@localhost', '-+')
+            db_session.add(u)
+            ret = db_session.commit()
+            print 'create admin user'
 
     def test_kn_addTag(self):
         from kn.models import Tag
+
         tag = Tag()
         tag.name = 'tag test'
         db_session.add(tag)

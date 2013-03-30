@@ -17,7 +17,7 @@ class Tag(Base):
 class KnCategory(Base):
     __tablename__ = 'kn_category'
     id = sa.Column(sa.Integer, primary_key=True)
-    name = sa.Unicode(40)
+    name = sa.Column(sa.Unicode(40))
 
     def __init__(self, name):
         self.name = name
@@ -29,13 +29,16 @@ class KnPost(Base):
     id = sa.Column(sa.Integer, primary_key=True)
     title = sa.Column(sa.Unicode(40))
     slug = sa.Column(sa.String(120))
-    category = sa.ForeignKey(KnCategory)
-    html_content = sa.String#allow uppo 自定义部分
-    owner = sa.ForeignKey(User)
-    status = sa.Integer
-    created = sa.DateTime
-    modified = sa.DateTime
-    pv = sa.Integer
+
+    category_id = sa.Column(sa.Integer(), sa.ForeignKey(KnCategory.id))
+    # category = sa.relationship(KnCategory, backref='posts')
+
+    html_content = sa.Column(sa.String(360))#allow uppo 自定义部分
+    # owner = sa.Column(sa.ForeignKey(User))
+    status = sa.Column(sa.Integer())
+    created = sa.Column(sa.DateTime())
+    modified = sa.Column(sa.DateTime())
+    pv = sa.Column(sa.Integer())
 
     def __init__(self, title):
         self.title = title
