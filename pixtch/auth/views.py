@@ -9,6 +9,8 @@ from flask import (
     flash,
     redirect,
     render_template)
+
+from flask.ext import wtf, login
 from flask.ext.principal import Principal, Permission, RoleNeed, PermissionDenied, identity_changed, Identity
 from flask.ext.login import (LoginManager, current_user, login_required,
                              login_user, logout_user, UserMixin, AnonymousUser,
@@ -25,13 +27,14 @@ permission_uppo = Permission(RoleNeed('uppo'))
 
 login_manager = LoginManager()
 login_manager.init_app(route_auth)
+
 login_manager.anonymous_user = AnonymousUser
 
 
-# @login_manager.user_loader
-# def load_user(userid):
-#     # Return an instance of the User model
-#     return datastore.find_user(id=userid)
+@login_manager.user_loader
+def load_user(userid):
+    # Return an instance of the User model
+    return User.query.all()
 
 #
 @route_auth.route('/logout/')
@@ -53,27 +56,47 @@ def permissionDenied(error):
     return Response('Auth Only if you are an admin')
 
 # this time protect with a context manager
-@route_auth.route('/articles')
+@route_auth.route('/test')
 def do_articles():
     with permission_admin.require():
         return Response('Only if you are admin')
 
 
-@route_auth.route('/login/', methods=['GET', 'POST'])
-def login():
-    # if request.method == "POST" and "username" in request.form:
-    #     username = request.form["username"]
-    #     if username in USER_NAMES:
-    #         remember = request.form.get("remember", "no") == "yes"
-    #         if login_user(USER_NAMES[username], remember=remember):
-    #             flash("Logged in!")
-    #             return redirect(request.args.get("next") or url_for("index"))
-    #         else:
-    #             flash("Sorry, but you could not log in.")
-    #     else:
-    #         flash(u"Invalid username.")
-    # return render_template("login.html")
+# Define login and registration forms (for flask-login)
+class LoginForm(wtf.Form):
+    name = wtf.TextField(validators=[wtf.required()])
+    password = wtf.PasswordField(validators=[wtf.required()])
 
+    def validate_login(self, field):
+        user = self.get_user()
+
+        if user is None:
+            raise wtf.ValidationError('Invalid user')
+
+        if user.password != self.password.data:
+            raise wtf.ValidationError('Invalid password')
+
+    def get_user(self):
+        name = str(self.name.data)
+        print 'get user :' + name
+        return User.query.filter(User.name == name).first()
+
+
+@route_auth.route('/login/', methods=['GET', 'POST'])
+def login_view():
+    e = None
+    form = LoginForm(request.form)
+    if form.validate_on_submit():
+        e = 'login'
+        user = form.get_user()
+        print 'form.get_user()', user
+        # login_user(user)
+        return redirect(url_for('/'))
+    else:
+        return render_template('pixtch/login_form.html', form=form, error=e)
+
+
+def login():
     error = None
     config = dict()
     config['USERNAME'] = 'admin'

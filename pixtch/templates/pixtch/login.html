@@ -1,9 +1,10 @@
 {% extends 'pixtch/base_pixtch.html' %}
 {% block body %}
-    <div style="height:300px; width:300px; margin:0 auto;;">
+    <div style="height:300px; width:300px; margin:0 auto;">
     <h2>Login</h2>
     {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-    <form action="{{ url_for('.login') }}" method=post>
+    <form action="" method=post>
+        {{ form.hidden_tag() }}
         <dl>
             <dt>Username:
             <dd><input type=text name=username>
