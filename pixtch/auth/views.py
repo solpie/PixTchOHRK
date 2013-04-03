@@ -78,8 +78,9 @@ class LoginForm(wtf.Form):
 
     def get_user(self):
         name = str(self.name.data)
-        print 'get user :' + name
-        return User.query.filter(User.name == name).first()
+        user = User.query.filter(User.name == name).first()
+        print 'get user :' + user
+        return user
 
 
 @route_auth.route('/login/', methods=['GET', 'POST'])
