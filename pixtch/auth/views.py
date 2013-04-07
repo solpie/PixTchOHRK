@@ -98,34 +98,34 @@ def login_view():
         user = form.get_user(form.name.data)
         print 'form.get_user()', user
         login_user(user)
-        return redirect('/test', user.name)
+        return redirect('/test')
         # return redirect(url_for('login_test2'))
     else:
         return render_template('pixtch/login_form.html', form=form, error=e)
 
 
-def login():
-    error = None
-    config = dict()
-    config['USERNAME'] = 'admin'
-    config['PASSWORD'] = '-+'
-    print User.query.all()
-    if request.method == 'POST':
-        formUserName = request.form['username']
-        formPassWord = request.form['password']
-        if User.query.filter(User.name == formUserName):
-            rs = User.query.filter(User.name == formUserName).first()
-            print rs.name, rs.password
-        if formUserName != config['USERNAME']:
-            error = 'Invalid username'
-        elif formPassWord != config['PASSWORD']:
-            error = 'Invalid password'
-        else:
-            identity_changed.send(current_app._get_current_object(), identity=Identity(request.form['username']))
-            # session['logged_in'] = True
-            #flash('You were logged in')
-            #return redirect(url_for('show_entries'))
-    return render_template('pixtch/login.html', error=error)
+# def login():
+#     error = None
+#     config = dict()
+#     config['USERNAME'] = 'admin'
+#     config['PASSWORD'] = '-+'
+#     print User.query.all()
+#     if request.method == 'POST':
+#         formUserName = request.form['username']
+#         formPassWord = request.form['password']
+#         if User.query.filter(User.name == formUserName):
+#             rs = User.query.filter(User.name == formUserName).first()
+#             print rs.name, rs.password
+#         if formUserName != config['USERNAME']:
+#             error = 'Invalid username'
+#         elif formPassWord != config['PASSWORD']:
+#             error = 'Invalid password'
+#         else:
+#             identity_changed.send(current_app._get_current_object(), identity=Identity(request.form['username']))
+#             # session['logged_in'] = True
+#             #flash('You were logged in')
+#             #return redirect(url_for('show_entries'))
+#     return render_template('pixtch/login.html', error=error)
 
 #
 #
