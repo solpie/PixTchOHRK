@@ -2,7 +2,8 @@
 __author__ = 'SolPie'
 import os
 
-from flask import Flask, render_template, request, g
+from flask import Flask, render_template, request
+from flask.ext import login
 
 application = app = Flask(__name__)
 app.config.from_object(__name__)
@@ -10,8 +11,8 @@ app.secret_key = "yeah, not actually a secret"
 # SECRET_KEY = "yeah, not actually a secret"
 #
 @app.route('/')
-def welcome():
-    return render_template('pixtch/index.html')
+def index():
+    return render_template('pixtch/index.html', uppo=login.current_user)
 
 
 @app.before_request
@@ -45,9 +46,8 @@ def env():
 
 @app.route('/show')
 def show_entries():
-    cur = g.db.execute('select title, text from entries order by id desc')
-    entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
-    return render_template('pixtch/postDetail.html', entries=entries)
+    return 'show'
+    # return redirect(url_for('index'))
 
 
 '''
@@ -88,10 +88,13 @@ def init_database():
     init_db()
 
 
-def init_admin():
-    from admin.views import init
+def init_ext():
+    from admin.views import init_admin
 
-    init(app)
+    init_admin(app)
+    from auth.views import init_auth
+
+    init_auth(app)
 
 
 def init_Path():
@@ -105,7 +108,7 @@ if __name__ == '__main__':
     init_Path()
     init_database()
     init_bluePrint()
-    init_admin()
+    init_ext()
     # from test import bp
     # app.register_blueprint(bp)
     print 'init_end'

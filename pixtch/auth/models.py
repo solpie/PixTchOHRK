@@ -11,12 +11,13 @@ class User(Base):
     password = Column(String(20), unique=True)
     signup_date = Column(DateTime)
 
-    def __init__(self, name, email, password):
+    def __init__(self, name=None, email=None, password=None):
         self.name = name
         self.email = email
         self.password = password
 
         # Flask-Login integration
+
     def is_authenticated(self):
         return True
 

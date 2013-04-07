@@ -41,7 +41,7 @@ class KnPostAdmin(ModelView):
     form_columns = ('title', 'html_content', 'status')
 
 
-def init(app):
+def init_admin(app):
     admin = Admin(name='Pixtch Backend')
     # admin = Admin(app, name='Pixtch Backend')
     admin.add_view(BackendView(name='Pixtch Backend'))

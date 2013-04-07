@@ -18,7 +18,8 @@ from flask.ext.login import (LoginManager, current_user, login_required,
 from .models import User
 
 
-route_auth = Blueprint('auth', __name__, template_folder='templates/pixtch')
+route_auth = Blueprint('auth', __name__, template_folder='templates')
+# route_auth = Blueprint('auth', __name__, template_folder='templates/pixtch')
 # load the extension
 principals = Principal(route_auth)
 # Create a permission with a single Need, in this case a RoleNeed.
@@ -26,9 +27,12 @@ permission_admin = Permission(RoleNeed('admin'))
 permission_uppo = Permission(RoleNeed('uppo'))
 
 login_manager = LoginManager()
-login_manager.init_app(route_auth)
 
 login_manager.anonymous_user = AnonymousUser
+
+
+def init_auth(app):
+    login_manager.init_app(app)
 
 
 @login_manager.user_loader
@@ -57,7 +61,7 @@ def permissionDenied(error):
 
 # this time protect with a context manager
 @route_auth.route('/test')
-def do_articles():
+def login_test2():
     with permission_admin.require():
         return Response('Only if you are admin')
 
@@ -67,19 +71,20 @@ class LoginForm(wtf.Form):
     name = wtf.TextField(validators=[wtf.required()])
     password = wtf.PasswordField(validators=[wtf.required()])
 
-    def validate_login(self, field):
-        user = self.get_user()
+    user = None
 
+    def validate_login(self, field):
+        self.user = user = self.get_user(self.name.data)
+        print 'validate_login:', self.name.data, user
         if user is None:
             raise wtf.ValidationError('Invalid user')
-
         if user.password != self.password.data:
             raise wtf.ValidationError('Invalid password')
 
-    def get_user(self):
-        name = str(self.name.data)
+    def get_user(self, name):
+        # name = str(self.name.data)
         user = User.query.filter(User.name == name).first()
-        print 'get user :' + user
+        print 'query user :', name, 'result:', user
         return user
 
 
@@ -87,12 +92,14 @@ class LoginForm(wtf.Form):
 def login_view():
     e = None
     form = LoginForm(request.form)
+    print form.name.data, form.user
     if form.validate_on_submit():
         e = 'login'
-        user = form.get_user()
+        user = form.get_user(form.name.data)
         print 'form.get_user()', user
-        # login_user(user)
-        return redirect(url_for('/'))
+        login_user(user)
+        return redirect('/test', user.name)
+        # return redirect(url_for('login_test2'))
     else:
         return render_template('pixtch/login_form.html', form=form, error=e)
 
