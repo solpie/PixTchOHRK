@@ -4,7 +4,7 @@ from flask import Flask, Request, Response, url_for, render_template, request, s
 from flask.ext.principal import Identity, Principal, RoleNeed, UserNeed, \
     Permission, identity_changed, identity_loaded
 from flask.ext.admin.contrib.sqlamodel import ModelView
-from wtforms import TextField
+
 
 route_admin = Blueprint('adminbackend', __name__)
 permission_admin = Permission(RoleNeed('admin'))
@@ -20,7 +20,7 @@ from auth.models import User
 # Customized User model admin
 class UserAdmin(ModelView):
     # Show only name and email columns in list view
-    column_list = ('name', 'email', 'pub_date')
+    column_list = ('name', 'email', 'register_date')
 
     # Enable search functionality - it will search for terms in
     # name and email fields
@@ -28,10 +28,7 @@ class UserAdmin(ModelView):
 
     # Add filters for name and email columns
     column_filters = ('name', 'email')
-    # def scaffold_form(self):
-    #     form_class = super(UserAdmin, self).scaffold_form()
-    #     form_class.extra = TextField('Extra')
-    #     return form_class
+
 
 
 class KnPostAdmin(ModelView):

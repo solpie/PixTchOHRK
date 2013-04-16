@@ -9,7 +9,7 @@ class User(Base):
     name = Column(String(50), unique=True)
     email = Column(String(120), unique=True)
     password = Column(String(20))
-    signup_date = Column(DateTime)
+    register_date = Column(DateTime)
 
     def __init__(self, name=None, email=None, password=None):
         self.name = name
@@ -31,4 +31,4 @@ class User(Base):
         return self.id
 
     def __repr__(self):
-        return '<User %r>2' % self.name
+        return '<User %r>' % self.name

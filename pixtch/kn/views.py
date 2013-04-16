@@ -9,6 +9,7 @@ route_kn = Blueprint('kn', __name__)
 def show_kn_post(kid):
     return 'keng %d' % kid
 
+
 @route_kn.route('/')
 # @admin.require(401)
 def show():
@@ -18,6 +19,10 @@ def show():
         # abort(404)
         pass
 
+
+@route_kn.route('/add_kn_post', methods=['POST'])
+def add_kn_post():
+    pass
 
 @route_kn.route('/add', methods=['POST'])
 def add_entry():

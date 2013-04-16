@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 import sqlalchemy as sa
 from database import Base
-from auth.models import User
 
 
 class Tag(Base):

@@ -8,13 +8,14 @@ from flask import (
     url_for,
     flash,
     redirect,
+    session,
     render_template)
 
-from flask.ext import wtf, login
-from flask.ext.principal import Principal, Permission, RoleNeed, PermissionDenied, identity_changed, Identity
+from flask.ext import wtf
+from flask.ext.principal import Principal, Permission, RoleNeed, PermissionDenied, identity_changed, Identity, AnonymousIdentity
 from flask.ext.login import (LoginManager, current_user, login_required,
                              login_user, logout_user, UserMixin, AnonymousUser,
-                             confirm_login, fresh_login_required)
+                             confirm_login, fresh_login_required, logout_user)
 from .models import User
 from database import db_session
 
@@ -39,21 +40,24 @@ def init_auth(app):
 @login_manager.user_loader
 def load_user(userid):
     # Return an instance of the User model
-    return User.query.all()
+    return User.query.filter(id == userid).first()
 
 #
 @route_auth.route('/logout/')
+@login_required
 def logout():
-    identity_changed.send(current_app, identity=AnonymousIdentity())
-    session.pop('logged_in', None)
-    flash('You were logged out')
-    return redirect(url_for('show_entries'))
+    logout_user()
+    # Remove session keys set by Flask-Principal
+    for key in ('identity.name', 'identity.auth_type'):
+        session.pop(key, None)
 
-# protect a view with a principal for that need
-# @route_auth.route('/')
-# @permission_admin.require()
-# def do_admin_index():
-#     return Response('Only if you are an admin')
+    # Tell Flask-Principal the user is anonymous
+    identity_changed.send(current_app._get_current_object(),
+                          identity=AnonymousIdentity())
+
+    flash('You were logged out')
+    return redirect(url_for('index'))
+
 
 @route_auth.errorhandler(PermissionDenied)
 def permissionDenied(error):
@@ -100,6 +104,10 @@ def login_view():
         user = form.get_user(form.name.data)
         print __name__, 'form.get_user()', user
         login_user(user)
+        # Tell Flask-Principal the identity changed
+        identity_changed.send(current_app._get_current_object(),
+                              identity=Identity(user.id))
+
         return redirect('/admin')
         # return redirect(url_for('login_test2'))
     else:
