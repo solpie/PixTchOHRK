@@ -111,7 +111,7 @@ if __name__ == '__main__':
     init_ext()
     # from test import bp
     # app.register_blueprint(bp)
-    print 'init_end'
+    print __name__, '>>init_end'
     # print app.url_rule_class.alias
     #
     port = int(os.environ.get('PORT', 5000))

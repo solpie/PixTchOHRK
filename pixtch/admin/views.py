@@ -4,6 +4,7 @@ from flask import Flask, Request, Response, url_for, render_template, request, s
 from flask.ext.principal import Identity, Principal, RoleNeed, UserNeed, \
     Permission, identity_changed, identity_loaded
 from flask.ext.admin.contrib.sqlamodel import ModelView
+from flask.ext import login
 
 
 route_admin = Blueprint('adminbackend', __name__)
@@ -11,9 +12,20 @@ permission_admin = Permission(RoleNeed('admin'))
 
 
 class BackendView(BaseView):
+    def is_accessible(self):
+        isAuth = login.current_user.is_authenticated()
+        return isAuth
+
     @expose('/')
     def index(self):
+        url = url_for('.test')
+        return self.render('index.html',url=url)
+        # return self.render('pixtch/admin/index.html')
+
+    @expose('/test/')
+    def test(self):
         return self.render('pixtch/admin/index.html')
+
 
 
 from auth.models import User

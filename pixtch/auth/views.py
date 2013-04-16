@@ -35,6 +35,7 @@ login_manager.anonymous_user = AnonymousUser
 
 def init_auth(app):
     login_manager.init_app(app)
+    principals = Principal(app)
 
 
 @login_manager.user_loader
@@ -105,8 +106,7 @@ def login_view():
         print __name__, 'form.get_user()', user
         login_user(user)
         # Tell Flask-Principal the identity changed
-        identity_changed.send(current_app._get_current_object(),
-                              identity=Identity(user.id))
+        identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
 
         return redirect('/admin')
         # return redirect(url_for('login_test2'))
@@ -149,18 +149,5 @@ def register():
         return redirect(url_for('.login_view'))
     else:
         return render_template('pixtch/register_form.html', form=form)
-
-#
-#
-# @app.route('/logout')
-# def logout():
-#     session.pop('logged_in', None)
-#     flash('You were logged out')
-#     return redirect(url_for('show_entries'))
-#
-# @identity_loaded.connect_via(app)
-# def on_identity_loaded(sender,identity):
-#     identity.provides.add(permission_admin)
-
 
 
