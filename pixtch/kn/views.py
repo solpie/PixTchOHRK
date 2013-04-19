@@ -1,6 +1,8 @@
 __author__ = 'SolPie'
 from flask import Blueprint, render_template, abort, session, request, redirect, flash, url_for
 from jinja2 import TemplateNotFound
+from models import KnPost
+from forms import *
 
 route_kn = Blueprint('kn', __name__)
 
@@ -20,9 +22,15 @@ def show():
         pass
 
 
-@route_kn.route('/add_kn_post', methods=['POST'])
+@route_kn.route('/add_kn_post/', methods=['GET', 'POST'])
 def add_kn_post():
+    form = KnForm(request.form)
+    if form.validate_on_submit():
+        pass
+    else:
+        return render_template('pixtch/kn/show.html')
     pass
+
 
 @route_kn.route('/add', methods=['POST'])
 def add_entry():
