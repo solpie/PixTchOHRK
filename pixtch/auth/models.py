@@ -1,3 +1,4 @@
+#coding=utf-8
 __author__ = 'SolPie'
 from sqlalchemy import Column, Integer, String, DateTime, Text
 from database import Base
@@ -20,7 +21,7 @@ class User(Base):
 
     def is_authenticated(self):
         return True
-
+    # 未激活用户return False
     def is_active(self):
         return True
 

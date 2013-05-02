@@ -80,8 +80,8 @@ def login_view():
     if form.validate_on_submit():
         e = 'login'
         user = form.get_user(form.name.data)
-        print __name__, 'form.get_user()', user
-        login_user(user)
+        ret = login_user(user)
+        print __name__, 'Loggin user ', user, ret, current_user
         # Tell Flask-Principal the identity changed
         identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
 
