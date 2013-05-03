@@ -43,7 +43,7 @@ class KnPost(Base):
         self.title = title
 
     def __repr__(self):
-        return '<KnPost %r>2' % self.title
+        return '<KnPost %r>' % self.title
 
 
 

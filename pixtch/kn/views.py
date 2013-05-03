@@ -26,7 +26,7 @@ def show():
         kn = KnPost.query.filter(KnPost.id == 1).first()
         return render_template('pixtch/kn/show.html', kn=kn)
     except TemplateNotFound:
-        # abort(404)
+        abort(404)
         pass
 
 
@@ -36,11 +36,14 @@ def add_kn_post():
     form = KnForm(request.form)
     if form.validate_on_submit():
         kn = KnPost()
-        kn.title = form.title
+        kn.title = form.title.data
+        kn.html_content = form.html_content.data
+        kn.status = 1
         db_session.add(kn)
         db_session.commit()
         flash('Thanks for posting')
-        return redirect('/'.join(kn.id))
+        kid = kn.id
+        return redirect(url_for('show_kn_post', kid))
         pass
     else:
         return render_template('pixtch/kn/form.html', form=form)
