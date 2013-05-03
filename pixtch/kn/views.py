@@ -16,7 +16,8 @@ def show_kn_post(kid):
 # @admin.require(401)
 def show():
     try:
-        return render_template('pixtch/kn/show.html')
+        kn = KnPost.query.filter(KnPost.id ==1).first()
+        return render_template('pixtch/kn/show.html',kn=kn)
     except TemplateNotFound:
         # abort(404)
         pass

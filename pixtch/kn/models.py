@@ -39,7 +39,7 @@ class KnPost(Base):
     modified = sa.Column(sa.DateTime())
     pv = sa.Column(sa.Integer())
 
-    def __init__(self, title):
+    def __init__(self, title=None):
         self.title = title
 
     def __repr__(self):

@@ -45,6 +45,7 @@ def load_user(userid):
     return user
 
 #
+
 @route_auth.route('/logout/')
 @login_required
 def logout():
@@ -86,9 +87,7 @@ def login_view():
         print __name__, 'Loggin user ', user, ret, current_user
         # Tell Flask-Principal the identity changed
         identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
-
-        return redirect('/admin')
-        # return redirect(url_for('login_test2'))
+        return redirect('/')
     else:
         return render_template('pixtch/login_form.html', form=form, error=e)
 
