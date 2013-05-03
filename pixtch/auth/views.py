@@ -100,7 +100,7 @@ def register():
         user.name = form.name.data
         user.password = form.password.data
         db_session.add(user)
-        ret = db_session.commit()
+        db_session.commit()
         flash('Thanks for registering')
         print 'create admin user', user
         return redirect(url_for('.login_view'))

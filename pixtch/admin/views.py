@@ -19,13 +19,12 @@ class BackendView(BaseView):
     @expose('/')
     def index(self):
         url = url_for('.test')
-        return self.render('index.html',url=url)
+        return self.render('index.html', url=url)
         # return self.render('pixtch/admin/index.html')
 
     @expose('/test/')
     def test(self):
         return self.render('pixtch/admin/index.html')
-
 
 
 from auth.models import User
@@ -40,7 +39,6 @@ class UserAdmin(ModelView):
 
     # Add filters for name and email columns
     column_filters = ('name', 'email')
-
 
 
 class KnPostAdmin(ModelView):

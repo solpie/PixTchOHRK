@@ -12,9 +12,10 @@ class AppTestCase(unittest.TestCase):
         # self.db_fd, runserver.app.config['DATABASE'] = tempfile.mkstemp()
         # app.app.config['TESTING'] = True
         self.app = runserver.app.test_client()
+        runserver.init_Path()
         runserver.init_database()
-        # runserver.init_admin()
-        # runserver.init_bluePrint()
+        runserver.init_bluePrint()
+        runserver.init_ext()
 
     def tearDown(self):
         # os.close(self.db_fd)
