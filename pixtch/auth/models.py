@@ -21,6 +21,7 @@ class User(Base):
 
     def is_authenticated(self):
         return True
+
     # 未激活用户return False
     def is_active(self):
         return True

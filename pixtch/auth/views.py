@@ -41,7 +41,8 @@ def init_auth(app):
 @login_manager.user_loader
 def load_user(userid):
     # Return an instance of the User model
-    return User.query.filter(id == userid).first()
+    user = User.query.filter(User.id == userid).first()
+    return user
 
 #
 @route_auth.route('/logout/')
@@ -67,6 +68,7 @@ def permissionDenied(error):
 
 # this time protect with a context manager
 @route_auth.route('/test/')
+@login_required
 def login_test2():
     return redirect(url_for('.login_view'))
 
