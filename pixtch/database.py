@@ -21,7 +21,7 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 def init_db():
     import kn.models
     import auth.models
-
+    #todo migrate
     Base.metadata.create_all(bind=engine)
     print __name__, '>>create db'
 
