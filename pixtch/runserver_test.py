@@ -9,11 +9,11 @@ from database import db_session
 
 class AppTestCase(unittest.TestCase):
     def setUp(self):
-        # self.db_fd, runserver.app.config['DATABASE'] = tempfile.mkstemp()
-        # app.app.config['TESTING'] = True
+        self.db_fd, runserver.app.config['DATABASE'] = tempfile.mkstemp()
+        runserver.app.config['TESTING'] = True
         self.app = runserver.app.test_client()
         # runserver.init_Path()
-        # runserver.init_database()
+        runserver.init_database()
         # runserver.init_bluePrint()
         # runserver.init_ext()
 
@@ -48,23 +48,11 @@ class AppTestCase(unittest.TestCase):
 
     def test_home(self):
         rv = self.app.get('/')
-        assert 'home' in rv.data
+        assert 'Home' in rv.data
 
     def test_kn_index(self):
         rv = self.app.get('/kn/')
         assert 'knnn' in rv.data
-
-    def test_empty_db(self):
-        # rv = self.app.get('/show')
-        # assert 'No entries here so far' in rv.data
-        pass
-
-    def login(self, username, password):
-        return self.app.post('/login', data=dict(username=username, password=password), follow_redirects=True)
-
-    def logout(self):
-        return self.app.get('/logout', follow_redirects=True)
-
 
 if __name__ == '__main__':
     unittest.main()
