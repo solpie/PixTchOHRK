@@ -3,19 +3,30 @@
     Home
 {% endblock %}
 {% block body %}
-   <h2> <p class="text-center">Pixtch</p></h2>
+    <h2><p class="text-center">Pixtch</p></h2>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">Pixtch</a>
+            <ul class="nav">
+                <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('kn.show') }}">Kn List</a></li>
+                <li><a href="/admin">admin</a></li>
+            </ul>
+        </div>
+    </div>
+
     <p class="text-center"> {{ uppo }}</p>
     <div class="form-inline">
         <ul>
-            <li><a href="/admin" >admin</a></li>
-            <li><a href="/test" >login test</a></li>
-            <li><a href="/kn/add_kn_post" >add kn post</a></li>
-            <li><a href="/register" >register</a></li>
-            <li><a href="/login" >login</a></li>
+            <li><a href="/admin">admin</a></li>
+            <li><a href="/test">login test</a></li>
+            <li><a href="/kn/add_kn_post">add kn post</a></li>
+            <li><a href="/register">register</a></li>
+            <li><a href="/login">login</a></li>
             <li><a href="/logout" target="_blank">logout</a></li>
-            <li><a href="/search" >search</a></li>
+            <li><a href="/search">search</a></li>
 
-{#            <li><a title="login2" href="{{ url_for('.login') }}" target="_blank"></a></li>#}
+            {#            <li><a title="login2" href="{{ url_for('.login') }}" target="_blank"></a></li>#}
         </ul>
     </div>
 {% endblock %}

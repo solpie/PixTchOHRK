@@ -7,8 +7,7 @@ from flask.ext import login
 
 application = app = Flask(__name__)
 app.config.from_object(__name__)
-app.secret_key = "yeah, not actually a secret"
-# SECRET_KEY = "yeah, not actually a secret"
+app.secret_key = 'interesting'
 #
 @app.route('/')
 def index():
