@@ -14,6 +14,7 @@ route_kn = Blueprint('kn', __name__)
 def show_kn_post(kid):
     try:
         kn = KnPost.query.filter(KnPost.id == kid).first()
+        #todo show image
         return render_template('pixtch/kn/detail.html', kn=kn)
     except TemplateNotFound:
         # abort(404)
@@ -39,6 +40,7 @@ def add_kn_post():
         kn = KnPost()
         kn.title = form.title.data
         kn.html_content = form.html_content.data
+        #todo create time
         if form.img.name:
             img_file = request.files[form.img.name]
             img_filename = secure_filename(img_file.filename)
