@@ -74,6 +74,7 @@ def login_test2():
 
 @route_auth.route('/login/', methods=['GET', 'POST'])
 def login_view():
+    #todo password hash  Flask-Security
     e = None
     form = LoginForm(request.form)
     print form.name.data, form.user
