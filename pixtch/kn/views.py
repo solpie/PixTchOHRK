@@ -39,11 +39,10 @@ def add_kn_post():
         kn = KnPost()
         kn.title = form.title.data
         kn.html_content = form.html_content.data
-        if form.img.data:
-            img_data = request.files[form.img.data]
-            img_filename = secure_filename(form.img.data)
-            img_data.save('static/upload/'.join(img_filename))
-
+        if form.img.name:
+            img_data = request.files[form.img.name]
+            img_filename = secure_filename(img_data.filename)
+            img_data.save('static/upload/'+img_filename)
         kn.status = 1
         db_session.add(kn)
         db_session.commit()
