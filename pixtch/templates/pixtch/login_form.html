@@ -2,7 +2,7 @@
 {% block body %}
     <div style="height:300px; width:300px; margin:0 auto;">
         <h2>Login</h2>
-        <form method="POST" action="">
+        <form class="form form-horizontal" method="POST" action="">
             {{ form.hidden_tag() }}
             {% for f in form if f.type != 'CSRFTokenField' %}
                 <div>

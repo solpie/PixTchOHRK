@@ -95,15 +95,14 @@ def init_ext():
 
     init_auth(app)
 
-    # from flask.ext.bootstrap import Bootstrap
-    # Bootstrap(app)
+    from flask.ext.bootstrap import Bootstrap
+    Bootstrap(app)
 
 
 def init_Path():
     import sys
 
     sys.path.insert(0, 'libs')
-    sys.path.insert(0, 'pixtch')
     print app.config.root_path
 
 
