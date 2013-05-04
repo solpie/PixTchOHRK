@@ -2,6 +2,7 @@
 {% block body %}
     <div class="form-actions">
         <h2>Register</h2>
+
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             {% for f in form if f.type != 'CSRFTokenField' %}
@@ -17,7 +18,14 @@
                     {% endif %}
                 </div>
             {% endfor %}
-            <input type="submit" value="register"/>
+            <div class="control-group">
+                <div class="controls">
+                    <label class="checkbox">
+                        <input type="checkbox">I accept the TOS
+                    </label>
+                    <button type="submit" class="btn">register</button>
+                </div>
+            </div>
         </form>
     </div>
 {% endblock %}

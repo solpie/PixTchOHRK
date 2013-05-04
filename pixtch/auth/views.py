@@ -20,8 +20,7 @@ from forms import *
 from database import db_session
 
 
-route_auth = Blueprint('auth', __name__, template_folder='templates')
-# route_auth = Blueprint('auth', __name__, template_folder='templates/pixtch')
+route_auth = Blueprint('auth', __name__, template_folder='../templates/pixtch/auth')
 # load the extension
 principals = Principal(route_auth)
 # Create a permission with a single Need, in this case a RoleNeed.
@@ -83,12 +82,12 @@ def login_view():
         e = 'login'
         user = form.get_user(form.name.data)
         ret = login_user(user)
-        print __name__, 'Loggin user ', user, ret, current_user
+        print __name__, 'Loggin user ', ret, current_user
         # Tell Flask-Principal the identity changed
         identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
         return redirect('/')
     else:
-        return render_template('pixtch/login_form.html', form=form, error=e)
+        return render_template('login_form.html', form=form, error=e)
 
 
 @route_auth.route('/register/', methods=['GET', 'POST'])
@@ -104,6 +103,6 @@ def register():
         print 'create admin user', user
         return redirect(url_for('.login_view'))
     else:
-        return render_template('pixtch/register_form.html', form=form)
+        return render_template('register_form.html', form=form)
 
 
