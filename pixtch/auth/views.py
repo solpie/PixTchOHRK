@@ -70,7 +70,7 @@ def permissionDenied(error):
 # this time protect with a context manager
 @route_auth.route('/test/')
 def login_test2():
-    return redirect(url_for('show_kn_post'))
+    return redirect(url_for('kn.show_kn_post'))
 
 
 @route_auth.route('/login/', methods=['GET', 'POST'])

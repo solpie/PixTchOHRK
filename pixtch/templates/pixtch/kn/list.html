@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block title %}
+    knnnnnnnnnnnn
+{% endblock %}
+{% block body %}
+    {% for kn in kn_list %}
+        <div class="kn-header">
+            <a class="kn-a" href="/kn/{{ kn.id }}">
+            {{ kn.title }}
+            </a>
+        <hr>
+        {{ kn.html_content }}
+        </div>
+    {% endfor %}
+{% endblock %}

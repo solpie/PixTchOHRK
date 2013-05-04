@@ -5,6 +5,7 @@ from models import KnPost
 from forms import *
 from database import db_session
 from flask.ext.login import login_required
+from werkzeug.utils import secure_filename
 
 route_kn = Blueprint('kn', __name__)
 
@@ -13,7 +14,7 @@ route_kn = Blueprint('kn', __name__)
 def show_kn_post(kid):
     try:
         kn = KnPost.query.filter(KnPost.id == kid).first()
-        return render_template('pixtch/kn/show.html', kn=kn)
+        return render_template('pixtch/kn/detail.html', kn=kn)
     except TemplateNotFound:
         # abort(404)
         pass
@@ -23,8 +24,8 @@ def show_kn_post(kid):
 # @admin.require(401)
 def show():
     try:
-        kn = KnPost.query.filter(KnPost.id == 1).first()
-        return render_template('pixtch/kn/show.html', kn=kn)
+        kn = KnPost.query.all()
+        return render_template('pixtch/kn/list.html', kn_list=kn)
     except TemplateNotFound:
         abort(404)
         pass
@@ -38,12 +39,17 @@ def add_kn_post():
         kn = KnPost()
         kn.title = form.title.data
         kn.html_content = form.html_content.data
+        if form.img.data:
+            img_data = request.files[form.img.data]
+            img_filename = secure_filename(form.img.data)
+            img_data.save('static/upload/'.join(img_filename))
+
         kn.status = 1
         db_session.add(kn)
         db_session.commit()
         flash('Thanks for posting')
-        kid = kn.id
-        return redirect(url_for('show_kn_post', kid))
+        url = '/kn/' + str(kn.id)
+        return redirect(url)
         pass
     else:
         return render_template('pixtch/kn/form.html', form=form)

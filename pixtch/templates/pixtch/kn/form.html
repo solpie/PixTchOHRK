@@ -2,7 +2,7 @@
 {% block body %}
     <div style="height:300px; width:300px; margin:0 auto;">
         <h2>add kn post</h2>
-        <form method="POST" action="">
+        <form method="POST" action=""  enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             {% for f in form if f.type != 'CSRFTokenField' %}
                 <div>
@@ -17,7 +17,7 @@
                     {% endif %}
                 </div>
             {% endfor %}
-            <input type="submit" value="add post"/>
+            <input type="submit" value="post a kn"/>
         </form>
     </div>
 {% endblock %}
