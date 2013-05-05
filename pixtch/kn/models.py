@@ -1,6 +1,8 @@
 # -*- coding:utf-8 -*-
 import sqlalchemy as sa
 from database import Base
+from sqlalchemy import Column, Integer, String, DateTime, Text
+
 
 
 class Tag(Base):

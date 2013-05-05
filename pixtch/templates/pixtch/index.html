@@ -11,11 +11,17 @@
                 <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
                 <li><a href="{{ url_for('kn.show') }}">Kn List</a></li>
                 <li><a href="/admin">admin</a></li>
+                <li>
+                    <form class="navbar-search pull-left">
+                        <input type="text" class="search-query" placeholder="Search">
+                    </form>
+                </li>
             </ul>
         </div>
     </div>
 
     <p class="text-center"> {{ uppo }}</p>
+{#    test#}
     <div class="form-inline">
         <ul>
             <li><a href="/admin">admin</a></li>
@@ -25,6 +31,7 @@
             <li><a href="/login">login</a></li>
             <li><a href="/logout" target="_blank">logout</a></li>
             <li><a href="/search">search</a></li>
+            <li><a href="/404">404</a></li>
 
             {#            <li><a title="login2" href="{{ url_for('.login') }}" target="_blank"></a></li>#}
         </ul>

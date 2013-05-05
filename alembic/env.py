@@ -16,16 +16,12 @@ fileConfig(config.config_file_name)
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 import os
-
-root_path=os.path.abspath(os.path.join(os.path.dirname('runserver.py'), os.path.pardir))
 import sys
-sys.path.append(root_path)
-sys.path.append(root_path+'/pixtch')
-print sys.path,'ddddddddddddddddd'
-from pixtch.auth.models import User as model
-# from pixtch.kn.models import KnPost as model
 
-target_metadata = model.metadata
+sys.path.insert(0, os.path.realpath("."))
+sys.path.insert(0, os.path.realpath("./pixtch"))
+from pixtch.database import get_base_metadata
+target_metadata = get_base_metadata()
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

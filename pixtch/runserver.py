@@ -32,6 +32,7 @@ def upload_file():
         f = request.files['the_file']
         f.save('static/upload/upload.txt')
 
+
 @app.route('/uppo/<upponame>')
 def show_uppo_profile(upponame):
     return 'uppo %s' % upponame
@@ -95,6 +96,7 @@ def init_ext():
     init_auth(app)
 
     from flask.ext.bootstrap import Bootstrap
+
     Bootstrap(app)
 
 
@@ -107,7 +109,7 @@ def init_Path():
 
 if __name__ == '__main__':
     init_Path()
-    init_database()
+    # init_database()
     init_bluePrint()
     init_ext()
     print __name__, '>>init_end'

@@ -6,10 +6,20 @@
     {% for kn in kn_list %}
         <div class="kn-header">
             <a class="kn-a" href="/kn/{{ kn.id }}">
-            {{ kn.title }}
+                {{ kn.title }}
             </a>
-        <hr>
-        {{ kn.html_content }}
+            <hr>
+            <div class="well well-large">
+                {{ kn.html_content }}
+            </div>
         </div>
     {% endfor %}
+
+    <div class="pagination">
+        <ul>
+            <li class="disabled"><a href="#">&laquo;</a></li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">Next</a></li>
+        </ul>
+    </div>
 {% endblock %}
