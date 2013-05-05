@@ -4,7 +4,7 @@ import runserver
 import unittest
 import tempfile
 
-from database import db_session
+import database as db
 
 
 class AppTestCase(unittest.TestCase):
@@ -27,8 +27,8 @@ class AppTestCase(unittest.TestCase):
         print User.query.filter(User.name == 'admin')
         if not User.query.filter(User.name == 'admin'):
             u = User('admin', 'admin@localhost', '-+')
-            db_session.add(u)
-            ret = db_session.commit()
+            db.session_add(u)
+            db.session_commit()
             print 'create admin user'
 
     def test_kn_addTag(self):
@@ -36,15 +36,15 @@ class AppTestCase(unittest.TestCase):
 
         tag = Tag()
         tag.name = 'tag test'
-        db_session.add(tag)
-        db_session.commit()
+        db.session_add(tag)
+        db.session_commit()
 
     def test_kn_addKnPost(self):
         from kn.models import KnPost
 
         knPost = KnPost("test")
-        db_session.add(knPost)
-        db_session.commit()
+        db.session_add(knPost)
+        db.session_commit()
 
     def test_home(self):
         rv = self.app.get('/')

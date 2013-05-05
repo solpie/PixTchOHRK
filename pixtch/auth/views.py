@@ -17,7 +17,7 @@ from flask.ext.login import (LoginManager, current_user, login_required,
                              confirm_login, fresh_login_required, logout_user)
 from models import User
 from forms import *
-from database import db_session
+import database as db
 
 
 route_auth = Blueprint('auth', __name__, template_folder='../templates/pixtch/auth')
@@ -43,7 +43,6 @@ def load_user(userid):
     user = User.query.filter(User.id == userid).first()
     return user
 
-#
 
 @route_auth.route('/logout/')
 @login_required
@@ -65,11 +64,6 @@ def logout():
 def permissionDenied(error):
     print '该操作()需要的访问权限为:' + str(error.args[0].needs)
     return Response('Auth Only if you are an admin')
-
-# this time protect with a context manager
-@route_auth.route('/test/')
-def login_test2():
-    return redirect(url_for('kn.show_kn_post'))
 
 
 @route_auth.route('/login/', methods=['GET', 'POST'])
@@ -98,8 +92,8 @@ def register():
         user = User()
         user.name = form.name.data
         user.password = form.password.data
-        db_session.add(user)
-        db_session.commit()
+        db.session_add(user)
+        db.session_commit()
         flash('Thanks for registering')
         print 'create admin user', user
         return redirect(url_for('.login_view'))
@@ -107,3 +101,6 @@ def register():
         return render_template('register_form.html', form=form)
 
 
+@route_auth.route('/uppo/<upponame>')
+def show_uppo_profile(upponame):
+    return 'uppo %s' % upponame

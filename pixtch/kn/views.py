@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, abort, session, request, redirect,
 from jinja2 import TemplateNotFound
 from models import KnPost
 from forms import *
-from database import db_session
+import database as db
 from flask.ext.login import login_required
 from werkzeug.utils import secure_filename
 
@@ -44,10 +44,10 @@ def add_kn_post():
         if form.img.name:
             img_file = request.files[form.img.name]
             img_filename = secure_filename(img_file.filename)
-            img_file.save('static/upload/'+img_filename)
+            img_file.save('static/upload/' + img_filename)
         kn.status = 1
-        db_session.add(kn)
-        db_session.commit()
+        db.session_add(kn)
+        db.session_commit()
         flash('Thanks for posting')
         url = '/kn/' + str(kn.id)
         return redirect(url)

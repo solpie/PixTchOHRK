@@ -15,6 +15,14 @@ Base.query = db_session.query_property()
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
+def session_add(base):
+    db_session.add(base)
+
+
+def session_commit():
+    db_session.commit()
+
+
 def init_db():
     import kn.models
     import auth.models

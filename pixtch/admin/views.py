@@ -49,18 +49,15 @@ class KnPostAdmin(ModelView):
 
 
 def init_admin(app):
+    from database import db_session
+    from kn.models import KnPost, KnCategory, Tag
     admin = Admin(name='Pixtch Backend')
     # admin = Admin(app, name='Pixtch Backend')
     admin.add_view(BackendView(name='Pixtch Backend'))
-
-    from database import db_session
-
     admin.add_view(UserAdmin(User, db_session, category='User'))
-    #
-    from kn.models import KnPost, KnCategory, Tag
-
     admin.add_view(KnPostAdmin(KnPost, db_session, category='Kn'))
     admin.add_view(ModelView(Tag, db_session, category='Kn'))
+
     from flask.ext.admin.contrib.fileadmin import FileAdmin
 
     import os
