@@ -86,7 +86,10 @@ if __name__ == '__main__':
     # init_database()
     init_bluePrint()
     init_ext()
-    print __name__, '>>init..ok'
+    import datetime
+
+    t = datetime.datetime.now()
+    print __name__, '>>init..ok', t
     # print app.url_rule_class.alias
     #
     port = int(os.environ.get('PORT', 5000))

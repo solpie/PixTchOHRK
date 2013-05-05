@@ -2,6 +2,7 @@
 __author__ = 'SolPie'
 from sqlalchemy import Column, Integer, String, DateTime, Text
 from database import Base
+from datetime import datetime
 
 
 class User(Base):
@@ -10,12 +11,14 @@ class User(Base):
     name = Column(String(50), unique=True)
     email = Column(String(120), unique=True)
     password = Column(String(20))
-    register_date = Column(DateTime)
+    register_date = Column(DateTime, default=datetime.now)
+    last_login_date = Column(DateTime)
 
     def __init__(self, name=None, email=None, password=None):
         self.name = name
         self.email = email
         self.password = password
+
 
         # Flask-Login integration
 

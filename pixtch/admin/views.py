@@ -31,7 +31,7 @@ from auth.models import User
 # Customized User model admin
 class UserAdmin(ModelView):
     # Show only name and email columns in list view
-    column_list = ('name', 'email', 'register_date')
+    column_list = ('name', 'email', 'register_date', 'last_login_date')
 
     # Enable search functionality - it will search for terms in
     # name and email fields
@@ -51,6 +51,7 @@ class KnPostAdmin(ModelView):
 def init_admin(app):
     from database import db_session
     from kn.models import KnPost, KnCategory, Tag
+
     admin = Admin(name='Pixtch Backend')
     # admin = Admin(app, name='Pixtch Backend')
     admin.add_view(BackendView(name='Pixtch Backend'))
