@@ -37,7 +37,12 @@ error
 
 @app.errorhandler(404)
 def error404(error):
-    return render_template('404.html')
+    return render_template('404.html', e=error)
+
+
+@app.errorhandler(401)
+def error401(error):
+    return render_template('401.html', e=error)
 
 
 '''

@@ -40,7 +40,6 @@ def add_kn_post():
         kn = KnPost()
         kn.title = form.title.data
         kn.html_content = form.html_content.data
-        #todo create time
         if form.img.name:
             img_file = request.files[form.img.name]
             img_filename = secure_filename(img_file.filename)

@@ -2,7 +2,7 @@
 import sqlalchemy as sa
 from database import Base
 from sqlalchemy import Column, Integer, String, DateTime, Text
-
+from datetime import datetime
 
 
 class Tag(Base):
@@ -31,16 +31,16 @@ class KnPost(Base):
     title = sa.Column(sa.Unicode(40))
     slug = sa.Column(sa.String(120))
 
-    category_id = sa.Column(sa.Integer(), sa.ForeignKey(KnCategory.id))
+    category_id = sa.Column(sa.Integer, sa.ForeignKey(KnCategory.id))
     # category = sa.relationship(KnCategory, backref='posts')
 
     html_content = sa.Column(sa.String(360))#allow uppo 自定义部分
     # owner = sa.Column(sa.ForeignKey(User))
-    cover_url = sa.Column(sa.String())#封面图片
-    status = sa.Column(sa.Integer())
-    created = sa.Column(sa.DateTime())
-    modified = sa.Column(sa.DateTime())
-    pv = sa.Column(sa.Integer())
+    cover_url = sa.Column(sa.String)#封面图片
+    status = sa.Column(sa.Integer)
+    created = sa.Column(sa.DateTime)
+    modified = sa.Column(sa.DateTime, default=datetime.now)
+    pv = sa.Column(sa.Integer)
 
     def __init__(self, title=None):
         self.title = title

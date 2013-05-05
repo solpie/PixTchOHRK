@@ -57,7 +57,7 @@ def logout():
                           identity=AnonymousIdentity())
 
     flash('You were logged out')
-    return redirect(url_for('index'))
+    return redirect(url_for('home.index'))
 
 
 @route_auth.errorhandler(PermissionDenied)
