@@ -1,17 +1,36 @@
 {% extends 'base.html' %}
 {% block body %}
-    <div style="height:300px; width:300px; margin:0 auto;">
-    <h2>Login</h2>
-    {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-    <form action="" method=post>
-        {{ form.hidden_tag() }}
-        <dl>
-            <dt>Username:
-            <dd><input type=text name=username>
-            <dt>Password:
-            <dd><input type=password name=password>
-            <dd><input type=submit value=Login>
-        </dl>
-    </form>
-   </div>
+    <div class="form-actions">
+        <h2>Login</h2>
+        {% if error %}
+            <div class="alert alert-error">
+                {{ error }}
+            </div>
+        {% endif %}
+        <form class="form-horizontal" method="POST" action="">
+            {{ form.hidden_tag() }}
+            {% for f in form if f.type != 'CSRFTokenField' %}
+                <div>
+                    {{ f.label }}
+                    {{ f }}
+
+                    {#                    {% if f.errors %}#}
+                    {#                        <ul>#}
+                    {#                            {% for e in f.errors %}#}
+                    {#                                <li>{{ e }}</li>#}
+                    {#                            {% endfor %}#}
+                    {#                        </ul>#}
+                    {#                    {% endif %}#}
+                </div>
+            {% endfor %}
+            <div class="control-group">
+                <div class="controls">
+                    <label class="checkbox">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <button type="submit" class="btn">Login</button>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}

@@ -18,7 +18,7 @@ from flask.ext.login import (LoginManager, current_user, login_required,
 from models import User
 from forms import *
 import database as db
-
+from wtforms import ValidationError
 
 route_auth = Blueprint('auth', __name__, template_folder='../templates/pixtch/auth')
 # load the extension
@@ -67,21 +67,39 @@ def permissionDenied(error):
 
 @route_auth.route('/login/', methods=['GET', 'POST'])
 def login_view():
-    #todo password hash  Flask-Security
     e = None
     form = LoginForm(request.form)
     print form.name.data, form.user
-    # if form.validate_on_submit() and form.validate_login('d'):
+    # try:
+    #     if form.validate_on_submit() and form.validate_login():
+    #         user = form.get_user(form.name.data)
+    #         ret = login_user(user)
+    #         # user.set_password(user.password)
+    #         # db.session_commit()
+    #         print __name__, 'Loggin user ', ret, current_user
+    #         # Tell Flask-Principal the identity changed
+    #         identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
+    #         return redirect('/')
+    # except Exception, e:
+    #     pass
+    # return render_template('login.html', form=form, error=e)
+
     if form.validate_on_submit():
+        try:
+            form.validate_login()
+        except ValidationError, e:
+            return render_template('login.html', form=form, error=e)
         e = 'login'
         user = form.get_user(form.name.data)
         ret = login_user(user)
+        # user.set_password(user.password)
+        # db.session_commit()
         print __name__, 'Loggin user ', ret, current_user
         # Tell Flask-Principal the identity changed
         identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
         return redirect('/')
     else:
-        return render_template('login_form.html', form=form, error=e)
+        return render_template('login.html', form=form, error=e)
 
 
 @route_auth.route('/register/', methods=['GET', 'POST'])
@@ -97,7 +115,7 @@ def register():
         print 'create admin user', user
         return redirect(url_for('.login_view'))
     else:
-        return render_template('register_form.html', form=form)
+        return render_template('register.html', form=form)
 
 
 @route_auth.route('/uppo/<upponame>')

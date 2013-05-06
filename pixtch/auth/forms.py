@@ -5,7 +5,7 @@ from models import User
 
 
 class RegistrationForm(wtf.Form):
-    name = wtf.TextField('uppo name', validators=[wtf.required()])
+    name = wtf.TextField('uppo name', validators=[wtf.required(), wtf.validators.Email()])
     email = wtf.TextField('Email Address', [wtf.validators.Length(min=6, max=35)])
     password = wtf.PasswordField('New Password', [
         wtf.validators.Required(),
@@ -32,12 +32,12 @@ class LoginForm(wtf.Form):
 
     user = None
 
-    def validate_login(self, field):
+    def validate_login(self):
         self.user = user = self.get_user(self.name.data)
         print 'validate_login:', self.name.data, user
         if user is None:
             raise wtf.ValidationError('Invalid user')
-        if user.password != self.password.data:
+        if not user.check_password(self.password.data):
             raise wtf.ValidationError('Invalid password')
         return True
 
