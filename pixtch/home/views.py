@@ -1,13 +1,10 @@
 __author__ = 'SolPie'
 from flask import (
-    Response,
     Blueprint,
-    current_app,
     request,
     url_for,
-    flash,
     redirect,
-    session,
+    jsonify,
     render_template)
 from flask.ext import login
 
@@ -26,8 +23,10 @@ def home():
 
 @route_home.route('/test/')
 def test_view():
+    a = request.args.get('a', 0, type=int)
+    b = request.args.get('b', 0, type=int)
     print request.remote_addr
-    return 'test', request.remote_addr
+    return jsonify(result=a + b)
 
 # @app.errorhandler(404)
 # def error404(error):

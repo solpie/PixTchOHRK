@@ -1,26 +1,55 @@
 {% extends 'base.html' %}
+
+
 {% block body %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>
+    <script>window.jQuery || document.write('<script src="{{
+  url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    <script type=text/javascript>
+        {#        $(function () {#}
+        {#            $('a#calculate').bind('click', function () {#}
+        {#                $.getJSON('/test', {#}
+        {#                    a: $('input[id="a"]').val(),#}
+        {#                    b: $('input[id="b"]').val()#}
+        {#                }, function (data) {#}
+        {#                    $("#result").text(data.result);#}
+        {#                });#}
+        {#                return false;#}
+        {#            });#}
+        {#        });#}
+        $(document).ready(function () {
+            $('div#alert').hide();
+        });
+        $(function () {
+            $('button#login').bind('click', function () {
+                $.getJSON('/auth', {
+                    name: $('input[id="name"]').val(),
+                    pw: $('input[id="password"]').val()
+                }, function (data) {
+                    $("div#alert").text(data.error);
+                    $('div#alert').show();
+                });
+                return false;
+            })
+        })
+    </script>
+
     <div class="form-actions">
         <h2>Login</h2>
-        {% if error %}
-            <div class="alert alert-error">
-                {{ error }}
-            </div>
-        {% endif %}
+        {#        {% if error %}#}
+        <div id="alert" class="alert alert-error">
+            {{ error }}
+        </div>
+        {#        {% endif %}#}
         <form class="form-horizontal" method="POST" action="">
             {{ form.hidden_tag() }}
             {% for f in form if f.type != 'CSRFTokenField' %}
                 <div>
                     {{ f.label }}
                     {{ f }}
-
-                    {#                    {% if f.errors %}#}
-                    {#                        <ul>#}
-                    {#                            {% for e in f.errors %}#}
-                    {#                                <li>{{ e }}</li>#}
-                    {#                            {% endfor %}#}
-                    {#                        </ul>#}
-                    {#                    {% endif %}#}
                 </div>
             {% endfor %}
             <div class="control-group">
@@ -28,9 +57,10 @@
                     <label class="checkbox">
                         <input type="checkbox"> Remember me
                     </label>
-                    <button type="submit" class="btn">Login</button>
+                    {#                    <button type="submit" class="btn" id="login">Login</button>#}
                 </div>
             </div>
         </form>
+        <button class="btn" id="login">Login</button>
     </div>
 {% endblock %}

@@ -19,21 +19,20 @@ class User(Base):
     def __init__(self, name=None, email=None, password=None):
         self.name = name
         self.email = email
-        self.password = password
+        self.set_password(password)
 
     def set_password(self, password):
         self.pw_hash = generate_password_hash(password)
-        print self.pw_hash
 
     def check_password(self, password):
         return check_password_hash(self.pw_hash, password)
-        # Flask-Login integration
 
     def is_authenticated(self):
+        # Flask-Login integration
         return True
 
-    # 未激活用户return False
     def is_active(self):
+        # 未激活用户return False
         return True
 
     def is_anonymous(self):

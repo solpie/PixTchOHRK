@@ -80,10 +80,14 @@ def init_ext():
     from admin.views import init_admin
     from auth.views import init_auth
     from flask.ext.bootstrap import Bootstrap
+    # import flask_sijax
 
     init_auth(app)
     init_admin(app)
     Bootstrap(app)
+    # app.config['SIJAX_STATIC_PATH'] = os.path.join('.', os.path.dirname(__file__), 'static/js/sijax/')
+    # app.config['SIJAX_JSON_URI'] = '/static/js/sijax/json2.js'
+    # flask_sijax.Sijax(app)
 
 
 def init_Path():

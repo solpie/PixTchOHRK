@@ -9,6 +9,7 @@ from flask import (
     flash,
     redirect,
     session,
+    jsonify,
     render_template)
 
 from flask.ext.principal import Principal, Permission, RoleNeed, PermissionDenied, identity_changed, Identity, AnonymousIdentity
@@ -44,6 +45,10 @@ def load_user(userid):
     return user
 
 
+def get_user(name):
+    return User.query.filter(User.name == name).first()
+
+
 @route_auth.route('/logout/')
 @login_required
 def logout():
@@ -66,40 +71,36 @@ def permissionDenied(error):
 
 
 @route_auth.route('/login/', methods=['GET', 'POST'])
-def login_view():
+def login():
     e = None
     form = LoginForm(request.form)
     print form.name.data, form.user
-    # try:
-    #     if form.validate_on_submit() and form.validate_login():
-    #         user = form.get_user(form.name.data)
-    #         ret = login_user(user)
-    #         # user.set_password(user.password)
-    #         # db.session_commit()
-    #         print __name__, 'Loggin user ', ret, current_user
-    #         # Tell Flask-Principal the identity changed
-    #         identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
-    #         return redirect('/')
-    # except Exception, e:
-    #     pass
-    # return render_template('login.html', form=form, error=e)
-
     if form.validate_on_submit():
         try:
             form.validate_login()
         except ValidationError, e:
+            #todo js show error
             return render_template('login.html', form=form, error=e)
-        e = 'login'
         user = form.get_user(form.name.data)
         ret = login_user(user)
-        # user.set_password(user.password)
-        # db.session_commit()
         print __name__, 'Loggin user ', ret, current_user
         # Tell Flask-Principal the identity changed
         identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
         return redirect('/')
     else:
         return render_template('login.html', form=form, error=e)
+
+
+@route_auth.route('/auth/')
+def auth():
+    name = request.args.get('name', type=str)
+    password = request.args.get('pw', type=str)
+    user = get_user(name)
+    if user is None:
+        return jsonify(error='Invalid user')
+    if not user.check_password(password):
+        return jsonify(error='Invalid password')
+        # return jsonify(error='Invalid user')
 
 
 @route_auth.route('/register/', methods=['GET', 'POST'])
