@@ -9,17 +9,6 @@
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>
     <script type=text/javascript>
-        {#        $(function () {#}
-        {#            $('a#calculate').bind('click', function () {#}
-        {#                $.getJSON('/test', {#}
-        {#                    a: $('input[id="a"]').val(),#}
-        {#                    b: $('input[id="b"]').val()#}
-        {#                }, function (data) {#}
-        {#                    $("#result").text(data.result);#}
-        {#                });#}
-        {#                return false;#}
-        {#            });#}
-        {#        });#}
         $(document).ready(function () {
             $('div#alert').hide();
         });

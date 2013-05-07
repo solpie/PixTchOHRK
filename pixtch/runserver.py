@@ -2,7 +2,8 @@
 __author__ = 'SolPie'
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, g
+from const import *
 
 application = app = Flask(__name__)
 app.config.from_object(__name__)
@@ -16,7 +17,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/test.db'
 
 @app.before_request
 def before_request():
-    # g.db = connect_db()
+    if app.config[ENV_BAE]:
+        g.db = MySQLdb.connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS,
+                               MYSQL_DB, port=int(MYSQL_PORT))
+        # g.db = connect_db()
     pass
 
 
@@ -80,14 +84,31 @@ def init_ext():
     from admin.views import init_admin
     from auth.views import init_auth
     from flask.ext.bootstrap import Bootstrap
+
     # import flask_sijax
 
     init_auth(app)
     init_admin(app)
     Bootstrap(app)
-    # app.config['SIJAX_STATIC_PATH'] = os.path.join('.', os.path.dirname(__file__), 'static/js/sijax/')
-    # app.config['SIJAX_JSON_URI'] = '/static/js/sijax/json2.js'
-    # flask_sijax.Sijax(app)
+    #####################bae#############################
+    bae = app.config[ENV_BAE] = False
+    if bae:
+        from bae.core.wsgi import WSGIApplication
+
+        application = WSGIApplication(app)
+        from sae.const import (MYSQL_HOST, MYSQL_HOST_S,
+                               MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB)
+        ########################################################
+
+    sae = app.config['SAE_RUN'] = False
+    if sae:
+        from sae.const import (MYSQL_HOST, MYSQL_HOST_S,
+                               MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
+                               )
+
+        # app.config['SIJAX_STATIC_PATH'] = os.path.join('.', os.path.dirname(__file__), 'static/js/sijax/')
+        # app.config['SIJAX_JSON_URI'] = '/static/js/sijax/json2.js'
+        # flask_sijax.Sijax(app)
 
 
 def init_Path():
@@ -97,11 +118,16 @@ def init_Path():
     print __name__, app.config.root_path
 
 
-if __name__ == '__main__':
+def main():
     init_Path()
     # init_database()
     init_bluePrint()
     init_ext()
+
+
+if __name__ == '__main__':
+    main()
+
     import datetime
 
     t = datetime.datetime.now()
