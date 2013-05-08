@@ -25,10 +25,21 @@ class RegistrationForm(wtf.Form):
         pass
 
 
-# Define login and registration forms (for flask-login)
+class InputBlock(wtf.Input):
+    def __init__(self, input_type=None):
+        super(InputBlock, self).__init__(input_type)
+
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault('class', "input-block-level")
+        kwargs['placeholder'] = field.label.text
+        return super(InputBlock, self).__call__(field, **kwargs)
+
+        # Define login and registration forms (for flask-login)
+
+
 class LoginForm(wtf.Form):
-    name = wtf.TextField('uppo name', validators=[wtf.required()])
-    password = wtf.PasswordField('password', validators=[wtf.required()])
+    name = wtf.TextField('uppo name', validators=[wtf.required()], widget=InputBlock('text'))
+    password = wtf.TextField('password', validators=[wtf.required()], widget=InputBlock('password'))
 
     user = None
 
@@ -46,3 +57,4 @@ class LoginForm(wtf.Form):
         user = User.query.filter(User.name == name).first()
         print 'query user :', name, 'result:', user
         return user
+
