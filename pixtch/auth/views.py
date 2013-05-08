@@ -70,37 +70,48 @@ def permissionDenied(error):
     return Response('Auth Only if you are an admin')
 
 
+# @route_auth.route('/login/', methods=['GET', 'POST'])
+# def login():
+#     e = None
+#     form = LoginForm(request.form)
+#     print form.name.data, form.user
+#     if form.validate_on_submit():
+#         try:
+#             form.validate_login()
+#         except ValidationError, e:
+#             return render_template('login.html', form=form, error=e)
+#         user = form.get_user(form.name.data)
+#         ret = login_user(user)
+#         print __name__, 'Loggin user ', ret, current_user
+#         # Tell Flask-Principal the identity changed
+#         identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
+#         return redirect('/')
+#     else:
+#         return render_template('login.html', form=form, error=e)
+
+
+@route_auth.route('/login', methods=['GET', 'POST'])
 @route_auth.route('/login/', methods=['GET', 'POST'])
-def login():
-    e = None
-    form = LoginForm(request.form)
-    print form.name.data, form.user
-    if form.validate_on_submit():
-        try:
-            form.validate_login()
-        except ValidationError, e:
-            #todo js show error
-            return render_template('login.html', form=form, error=e)
-        user = form.get_user(form.name.data)
-        ret = login_user(user)
-        print __name__, 'Loggin user ', ret, current_user
-        # Tell Flask-Principal the identity changed
-        identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
-        return redirect('/')
-    else:
-        return render_template('login.html', form=form, error=e)
-
-
-@route_auth.route('/auth/')
 def auth():
-    name = request.args.get('name', type=str)
-    password = request.args.get('pw', type=str)
+    if request.method == 'GET':
+        form = LoginForm(request.form)
+        return render_template('login.html', form=form)
+    #post
+    name = request.values.get('name', type=str)
+    password = request.values.get('pw', type=str)
+    remember = request.values.get('rm', type=int)
     user = get_user(name)
     if user is None:
         return jsonify(error='Invalid user')
     if not user.check_password(password):
         return jsonify(error='Invalid password')
-        # return jsonify(error='Invalid user')
+    login_user(user, remember)
+    identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
+    print __name__, 'Login user ', current_user
+    return jsonify(error='')
+
+
+    # return jsonify(error='Invalid user')
 
 
 @route_auth.route('/register/', methods=['GET', 'POST'])
