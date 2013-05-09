@@ -12,9 +12,9 @@ class RegistrationForm(wtf.Form):
         wtf.validators.EqualTo('confirm', message='Passwords must match')
     ])
     confirm = wtf.PasswordField('Repeat Password')
-    accept_tos = wtf.BooleanField('I accept the TOS', [wtf.validators.Required()])
 
     def validate_signup(self, field):
+
         name = self.name.data
         password = self.password.data
         print self, 'validate sign up'
@@ -23,6 +23,10 @@ class RegistrationForm(wtf.Form):
         if User.query.filter(User.name == name):
             raise wtf.ValidationError('name is exist')
         pass
+
+    def __call__(self, *args, **kwargs):
+        self.email.widget.html_params('class=d')
+        return super(RegistrationForm, self).__call__(args, kwargs)
 
 
 class InputBlock(wtf.Input):

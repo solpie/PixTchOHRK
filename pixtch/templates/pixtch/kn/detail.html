@@ -6,13 +6,13 @@
     {{ kn.title }}
     <hr>
     {{ kn.html_content }}
-   <ul class="thumbnails">
-  <li class="span4">
-    <div class="thumbnail">
-      <img data-src="holder.js/300x200" alt="">
-      <h3>Thumbnail label</h3>
-      <p>Thumbnail caption...</p>
-    </div>
-  </li>
-</ul>
+    <ul class="thumbnails">
+        <li class="span4">
+            <div class="thumbnail">
+                <img data-src="holder.js/300x200" alt="" src="{{ url_for('static', filename='upload/img_500.png') }}" class="img-polaroid">
+                <h3>Thumbnail label</h3>
+                <p>Thumbnail caption...</p>
+            </div>
+        </li>
+    </ul>
 {% endblock %}

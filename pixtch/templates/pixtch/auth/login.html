@@ -20,7 +20,7 @@
                     rm: $('input[id="remember"]').is(':checked') ? 1 : 0
                 }, function (data) {
                     if (!data.error)
-                        $(location).attr('href','/');
+                        $(location).attr('href', '/');
                     $("div#alert").text(data.error);
                     $('div#alert').show();
                 });
@@ -64,13 +64,13 @@
     </style>
 {% endblock %}
 {% block body %}
-
     <div class="container">
-
-        {#        {% endif %}#}
         <form class="form-signin" method="POST" action="">
             <h2 class="form-signin-heading">Login</h2>
-            {#        {% if error %}#}
+            <a class="close" data-dismiss="alert" href="#">&times;
+            <p>{{ error }}</p>
+            </a>
+
             <div id="alert" class="alert alert-error">
                 {{ error }}
             </div>
@@ -80,11 +80,9 @@
             {% endfor %}
             <div class="control-group">
                 <div class="controls">
-
                     <label class="checkbox">
                         <input id="remember" type="checkbox"> Remember me
                     </label>
-                    {#                    <button type="submit" class="btn" id="login">Login</button>#}
                 </div>
             </div>
             <button class="btn btn-large btn-primary" id="login">Login</button>
