@@ -9,10 +9,10 @@ application = app = Flask(__name__)
 app.config.from_object(__name__)
 app.secret_key = 'interesting'
 
-from flask.ext.sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/test.db'
+# from flask.ext.sqlalchemy import SQLAlchemy
+#
+# db = SQLAlchemy(app)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/test.db'
 
 
 @app.before_request
