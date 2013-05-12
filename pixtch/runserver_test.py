@@ -1,5 +1,4 @@
 __author__ = 'SolPie'
-import os
 import runserver
 import unittest
 import tempfile

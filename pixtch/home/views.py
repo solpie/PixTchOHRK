@@ -23,10 +23,7 @@ def home():
 
 @route_home.route('/test/')
 def test_view():
-    a = request.args.get('a', 0, type=int)
-    b = request.args.get('b', 0, type=int)
-    print request.remote_addr
-    return jsonify(result=a + b)
+    return 'test'
 
 # @app.errorhandler(404)
 # def error404(error):
