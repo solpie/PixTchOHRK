@@ -25,18 +25,18 @@ class Pixtch(Flask):
         self.secret_key = 'interesting'
         self.url_map.converters['regex'] = RegexConverter
 
-#
-# def init_database():
-#     from flask.ext.sqlalchemy import SQLAlchemy
-#
-#     from database import init_db
-#
-#     init_db()
+    #
+    # def init_database():
+    #     from flask.ext.sqlalchemy import SQLAlchemy
+    #
+    #     from database import init_db
+    #
+    #     init_db()
 
-# from flask.ext.sqlalchemy import SQLAlchemy
-#
-# db = SQLAlchemy(app)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/test.db'
+    # from flask.ext.sqlalchemy import SQLAlchemy
+    #
+    # db = SQLAlchemy(app)
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/test.db'
 
 
     def init_path(self):
@@ -69,11 +69,13 @@ class Pixtch(Flask):
 
         @self.before_request
         def before_request():
-            if self.config[ENV_BAE]:
-                g.db = MySQLdb.connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS,
-                                       MYSQL_DB, port=int(MYSQL_PORT))
+            try:
+                if self.config[ENV_BAE]:
+                    g.db = MySQLdb.connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS,
+                                           MYSQL_DB, port=int(MYSQL_PORT))
+            except Exception, e:
+                pass
                 # g.db = connect_db()
-            print 'before_request'
             pass
 
         @self.teardown_request
@@ -90,16 +92,6 @@ class Pixtch(Flask):
         init_auth(self)
         init_admin(self)
         Bootstrap(self)
-        #####################bae#############################
-        bae = self.config[ENV_BAE] = False
-        if bae:
-            from bae.core.wsgi import WSGIApplication
-
-            application = WSGIApplication(self)
-            from sae.const import (MYSQL_HOST, MYSQL_HOST_S,
-                                   MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB)
-            ########################################################
-
         sae = self.config['SAE_RUN'] = False
         if sae:
             from sae.const import (MYSQL_HOST, MYSQL_HOST_S,
