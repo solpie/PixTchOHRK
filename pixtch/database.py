@@ -27,18 +27,16 @@ def session_commit():
 def init_db():
     import kn.models
     import auth.models
+    import uppo.models
 
     Base.metadata.create_all(bind=engine)
     print __name__, '>>create db'
 
 
-
-
-
-
 def get_base_metadata():
     from kn.models import *
     from auth.models import *
+    from uppo.models import *
 
     return Base.metadata
 

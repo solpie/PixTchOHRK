@@ -20,7 +20,7 @@ import sys
 
 sys.path.insert(0, os.path.realpath("."))
 sys.path.insert(0, os.path.realpath("./pixtch"))
-from pixtch.database import get_base_metadata
+from database import get_base_metadata
 target_metadata = get_base_metadata()
 
 # other values from the config, defined by the needs of env.py,

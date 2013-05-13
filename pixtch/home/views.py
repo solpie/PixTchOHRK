@@ -25,10 +25,6 @@ def home():
 def test_view():
     return 'test'
 
-# @app.errorhandler(404)
-# def error404(error):
-#     return render_template('404.html')
-
 
 @route_home.route('/upload', methods=['GET', 'POST'])
 def upload_file():
