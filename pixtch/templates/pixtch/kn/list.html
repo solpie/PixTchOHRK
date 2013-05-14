@@ -1,19 +1,99 @@
 {% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='css/standard.css') }}" rel="stylesheet">
+{% endblock %}
 {% block title %}
     knnnnnnnnnnnn
 {% endblock %}
 {% block body %}
-    {% for kn in kn_list %}
-        <div class="kn-header">
-            <a class="kn-a" href="/kn/{{ kn.id }}">
-                {{ kn.title }}
-            </a>
-            <hr>
-            <div class="well well-large">
-                {{ kn.html_content }}
+    {#    {% for kn in kn_list %}#}
+    {#        <div class="kn-header">#}
+    {#            <a class="kn-a" href="/kn/{{ kn.id }}">#}
+    {#                {{ kn.title }}#}
+    {#            </a>#}
+    {#            <hr>#}
+    {#            <div class="well well-large">#}
+    {#                {{ kn.html_content }}#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    {% endfor %}#}
+
+
+    <div class="fixed_center">
+        <div class="tag_box clearfix">
+            <p style="float:left; width:100px; margin-top:3px;"><img src="/images/sprite.png?20130507"
+                                                                     class="icons ic_tag" alt="tag">注目のタグ</p>
+
+            <p style="float:right; width:80px; margin-top:3px;"><a href="/tag_cloud/?view=audio">タグ一覧&nbsp;»</a></p>
+            <ul class="taglist">
+                <li><a href="/content_list/?view=audio&amp;tag=%E6%98%8E%E3%82%8B%E3%81%84">明るい</a></li>
+                <li>
+                    <a href="/content_list/?view=audio&amp;tag=%E3%82%B7%E3%83%A5%E3%83%BC%E3%82%B2%E3%82%A4%E3%82%B6%E3%83%BC">シューゲイザー</a>
+                </li>
+                <li><a href="/content_list/?view=audio&amp;tag=%E3%82%AD%E3%83%A9%E3%82%AD%E3%83%A9">キラキラ</a></li>
+                <li><a href="/content_list/?view=audio&amp;tag=%E8%8A%B1">花</a></li>
+                <li><a href="/content_list/?view=audio&amp;tag=%E3%83%86%E3%82%AF%E3%83%8E%E3%83%9D%E3%83%83%E3%83%97">テクノポップ</a>
+                </li>
+                <li><a href="/content_list/?view=audio&amp;tag=%E3%83%8F%E3%82%A6%E3%82%B9">ハウス</a></li>
+                <li><a href="/content_list/?view=audio&amp;tag=%E7%AB%A5%E8%AC%A1">童謡</a></li>
+            </ul>
+        </div>
+        <div class="clearfix">
+            <div class="btn_switch view">
+                <div class="sw_l now">
+                    <a id="_switch_classic" href="/"><img src="/images/sprite.png?20130507" class="icons ic_v_list"
+                                                          alt="Classic"></a>
+                </div>
+                <div class="sw_r">
+                    <a id="_switch_modern" href="/"><img src="/images/sprite.png?20130507" class="icons ic_v_thumb"
+                                                         alt="Modern"></a>
+                </div>
+            </div>
+            <div id="contents">
+                <div class="cv_link" style="width:500px; margin:0 auto;">
+                    <span class="now"><a href="/">全て</a></span>
+                    <span class=""><a href="/?tag=meiko">ＭＥＩＫＯ</a></span>
+                    <span class=""><a href="/?tag=kaito">ＫＡＩＴＯ</a></span>
+                    <span class=""><a href="/?tag=miku">初音ミク</a></span>
+                    <span class=""><a href="/?tag=rin">鏡音リン</a></span>
+                    <span class=""><a href="/?tag=len">鏡音レン</a></span>
+                    <span class=""><a href="/?tag=luka">巡音ルカ</a></span>
+                    <span class=""><a href="/?tag=other">その他</a></span>
+                </div>
+                <ul class="snd_list">
+                    {% for kn in kn_list %}
+                        <li id="_item_zgufktdnn57h6l0p" class="_item">
+                            <div class="thumb">
+                                <a href="/kn/{{ kn.id }}"><img src="/images/thumb_jkt_miku.gif" width="48"
+                                                               height="48"></a>
+                            </div>
+                            <a href="/kn/{{ kn.id }}" class="_item_play playbtn">play</a>
+                            <div class="databox">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td class="title"><a href="/kn/{{ kn.id }}"> {{ kn.title }}</a></td>
+                                        <td class="username"><a href="/zivar"><img src="/images/sprite.png?20130507"
+                                                                                   class="icons ic_user_snd">solpieさん</a>
+                                        </td>
+                                        <td class="post">2013/04/20<br>18:09</td>
+                                        <td class="time">03:12</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </li>
+                        <script>
+                            $(function () {
+                                $('#_item_zgufktdnn57h6l0p').data('piapro_player', { id: 'zgufktdnn57h6l0p', make_date: '', pid: '', date: '2013\x2F04\x2F20\x2018\x3A09', s_sec: '03\x3A12', create_date: '2013\x2D04\x2D20\x2018\x3A09\x3A14', title: '\u30D0\u30B9\u30EB\u30FC\u30E0\u30B7\u30F3\u30C9\u30ED\u30FC\u30E0', nickname: 'zivar', creator: 'user', del_kbn: '0' });
+                            });
+                        </script>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
-    {% endfor %}
+    </div>
 
     <div class="pagination">
         <ul>
