@@ -14,7 +14,6 @@ route_kn = Blueprint('kn', __name__)
 def show_kn_post(kid):
     try:
         kn = KnPost.query.filter(KnPost.id == kid).first()
-        #todo show image
         return render_template('pixtch/kn/detail.html', kn=kn)
     except TemplateNotFound:
         # abort(404)

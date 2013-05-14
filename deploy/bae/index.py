@@ -10,5 +10,6 @@ sys.path.insert(0, os.path.join('.', 'site-packages'))
 from runserver import app
 from bae.core.const import *
 
-# app.init_db(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_PORT, 'MVwslEoiYLtUAerKTSuE')
+app.init_db(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_PORT, 'MVwslEoiYLtUAerKTSuE')
+app.setup()
 application = WSGIApplication(app)

@@ -16,8 +16,9 @@ def env():
 
 
 if __name__ == '__main__':
+    #todo http://markitup.jaysalvat.com/home/
     if 'SERVER_SOFTWARE' in os.environ:
-        #todo run on bae
+        #todo run on bae 404
         # http://developer.baidu.com/wiki/index.php?title=docs/cplat/rt/python/faq
         from bae.core.wsgi import WSGIApplication
 
@@ -30,6 +31,7 @@ if __name__ == '__main__':
     import datetime
 
     t = datetime.datetime.now()
+    app.setup()
     print __name__, '>>init..ok', t
     # print app.url_rule_class.alias
     #

@@ -14,6 +14,7 @@ class Pixtch(Flask):
     def __init__(self, name):
         super(Pixtch, self).__init__(name)
 
+    def setup(self):
         self.init_app()
         self.init_path()
         self.init_bluePrint()
