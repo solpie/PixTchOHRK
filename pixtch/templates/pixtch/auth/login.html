@@ -16,12 +16,9 @@
         $(function () {
             $('button#login').bind('click', function () {
                 var pw2 = $('input[id="password"]').val();
-                var pw1 = Sha1.hash(pw2);
-                $("div#alert").text(pw1);
-                $('div#alert').show();
                 $.post('/login/', {
                     name: $('input[id="name"]').val(),
-                    pw: pw1,
+                    pw: pw2,
                     rm: $('input[id="remember"]').is(':checked') ? 1 : 0
                 }, function (data) {
                     if (!data.error)
