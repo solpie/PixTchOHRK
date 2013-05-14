@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'SolPie'
 from flask.ext import wtf
-from flask.ext.uploads import UploadSet, IMAGES
+from flaskext.uploads import UploadSet, IMAGES
 
 images = UploadSet("images", IMAGES)
 

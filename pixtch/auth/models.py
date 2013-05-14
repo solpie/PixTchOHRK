@@ -14,7 +14,7 @@ class User(Base):
     password = Column(String(20))
     register_date = Column(DateTime, default=datetime.now)
     last_login_date = Column(DateTime)
-    pw_hash = Column(String)
+    pw_hash = Column(String(256))
 
     def __init__(self, name=None, email=None, password=None):
         self.name = name

@@ -10,16 +10,16 @@ class Uppo(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
     user = relation(User, backref=backref('uppo', order_by=id))
-    name_p = Column(String)
+    name_p = Column(String(20))
     sex = Column(Integer)
     birthday = Column(DateTime)
     cellphone = Column(Integer)
-    name_real = Column(String)
+    name_real = Column(String(20))
     qq = Column(Integer)
-    skill = Column(String)
-    avatar = Column(String)
+    skill = Column(String(128))
+    avatar = Column(String(256))
     weibo_id = Column(Integer)
-    brief = Column(String)
+    brief = Column(String(256))
 
 
     def __repr__(self):

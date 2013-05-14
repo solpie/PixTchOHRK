@@ -24,7 +24,13 @@ def session_commit():
     db_session.commit()
 
 
-def init_db():
+def connect(user, pw, host, port, db):
+    engine = create_engine('mysql://' + user + ':' + pw + '@' + host + ':' + port + '/' + db, convert_unicode=True,
+                           echo=False)
+    pass
+
+
+def create_db():
     import kn.models
     import auth.models
     import uppo.models
@@ -52,4 +58,4 @@ def upgrade():
 
 
 if __name__ == '__main__':
-    init_db()
+    create_db()

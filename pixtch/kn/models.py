@@ -36,7 +36,7 @@ class KnPost(Base):
 
     html_content = sa.Column(sa.String(360))#allow uppo 自定义部分
     # owner = sa.Column(sa.ForeignKey(User))
-    cover_url = sa.Column(sa.String)#封面图片
+    cover_url = sa.Column(sa.String(256))#封面图片
     status = sa.Column(sa.Integer)
     created = sa.Column(sa.DateTime)
     modified = sa.Column(sa.DateTime, default=datetime.now)
