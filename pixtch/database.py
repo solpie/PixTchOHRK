@@ -6,7 +6,24 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 # engine = create_engine('mysql+pymysql://root:-+@127.0.0.1/test', convert_unicode=True, echo=False)
-engine = create_engine('sqlite:///db/test.db', convert_unicode=True, echo=False)
+
+# engine = create_engine('sqlite:///db/test.db', convert_unicode=True, echo=False)
+
+#################################################
+import os
+
+if 'SERVER_SOFTWARE' in os.environ:
+    from bae.core.const import *
+
+    user, pw, host, port, db = MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_PORT, 'MVwslEoiYLtUAerKTSuE'
+    engine = create_engine('mysql://' + user + ':' + pw + '@' + host + ':' + port + '/' + db, convert_unicode=True,
+                           echo=False)
+    print "This is BAE environ"
+else:
+    engine = create_engine('sqlite:///db/test.db', convert_unicode=True, echo=False)
+    print "This is local environ"
+##################################################
+
 db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 Base = declarative_base()
 Base.query = db_session.query_property()
