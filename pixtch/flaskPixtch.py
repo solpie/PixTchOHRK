@@ -21,10 +21,10 @@ class Pixtch(Flask):
         self.init_ext()
         self.init_error()
 
-    def init_db(self, user, pw, host, port, db):
+    def init_db(self, url):
         from database import connect
 
-        connect(user, pw, host, port, db)
+        connect(url)
         pass
 
     def init_app(self):

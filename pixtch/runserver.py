@@ -10,11 +10,6 @@ application = None
 app = Pixtch(__name__)
 
 
-@app.route('/env')
-def env():
-    return os.environ.get("VCAP_SERVICES", "{}")
-
-
 if __name__ == '__main__':
     #todo http://markitup.jaysalvat.com/home/
     if 'SERVER_SOFTWARE' in os.environ:

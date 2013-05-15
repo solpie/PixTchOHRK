@@ -36,10 +36,6 @@ def init_db():
     print __name__, '>>create db'
 
 
-
-
-
-
 def get_base_metadata():
     from kn.models import *
     from auth.models import *

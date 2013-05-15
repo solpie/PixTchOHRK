@@ -8,108 +8,147 @@
 {% endblock %}
 {% block body %}
     <div id="header" class="clearfix">
-		<ul id="header_nav" class="clearfix">
-			<li><h1><a href="http://piapro.jp/"><img src="/images/piapro.png" width="110" alt="ピアプロ"></a></h1></li>
-															<li id="_gnav_cont" class="gnav" style="position:relative; height:30px;"><a href="http://piapro.jp/">投稿作品<span class="txt_sub">▼</span></a>
-				<ul id="_header_pmenu_cont" class="header_pmenu">
-					<li><a href="http://piapro.jp/music/"><img src="/images/sprite.png?20130507" class="icons ic_snd">オンガク一覧</a></li>
-					<li><a href="http://piapro.jp/illust/"><img src="/images/sprite.png?20130507" class="icons ic_ill">イラスト一覧</a></li>
-					<li><a href="http://piapro.jp/text/"><img src="/images/sprite.png?20130507" class="icons ic_txt">テキスト一覧</a></li>
-				</ul>
-			</li>
-			<li class="gnav"><a href="http://piapro.jp/collabo_list/">コラボ</a></li>
-			<li class="gnav"><a href="http://piapro.jp/upload/">新規投稿</a></li>
-			<li class="gnav"><a href="http://blog.piapro.jp/" target="_blank">ブログ</a></li>
-			<li style="position:relative; font-size:12px; margin-right:0;">
-				<div class="selectbox"><img src="/images/icon_sprite.png?20130507" class="icons ic_ill" alt="イラスト"><span>▼</span></div>
-				<div class="searchbox">
-					<div style="width:145px; float:left;">
-						<form action="http://piapro.jp/search/" method="get" id="_form_search" style="line-height:18px;">
-							<input type="hidden" name="view" value="image"><input type="text" name="keyword" value="" class="input"><input type="button" name="" border="0" class="sitesrc_btn icons ic_search">						</form>
-					</div>
-					<div id="_search_advanced_pulldown" class="searchtxt">▼</div>
-				</div>
-				<div class="clear"></div>
-				<div class="pulldownbox" style="display: none;">
-					<div class="pick"><a href="#"><img src="/images/icon_sprite.png?20130507" class="icons ic_snd" alt="オンガク">音楽</a></div>
-					<div class="pick"><a href="#"><img src="/images/icon_sprite.png?20130507" class="icons ic_ill" alt="イラスト">イラスト</a></div>
-					<div class="pick"><a href="#"><img src="/images/icon_sprite.png?20130507" class="icons ic_3dm" alt="3Dモデル">3Dモデル</a></div>
-					<div class="pick"><a href="#"><img src="/images/icon_sprite.png?20130507" class="icons ic_txt_normal" alt="テキスト">テキスト</a></div>
-					<div><a href="#"><img src="/images/icon_sprite.png?20130507" class="icons ic_tag" alt="タグ">タグ</a></div>
-					<div><a href="#"><img src="/images/icon_sprite.png?20130507" class="icons ic_clb" alt="コラボ">コラボ</a></div>
-					<div><a href="#"><img src="/images/icon_sprite.png?20130507" class="icons ic_user" alt="ユーザー">ユーザー</a></div>
-				</div>
-				<div id="_search_advanced_box" class="search_dtl" style="visibility: visible; display: none;">
-					<form action="http://piapro.jp/search/" method="get" id="_from_search_advanced">
-					<input type="hidden" name="view" value="image">
-					<input type="hidden" name="keyword" value="">
-					<p style="font-weight:bold;">詳細検索</p>
-					<input type="checkbox" name="license" value="1" id="_search_advanced_license" style="position:relative; top:2px; margin-right:3px;"><label for="_search_advanced_license">ライセンス条件で絞り込む</label>
-					<div class="color_box02" id="_block_search_advanced_license" style="margin-top:5px; display:none;">
-						<div>
-							<input type="radio" name="cc_type" id="_search_advanced_cc_type_1" value="1" checked="checked" style="position:relative; top:2px; margin-right:3px;">
-							<label for="_search_advanced_cc_type_1">ライセンス条件の付いている作品</label>
-						</div>
-						<div style="margin-left:30px; margin-top:5px;">
-							<span class="em">氏名表示</span>
-							<input type="radio" name="cc_type_name" id="_search_advanced_cc_type_name_1" value="1" checked="" style="position:relative; top:2px; margin-right:3px;">
-							<label for="_search_advanced_cc_type_name_1">あり</label>
-							&nbsp;&nbsp;
-							<input type="radio" name="cc_type_name" id="_search_advanced_cc_type_name_0" value="0" style="position:relative; top:2px; margin-right:3px;">
-							<label for="_search_advanced_cc_type_name_0">なし</label>
-						</div>
-						<div style="margin-left:30px; margin-top:5px;">
-							<span class="em">作品改変</span>
-							<input type="radio" name="cc_type_edit" id="_search_advanced_cc_type_edit_1" value="1" checked="" style="position:relative; top:2px; margin-right:3px;">
-							<label for="_search_advanced_cc_type_edit_1">改変可</label>
-							&nbsp;&nbsp;
-							<input type="radio" name="cc_type_edit" id="_search_advanced_cc_type_edit_0" value="0" style="position:relative; top:2px; margin-right:3px;">
-							<label for="_search_advanced_cc_type_edit_0">改変不可</label>
-						</div>
-						<div style="margin-top:10px;">
-							<input type="radio" name="cc_type" id="_search_advanced_cc_type_0" value="0" style="position:relative; top:2px; margin-right:3px;">
-							<label for="_search_advanced_cc_type_0">ライセンス条件の付いていない作品</label>
-						</div>
-					</div>
-					<p style="text-align:center;"><input type="button" class="button_bright btn_ss" value="検索" style="color:#fff; margin-top:10px;"></p>
-					</form>
-				</div>
-			</li>
-		</ul>
-		<div id="header_user">
-			<div id="user_box">
-				<p class="header_icon"><a href="http://piapro.jp/solpie" class="header_username"><img src="/ujpg/378009_20120112014711_0048.jpg" width="30" height="30" alt="usericon"></a></p>
-				<p class="user_menu_mini">&nbsp;<a href="http://piapro.jp/my_page/?view=content&amp;pid=solpie">作品一覧</a>&nbsp;|&nbsp;<a href="http://piapro.jp/bookmark/?pid=solpie">ブクマ一覧</a>&nbsp;|&nbsp;</p>
-				<div id="_pmenu_box_etc" class="pmenu_box">
-					<p id="_btn_menu_etc" class="user_menu_etc">その他▼</p>
-					<ul id="_header_pmenu_etc" class="header_pmenu" style="display: none;">
-						<li><a href="http://piapro.jp/solpie">ユーザーTOP</a></li>
-						<li><a href="http://piapro.jp/my_page/?view=content&amp;pid=solpie">投稿作品一覧</a></li>
-						<li><a href="http://piapro.jp/bookmark/?pid=solpie">ブクマ一覧</a></li>
-						<li><a href="http://piapro.jp/message/?pid=solpie">メッセージ</a></li>
-						<li><a href="http://piapro.jp/collabo_list/?pid=solpie">コラボ活動</a></li>
-						<li><a href="https://piapro.jp/user/">情報設定</a></li>
-						<li><a href="http://piapro.jp/display_history/">表示履歴</a></li>
-						<li><a href="http://piapro.jp/upload/">新規投稿</a></li>
-						<li><a href="http://piapro.jp/logout/">ログアウト</a></li>
-					</ul>
-				</div>
-			</div>
-			<div id="_pmenu_box_info" class="pmenu_box pmenu_info_box">
-				<div class="btn_down">
-					<a id="_btn_menu_info" href="#">ヘルプ▼</a>
-				</div>
-				<ul id="_header_pmenu_info" class="header_pmenu pmenu_info" style="display: none;">
-					<li><a href="http://piapro.jp/help/"><img src="/images/icon_sprite.png?20130507" class="icons ic_help" alt="HELP">ヘルプ</a></li>
-					<li><a href="http://piapro.jp/intro/"><img src="/images/sprite.png?20130507" class="icons ic_piapro" alt="はじめての方へ">ピアプロとは？</a></li>
-					<li><a href="http://piapro.jp/static/?view=twitter"><img src="/images/sprite.png?20130507" class="icons ic_tw" alt="Twitter">ピアプロ関連のTwitter</a></li>
-					<li><a href="http://piapro.jp/license/character_guideline">キャラクター利用のガイドライン</a></li>
-					<li><a href="http://piapro.jp/about_us/">ABOUT US</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
+        <ul id="header_nav" class="clearfix">
+            <li><h1><a href="http://piapro.jp/"><img src="/images/piapro.png" width="110" alt="ピアプロ"></a></h1></li>
+            <li id="_gnav_cont" class="gnav" style="position:relative; height:30px;"><a
+                    href="http://piapro.jp/">投稿作品<span class="txt_sub">▼</span></a>
+                <ul id="_header_pmenu_cont" class="header_pmenu">
+                    <li><a href="http://piapro.jp/music/"><img src="/images/sprite.png?20130507" class="icons ic_snd">オンガク一覧</a>
+                    </li>
+                    <li><a href="http://piapro.jp/illust/"><img src="/images/sprite.png?20130507" class="icons ic_ill">イラスト一覧</a>
+                    </li>
+                    <li><a href="http://piapro.jp/text/"><img src="/images/sprite.png?20130507" class="icons ic_txt">テキスト一覧</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="gnav"><a href="http://piapro.jp/collabo_list/">コラボ</a></li>
+            <li class="gnav"><a href="http://piapro.jp/upload/">新規投稿</a></li>
+            <li class="gnav"><a href="http://blog.piapro.jp/" target="_blank">ブログ</a></li>
+            <li style="position:relative; font-size:12px; margin-right:0;">
+                <div class="selectbox"><img src="/images/icon_sprite.png?20130507" class="icons ic_ill"
+                                            alt="イラスト"><span>▼</span></div>
+                <div class="searchbox">
+                    <div style="width:145px; float:left;">
+                        <form action="http://piapro.jp/search/" method="get" id="_form_search"
+                              style="line-height:18px;">
+                            <input type="hidden" name="view" value="image"><input type="text" name="keyword" value=""
+                                                                                  class="input"><input type="button"
+                                                                                                       name=""
+                                                                                                       border="0"
+                                                                                                       class="sitesrc_btn icons ic_search">
+                        </form>
+                    </div>
+                    <div id="_search_advanced_pulldown" class="searchtxt">▼</div>
+                </div>
+                <div class="clear"></div>
+                <div class="pulldownbox" style="display: none;">
+                    <div class="pick"><a href="#"><img src="/images/icon_sprite.png?20130507" class="icons ic_snd"
+                                                       alt="オンガク">音楽</a></div>
+                    <div class="pick"><a href="#"><img src="/images/icon_sprite.png?20130507" class="icons ic_ill"
+                                                       alt="イラスト">イラスト</a></div>
+                    <div class="pick"><a href="#"><img src="/images/icon_sprite.png?20130507" class="icons ic_3dm"
+                                                       alt="3Dモデル">3Dモデル</a></div>
+                    <div class="pick"><a href="#"><img src="/images/icon_sprite.png?20130507"
+                                                       class="icons ic_txt_normal" alt="テキスト">テキスト</a></div>
+                    <div><a href="#"><img src="/images/icon_sprite.png?20130507" class="icons ic_tag" alt="タグ">タグ</a>
+                    </div>
+                    <div><a href="#"><img src="/images/icon_sprite.png?20130507" class="icons ic_clb" alt="コラボ">コラボ</a>
+                    </div>
+                    <div><a href="#"><img src="/images/icon_sprite.png?20130507" class="icons ic_user"
+                                          alt="ユーザー">ユーザー</a></div>
+                </div>
+                <div id="_search_advanced_box" class="search_dtl" style="visibility: visible; display: none;">
+                    <form action="http://piapro.jp/search/" method="get" id="_from_search_advanced">
+                        <input type="hidden" name="view" value="image">
+                        <input type="hidden" name="keyword" value="">
 
+                        <p style="font-weight:bold;">詳細検索</p>
+                        <input type="checkbox" name="license" value="1" id="_search_advanced_license"
+                               style="position:relative; top:2px; margin-right:3px;"><label
+                            for="_search_advanced_license">ライセンス条件で絞り込む</label>
+
+                        <div class="color_box02" id="_block_search_advanced_license"
+                             style="margin-top:5px; display:none;">
+                            <div>
+                                <input type="radio" name="cc_type" id="_search_advanced_cc_type_1" value="1"
+                                       checked="checked" style="position:relative; top:2px; margin-right:3px;">
+                                <label for="_search_advanced_cc_type_1">ライセンス条件の付いている作品</label>
+                            </div>
+                            <div style="margin-left:30px; margin-top:5px;">
+                                <span class="em">氏名表示</span>
+                                <input type="radio" name="cc_type_name" id="_search_advanced_cc_type_name_1" value="1"
+                                       checked="" style="position:relative; top:2px; margin-right:3px;">
+                                <label for="_search_advanced_cc_type_name_1">あり</label>
+                                &nbsp;&nbsp;
+                                <input type="radio" name="cc_type_name" id="_search_advanced_cc_type_name_0" value="0"
+                                       style="position:relative; top:2px; margin-right:3px;">
+                                <label for="_search_advanced_cc_type_name_0">なし</label>
+                            </div>
+                            <div style="margin-left:30px; margin-top:5px;">
+                                <span class="em">作品改変</span>
+                                <input type="radio" name="cc_type_edit" id="_search_advanced_cc_type_edit_1" value="1"
+                                       checked="" style="position:relative; top:2px; margin-right:3px;">
+                                <label for="_search_advanced_cc_type_edit_1">改変可</label>
+                                &nbsp;&nbsp;
+                                <input type="radio" name="cc_type_edit" id="_search_advanced_cc_type_edit_0" value="0"
+                                       style="position:relative; top:2px; margin-right:3px;">
+                                <label for="_search_advanced_cc_type_edit_0">改変不可</label>
+                            </div>
+                            <div style="margin-top:10px;">
+                                <input type="radio" name="cc_type" id="_search_advanced_cc_type_0" value="0"
+                                       style="position:relative; top:2px; margin-right:3px;">
+                                <label for="_search_advanced_cc_type_0">ライセンス条件の付いていない作品</label>
+                            </div>
+                        </div>
+                        <p style="text-align:center;"><input type="button" class="button_bright btn_ss" value="検索"
+                                                             style="color:#fff; margin-top:10px;"></p>
+                    </form>
+                </div>
+            </li>
+        </ul>
+        <div id="header_user">
+            <div id="user_box">
+                <p class="header_icon"><a href="http://piapro.jp/solpie" class="header_username"><img
+                        src="/ujpg/378009_20120112014711_0048.jpg" width="30" height="30" alt="usericon"></a></p>
+
+                <p class="user_menu_mini">&nbsp;<a href="http://piapro.jp/my_page/?view=content&amp;pid=solpie">作品一覧</a>&nbsp;|&nbsp;<a
+                        href="http://piapro.jp/bookmark/?pid=solpie">ブクマ一覧</a>&nbsp;|&nbsp;</p>
+
+                <div id="_pmenu_box_etc" class="pmenu_box">
+                    <p id="_btn_menu_etc" class="user_menu_etc">その他▼</p>
+                    <ul id="_header_pmenu_etc" class="header_pmenu" style="display: none;">
+                        <li><a href="http://piapro.jp/solpie">ユーザーTOP</a></li>
+                        <li><a href="http://piapro.jp/my_page/?view=content&amp;pid=solpie">投稿作品一覧</a></li>
+                        <li><a href="http://piapro.jp/bookmark/?pid=solpie">ブクマ一覧</a></li>
+                        <li><a href="http://piapro.jp/message/?pid=solpie">メッセージ</a></li>
+                        <li><a href="http://piapro.jp/collabo_list/?pid=solpie">コラボ活動</a></li>
+                        <li><a href="https://piapro.jp/user/">情報設定</a></li>
+                        <li><a href="http://piapro.jp/display_history/">表示履歴</a></li>
+                        <li><a href="http://piapro.jp/upload/">新規投稿</a></li>
+                        <li><a href="http://piapro.jp/logout/">ログアウト</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="_pmenu_box_info" class="pmenu_box pmenu_info_box">
+                <div class="btn_down">
+                    <a id="_btn_menu_info" href="#">ヘルプ▼</a>
+                </div>
+                <ul id="_header_pmenu_info" class="header_pmenu pmenu_info" style="display: none;">
+                    <li><a href="http://piapro.jp/help/"><img src="/images/icon_sprite.png?20130507"
+                                                              class="icons ic_help" alt="HELP">ヘルプ</a></li>
+                    <li><a href="http://piapro.jp/intro/"><img src="/images/sprite.png?20130507" class="icons ic_piapro"
+                                                               alt="はじめての方へ">ピアプロとは？</a></li>
+                    <li><a href="http://piapro.jp/static/?view=twitter"><img src="/images/sprite.png?20130507"
+                                                                             class="icons ic_tw" alt="Twitter">ピアプロ関連のTwitter</a>
+                    </li>
+                    <li><a href="http://piapro.jp/license/character_guideline">キャラクター利用のガイドライン</a></li>
+                    <li><a href="http://piapro.jp/about_us/">ABOUT US</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <p></p>
+    <p></p>
     <h2><p class="text-center">Pixtch</p></h2>
     <div class="navbar">
         <div class="navbar-inner">
@@ -140,8 +179,6 @@
             <li><a href="/search">search</a></li>
             <li><a href="/404">404</a></li>
             <li><a href="/401">401</a></li>
-
-            {#            <li><a title="login2" href="{{ url_for('.login') }}" target="_blank"></a></li>#}
         </ul>
     </div>
 {% endblock %}
