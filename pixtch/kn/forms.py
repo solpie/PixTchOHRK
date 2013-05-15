@@ -10,4 +10,5 @@ class KnForm(wtf.Form):
     title = wtf.TextField('title', validators=[wtf.required()])
     html_content = wtf.TextAreaField('content', validators=[wtf.required()])
     tags = wtf.SelectMultipleField(u'tags', choices=[('music', 'V+ music'), ('image', 'Painting'), ('pv', 'PV')])
-    img = wtf.FileField('image', validators=[wtf.file_required(), wtf.file_allowed(images, "Images only!")])
+    img = wtf.FileField('image', validators=[wtf.file_allowed(images, "Images only!")])
+    # img = wtf.FileField('image', validators=[wtf.file_required(), wtf.file_allowed(images, "Images only!")])

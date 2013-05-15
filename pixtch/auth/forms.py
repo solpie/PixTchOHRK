@@ -5,8 +5,8 @@ from models import User
 
 
 class RegistrationForm(wtf.Form):
-    name = wtf.TextField('uppo name', validators=[wtf.required(), wtf.validators.Email()])
-    email = wtf.TextField('Email Address', [wtf.validators.Length(min=6, max=35)])
+    name = wtf.TextField('uppo name', validators=[wtf.required()])
+    email = wtf.TextField('Email Address', validators=[wtf.validators.Length(min=6, max=35), wtf.validators.Email()])
     password = wtf.PasswordField('New Password', [
         wtf.validators.Required(),
         wtf.validators.EqualTo('confirm', message='Passwords must match')

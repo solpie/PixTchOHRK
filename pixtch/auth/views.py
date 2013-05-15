@@ -70,33 +70,13 @@ def permissionDenied(error):
     return Response('Auth Only if you are an admin')
 
 
-# @route_auth.route('/login/', methods=['GET', 'POST'])
-# def login():
-#     e = None
-#     form = LoginForm(request.form)
-#     print form.name.data, form.user
-#     if form.validate_on_submit():
-#         try:
-#             form.validate_login()
-#         except ValidationError, e:
-#             return render_template('login.html', form=form, error=e)
-#         user = form.get_user(form.name.data)
-#         ret = login_user(user)
-#         print __name__, 'Loggin user ', ret, current_user
-#         # Tell Flask-Principal the identity changed
-#         identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
-#         return redirect('/')
-#     else:
-#         return render_template('login.html', form=form, error=e)
-
-
 @route_auth.route('/login', methods=['GET', 'POST'])
 @route_auth.route('/login/', methods=['GET', 'POST'])
 def auth():
     if request.method == 'GET':
         form = LoginForm(request.form)
         return render_template('login.html', form=form)
-    #post
+        #post
     name = request.values.get('name', type=str)
     password = request.values.get('pw', type=str)
     remember = request.values.get('rm', type=int)
@@ -121,6 +101,7 @@ def register():
         user = User()
         user.name = form.name.data
         user.password = form.password.data
+        user.set_password(user.password)
         db.session_add(user)
         db.session_commit()
         flash('Thanks for registering')
