@@ -21,13 +21,13 @@ class Pixtch(Flask):
         self.init_error()
 
     def init_db(self):
-        from database import create_db
 
-        create_db()
+        # from database import create_db
+        #
+        # create_db()
         pass
 
     def init_app(self):
-        self.secret_key = 'interesting'
         self.url_map.converters['regex'] = RegexConverter
 
     def init_path(self):
@@ -76,16 +76,12 @@ class Pixtch(Flask):
         init_auth(self)
         init_admin(self)
         Bootstrap(self)
-        sae = self.config['SAE_RUN'] = False
-        if sae:
-            from sae.const import (MYSQL_HOST, MYSQL_HOST_S,
-                                   MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
-                                   )
 
 
 def create_app():
     app = Pixtch(__name__)
-    app.config.from_object(__name__)
+    app.config.from_pyfile('settings.py')
+    # app.config.from_object(__name__)
     return app
 
     # @app.route('/view/<regex("[a-zA-Z0-9]+"):uuid>/')

@@ -37,8 +37,10 @@ if services:
 os.environ.setdefault('MYSQL', uri)
 
 sys.path.insert(0, os.path.join('.', 'site-packages'))
-from runserver import app
+from flaskPixtch import create_app
+
 
 if __name__ == '__main__':
+    app = create_app()
     app.setup()
     app.run(debug=True)

@@ -57,7 +57,13 @@ def get_base_metadata():
 
     return Base.metadata
 
+#####################new##################
+from flask.ext.sqlalchemy import SQLAlchemy
 
+db = SQLAlchemy()
+
+
+######################
 def autogenerate():
     'alembic revision --autogenerate -m "Added account table"'
     pass

@@ -3,8 +3,18 @@ __author__ = 'SolPie'
 from sqlalchemy import Column, Integer, String, DateTime, Text
 from database import Base
 from datetime import datetime
+from database import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
+# class User(db.Model):
+#     __tablename__ = 'users'
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(50), unique=True)
+#     email = db.Column(db.String(120), unique=True)
+#     password = db.Column(db.String(20))
+#     register_date = db.Column(db.DateTime, default=datetime.now)
+#     last_login_date = db.Column(db.DateTime)
+#     pw_hash = db.Column(db.String(256))
 
 class User(Base):
     __tablename__ = 'users'
