@@ -21,30 +21,16 @@ class Pixtch(Flask):
         self.init_ext()
         self.init_error()
 
-    def init_db(self, url):
-        from database import connect
+    def init_db(self):
+        from database import create_db
 
-        connect(url)
+        create_db()
         pass
 
     def init_app(self):
         self.config.from_object(__name__)
         self.secret_key = 'interesting'
         self.url_map.converters['regex'] = RegexConverter
-
-    #
-    # def init_database():
-    #     from flask.ext.sqlalchemy import SQLAlchemy
-    #
-    #     from database import init_db
-    #
-    #     init_db()
-
-    # from flask.ext.sqlalchemy import SQLAlchemy
-    #
-    # db = SQLAlchemy(app)
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/test.db'
-
 
     def init_path(self):
         import sys
@@ -76,13 +62,6 @@ class Pixtch(Flask):
 
         @self.before_request
         def before_request():
-            try:
-                if self.config[ENV_BAE]:
-                    g.db = MySQLdb.connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS,
-                                           MYSQL_DB, port=int(MYSQL_PORT))
-            except Exception, e:
-                pass
-                # g.db = connect_db()
             pass
 
         @self.teardown_request
