@@ -5,11 +5,6 @@ import json
 import sys
 
 
-@app.route('/env')
-def env():
-    return os.environ.get("VCAP_SERVICES", "{}")
-
-
 def mysql_uri():
     local = os.environ.get("MONGODB", None)
     if local:
