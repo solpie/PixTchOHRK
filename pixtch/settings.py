@@ -3,7 +3,7 @@ __author__ = 'SolPie'
 DEBUG = True
 SECRET_KEY = 'interesting'
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///test2.db'
+SQLALCHEMY_DATABASE_URI = 'sqlite:///db/test2.db'
 SQLALCHEMY_ECHO = False
 
 UPLOADS_DEFAULT_DEST = '/path/to/pypress/static/'

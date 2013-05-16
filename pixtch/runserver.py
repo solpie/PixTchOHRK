@@ -19,7 +19,8 @@ if __name__ == '__main__':
 
     t = datetime.datetime.now()
     app.setup()
-    print __name__, '>>init..ok', t, app.secret_key
+    db.create_all(app=app)
+    print __name__, '>>init..ok', t, app.config.get('SQLALCHEMY_DATABASE_URI')
     # print app.url_rule_class.alias
     #
     port = int(os.environ.get('PORT', 5000))

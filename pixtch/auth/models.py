@@ -6,25 +6,25 @@ from datetime import datetime
 from database import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
-# class User(db.Model):
-#     __tablename__ = 'users'
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(50), unique=True)
-#     email = db.Column(db.String(120), unique=True)
-#     password = db.Column(db.String(20))
-#     register_date = db.Column(db.DateTime, default=datetime.now)
-#     last_login_date = db.Column(db.DateTime)
-#     pw_hash = db.Column(db.String(256))
-
-class User(Base):
+class User(db.Model):
     __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(50), unique=True)
-    email = Column(String(120), unique=True)
-    password = Column(String(20))
-    register_date = Column(DateTime, default=datetime.now)
-    last_login_date = Column(DateTime)
-    pw_hash = Column(String(256))
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True)
+    email = db.Column(db.String(120), unique=True)
+    password = db.Column(db.String(20))
+    register_date = db.Column(db.DateTime, default=datetime.now)
+    last_login_date = db.Column(db.DateTime)
+    pw_hash = db.Column(db.String(256))
+
+# class User(Base):
+#     __tablename__ = 'users'
+#     id = Column(Integer, primary_key=True)
+#     name = Column(String(50), unique=True)
+#     email = Column(String(120), unique=True)
+#     password = Column(String(20))
+#     register_date = Column(DateTime, default=datetime.now)
+#     last_login_date = Column(DateTime)
+#     pw_hash = Column(String(256))
 
     def __init__(self, name=None, email=None, password=None):
         self.name = name
