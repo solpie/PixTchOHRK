@@ -4,9 +4,6 @@ import os
 import json
 import sys
 
-sys.path.insert(0, os.path.join('.', 'pixtch'))
-from runserver import app
-
 
 @app.route('/env')
 def env():
@@ -32,7 +29,21 @@ def mysql_uri():
         raise Exception, "No services configured"
 
 
+services = json.loads(os.environ.get("VCAP_SERVICES", "{}"))
+if services:
+    creds = services['mysql-5.1'][0]['credentials']
+    uri = "mysql://%s:%s@%s:%d/%s" % (
+        creds['username'],
+        creds['password'],
+        creds['hostname'],
+        creds['port'],
+        creds['db'])
+
+os.environ.setdefault('MYSQL', uri)
+
+sys.path.insert(0, os.path.join('.', 'site-packages'))
+from runserver import app
+
 if __name__ == '__main__':
-    app.init_db(mysql_uri)
     app.setup()
     app.run(debug=True)
