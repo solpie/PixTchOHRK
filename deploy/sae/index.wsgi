@@ -18,7 +18,8 @@ uri = "mysql://%s:%s@%s:%d/%s" % (
 
 os.environ.setdefault('MYSQL', uri)
 
-from runserver import app
+from flaskPixtch import create_app
+app = create_app()
 app.setup()
 
 import sae

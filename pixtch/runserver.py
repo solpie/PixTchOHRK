@@ -1,17 +1,13 @@
 # -*- coding:utf-8 -*-
 __author__ = 'SolPie'
 import os
-import sys
-from flaskPixtch import Pixtch
-import const
+from flaskPixtch import create_app
 
-sys.path.insert(0, '.')
-application = None
-app = Pixtch(__name__)
 
 if __name__ == '__main__':
     #todo http://markitup.jaysalvat.com/home/
     # http://developer.baidu.com/wiki/index.php?title=docs/cplat/rt/python/faq
+    app = create_app()
     import datetime
 
     t = datetime.datetime.now()

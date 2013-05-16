@@ -16,8 +16,9 @@ os.environ.setdefault('MYSQL', uri)
 print "This is BAE environ"
 
 sys.path.insert(0, os.path.join('pixtch', 'site-packages'))
-from runserver import app
 
+from flaskPixtch import create_app
+app = create_app()
 app.setup()
 
 from bae.core.wsgi import WSGIApplication

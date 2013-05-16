@@ -38,8 +38,16 @@ def create_db():
     import auth.models
     import uppo.models
 
-    Base.metadata.create_all(bind=engine)
+    create_all(bind=engine)
     print __name__, '>>create db'
+
+
+def create_all(bind=None, table=None, checkfirst=True):
+    Base.metadata.create_all(bind, table, checkfirst)
+
+
+def drop_all(bind=None, table=None, checkfirst=True):
+    Base.metadata.drop_all(bind, table, checkfirst)
 
 
 def get_base_metadata():

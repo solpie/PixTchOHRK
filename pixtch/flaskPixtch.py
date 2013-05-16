@@ -1,6 +1,5 @@
 __author__ = 'SolPie'
 from flask import Flask, render_template
-from const import *
 from werkzeug.routing import BaseConverter
 
 
@@ -28,7 +27,6 @@ class Pixtch(Flask):
         pass
 
     def init_app(self):
-        self.config.from_object(__name__)
         self.secret_key = 'interesting'
         self.url_map.converters['regex'] = RegexConverter
 
@@ -85,24 +83,28 @@ class Pixtch(Flask):
                                    )
 
 
+def create_app():
+    app = Pixtch(__name__)
+    app.config.from_object(__name__)
+    return app
 
-            # @app.route('/view/<regex("[a-zA-Z0-9]+"):uuid>/')
-            # def view(uuid):
-            #     """
-            #     url: /view/1010000000125259/
-            #     result: view uuid:1010000000125259
-            #     """
-            #     return "view uuid: %s" % (uuid)
-            #
-            #
-            # @app.route('/<regex(".*"):url>')
-            # def not_found(url):
-            #     """
-            #     url: /hello
-            #     result: not found: 'hello'
-            #     """
-            #     return "not found: '%s'" % (url)
-            #
-            #
-            # if __name__ == '__main__':
-            #     app.run()
+    # @app.route('/view/<regex("[a-zA-Z0-9]+"):uuid>/')
+    # def view(uuid):
+    #     """
+    #     url: /view/1010000000125259/
+    #     result: view uuid:1010000000125259
+    #     """
+    #     return "view uuid: %s" % (uuid)
+    #
+    #
+    # @app.route('/<regex(".*"):url>')
+    # def not_found(url):
+    #     """
+    #     url: /hello
+    #     result: not found: 'hello'
+    #     """
+    #     return "not found: '%s'" % (url)
+    #
+    #
+    # if __name__ == '__main__':
+    #     app.run()
