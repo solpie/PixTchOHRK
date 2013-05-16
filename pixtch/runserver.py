@@ -9,19 +9,9 @@ sys.path.insert(0, '.')
 application = None
 app = Pixtch(__name__)
 
-
 if __name__ == '__main__':
     #todo http://markitup.jaysalvat.com/home/
-    if 'SERVER_SOFTWARE' in os.environ:
-        # http://developer.baidu.com/wiki/index.php?title=docs/cplat/rt/python/faq
-        from bae.core.wsgi import WSGIApplication
-
-        application = WSGIApplication(app)
-        app.config[const.ENV_BAE] = True
-        print "This is BAE environ"
-    else:
-        print "This is local environ"
-
+    # http://developer.baidu.com/wiki/index.php?title=docs/cplat/rt/python/faq
     import datetime
 
     t = datetime.datetime.now()

@@ -15,7 +15,7 @@ uri = "mysql://%s:%s@%s:%s/%s" % (
 os.environ.setdefault('MYSQL', uri)
 print "This is BAE environ"
 
-sys.path.insert(0, os.path.join('.', 'site-packages'))
+sys.path.insert(0, os.path.join('pixtch', 'site-packages'))
 from runserver import app
 
 app.setup()
