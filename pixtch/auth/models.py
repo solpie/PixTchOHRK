@@ -41,12 +41,5 @@ class User(db.Model):
     def get_id(self):
         return self.id
 
-    @staticmethod
-    def get(id=None, name=None):
-        if id:
-            return User.query.filter(User.id == id)
-        if name:
-            return User.query.filter(User.name == name)
-
     def __repr__(self):
         return '<User %r>' % self.name

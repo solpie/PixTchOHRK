@@ -80,9 +80,14 @@ class Pixtch(Flask):
         Bootstrap(self)
 
 
-def create_app():
+def create_app(db=None, uri=None):
     app = Pixtch(__name__)
     app.config.from_pyfile('settings.py')
+    if db and uri:
+        app.config['SQLALCHEMY_DATABASE_URI'] = uri
+        db.init_app(app)
+        app.setup()
+        # db.create_all(app=app)
     # app.config.from_object(__name__)
     return app
 

@@ -40,7 +40,7 @@ def init_auth(app):
 @login_manager.user_loader
 def load_user(userid):
     # Return an instance of the User model
-    user = User.query.filter(User.id == userid).first()
+    user = User.query.get(userid)
     return user
 
 
@@ -88,8 +88,6 @@ def auth():
     identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
     print __name__, 'Login user ', current_user
     return jsonify(error='')
-
-
     # return jsonify(error='Invalid user')
 
 
@@ -101,9 +99,6 @@ def register():
         email = form.email.data
         pw = form.password.data
         user = User(name, email, pw)
-        # user.name = form.name.data
-        # user.password = form.password.data
-        # user.set_password(user.password)
         db.session.add(user)
         db.session.commit()
         flash('Thanks for registering')
