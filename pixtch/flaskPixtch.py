@@ -52,11 +52,13 @@ class Pixtch(Flask):
         from auth.views import route_auth
         from kn.views import route_kn
         from admin.views import route_admin as admin
+        from uppo.views import route_uppo
 
         self.register_blueprint(route_home)
         self.register_blueprint(route_auth)
         self.register_blueprint(route_kn, url_prefix='/kn')
         self.register_blueprint(admin)
+        self.register_blueprint(route_uppo)
 
         from database import db
 
