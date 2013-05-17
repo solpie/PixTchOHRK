@@ -1,25 +1,23 @@
 __author__ = 'SolPie'
-from database import Base
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from sqlalchemy.orm import relation, backref
+from database import db
 from auth.models import User
 
 
-class Uppo(Base):
+class Uppo(db.Model):
     __tablename__ = 'uppo'
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'))
-    user = relation(User, backref=backref('uppo', order_by=id))
-    name_p = Column(String(20))
-    sex = Column(Integer)
-    birthday = Column(DateTime)
-    cellphone = Column(Integer)
-    name_real = Column(String(20))
-    qq = Column(Integer)
-    skill = Column(String(128))
-    avatar = Column(String(256))
-    weibo_id = Column(Integer)
-    brief = Column(String(256))
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user = db.relation(User, backref=db.backref('uppo', order_by=id))
+    name_p = db.Column(db.String(20))
+    sex = db.Column(db.Integer)
+    birthday = db.Column(db.DateTime)
+    cellphone = db.Column(db.Integer)
+    name_real = db.Column(db.String(20))
+    qq = db.Column(db.Integer)
+    skill = db.Column(db.String(128))
+    avatar = db.Column(db.String(256))
+    weibo_id = db.Column(db.Integer)
+    brief = db.Column(db.String(256))
 
 
     def __repr__(self):

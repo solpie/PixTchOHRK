@@ -18,8 +18,7 @@ from flask.ext.login import (LoginManager, current_user, login_required,
                              confirm_login, fresh_login_required, logout_user)
 from models import User
 from forms import *
-import database as db
-from wtforms import ValidationError
+from database import db
 
 route_auth = Blueprint('auth', __name__, template_folder='../templates/pixtch/auth')
 # load the extension
@@ -98,15 +97,18 @@ def auth():
 def register():
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
-        user = User()
-        user.name = form.name.data
-        user.password = form.password.data
-        user.set_password(user.password)
-        db.session_add(user)
-        db.session_commit()
+        name = form.name.data
+        email = form.email.data
+        pw = form.password.data
+        user = User(name, email, pw)
+        # user.name = form.name.data
+        # user.password = form.password.data
+        # user.set_password(user.password)
+        db.session.add(user)
+        db.session.commit()
         flash('Thanks for registering')
         print 'create admin user', user
-        return redirect(url_for('.login_view'))
+        return redirect(url_for('.auth'))
     else:
         return render_template('register.html', form=form)
 

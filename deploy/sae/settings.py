@@ -2,8 +2,17 @@
 __author__ = 'SolPie'
 DEBUG = True
 SECRET_KEY = 'interesting'
+from sae.const import (MYSQL_HOST, MYSQL_HOST_S,
+                       MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB)
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///db/test.db'
+uri = "mysql://%s:%s@%s:%d/%s" % (
+    MYSQL_USER,
+    MYSQL_PASS,
+    MYSQL_HOST,
+    int(MYSQL_PORT),
+    MYSQL_DB)
+
+SQLALCHEMY_DATABASE_URI = uri
 SQLALCHEMY_ECHO = False
 
 UPLOADS_DEFAULT_DEST = '/path/to/pypress/static/'

@@ -16,11 +16,15 @@ uri = "mysql://%s:%s@%s:%d/%s" % (
     int(MYSQL_PORT),
     MYSQL_DB)
 
-os.environ.setdefault('MYSQL', uri)
 
 from flaskPixtch import create_app
 app = create_app()
 app.setup()
+app.config.setdefault('SQLALCHEMY_DATABASE_URI', uri)
+
+from database import db
+
+db.init_app(app)
 
 import sae
 application = sae.create_wsgi_app(app)

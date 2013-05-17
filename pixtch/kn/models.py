@@ -1,46 +1,44 @@
 # -*- coding:utf-8 -*-
-import sqlalchemy as sa
-from database import Base
-from sqlalchemy import Column, Integer, String, DateTime, Text
+from database import db
 from datetime import datetime
 
 
-class Tag(Base):
+class Tag(db.Model):
     __tablename__ = 'kn_tag'
-    id = sa.Column(sa.Integer, primary_key=True)
-    name = sa.Column(sa.Unicode(64))
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Unicode(64))
 
     # Required for administrative interface
     def __unicode__(self):
         return self.name
 
 
-class KnCategory(Base):
+class KnCategory(db.Model):
     __tablename__ = 'kn_category'
-    id = sa.Column(sa.Integer, primary_key=True)
-    name = sa.Column(sa.Unicode(40))
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Unicode(40))
 
     def __init__(self, name):
         self.name = name
         pass
 
 
-class KnPost(Base):
+class KnPost(db.Model):
     __tablename__ = 'kn_post'
-    id = sa.Column(sa.Integer, primary_key=True)
-    title = sa.Column(sa.Unicode(40))
-    slug = sa.Column(sa.String(120))
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.Unicode(40))
+    slug = db.Column(db.String(120))
 
-    category_id = sa.Column(sa.Integer, sa.ForeignKey(KnCategory.id))
+    category_id = db.Column(db.Integer, db.ForeignKey(KnCategory.id))
     # category = sa.relationship(KnCategory, backref='posts')
 
-    html_content = sa.Column(sa.String(360))#allow uppo 自定义部分
+    html_content = db.Column(db.String(360))#allow uppo 自定义部分
     # owner = sa.Column(sa.ForeignKey(User))
-    cover_url = sa.Column(sa.String(256))#封面图片
-    status = sa.Column(sa.Integer)
-    created = sa.Column(sa.DateTime)
-    modified = sa.Column(sa.DateTime, default=datetime.now)
-    pv = sa.Column(sa.Integer)
+    cover_url = db.Column(db.String(256))#封面图片
+    status = db.Column(db.Integer)
+    created = db.Column(db.DateTime)
+    modified = db.Column(db.DateTime, default=datetime.now)
+    pv = db.Column(db.Integer)
 
     def __init__(self, title=None):
         self.title = title

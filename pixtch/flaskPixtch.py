@@ -21,7 +21,6 @@ class Pixtch(Flask):
         self.init_error()
 
     def init_db(self):
-
         # from database import create_db
         #
         # create_db()
@@ -32,9 +31,12 @@ class Pixtch(Flask):
 
     def init_path(self):
         import sys
+        import os
 
-        sys.path.insert(0, 'libs')
-        print __name__, self.config.root_path
+        sys.path.insert(0, os.path.join('.', 'site-packages'))
+        import pprint
+
+        # pprint.pprint(('[path]', __name__, self.config.root_path, sys.path))
 
     def init_error(self):
         @self.errorhandler(404)
@@ -56,7 +58,7 @@ class Pixtch(Flask):
         self.register_blueprint(route_kn, url_prefix='/kn')
         self.register_blueprint(admin)
 
-        from database import db_session
+        from database import db
 
         @self.before_request
         def before_request():
@@ -64,7 +66,7 @@ class Pixtch(Flask):
 
         @self.teardown_request
         def shutdown_session(exception=None):
-            db_session.remove()
+            db.session.remove()
             # print __name__, '>>shutdown_session'
             pass
 

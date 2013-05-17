@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, abort, session, request, redirect,
 from jinja2 import TemplateNotFound
 from models import KnPost
 from forms import *
-import database as db
+from database import db
 from flask.ext.login import login_required
 from werkzeug.utils import secure_filename
 
@@ -24,7 +24,7 @@ def show_kn_post(kid):
 # @admin.require(401)
 def show():
     try:
-        kn = KnPost.query.all()
+        kn = KnPost.query.order_by(KnPost.id)
         return render_template('pixtch/kn/list.html', kn_list=kn)
     except TemplateNotFound:
         abort(404)
@@ -44,8 +44,8 @@ def add_kn_post():
             img_filename = secure_filename(img_file.filename)
             img_file.save('static/upload/' + img_filename)
         kn.status = 1
-        db.session_add(kn)
-        db.session_commit()
+        db.session.add(kn)
+        db.session.commit()
         flash('Thanks for posting')
         url = '/kn/' + str(kn.id)
         return redirect(url)
