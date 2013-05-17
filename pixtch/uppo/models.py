@@ -19,6 +19,5 @@ class Uppo(db.Model):
     weibo_id = db.Column(db.Integer)
     brief = db.Column(db.String(256))
 
-
     def __repr__(self):
         return '<Uppo %r>' % self.name_p
