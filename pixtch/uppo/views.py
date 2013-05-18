@@ -2,6 +2,7 @@ __author__ = 'SolPie'
 from flask import Blueprint, render_template
 from models import Uppo
 
+# bp = Blueprint('uppo', __name__)
 bp = Blueprint('uppo', __name__, template_folder='../templates/pixtch/uppo')
 
 

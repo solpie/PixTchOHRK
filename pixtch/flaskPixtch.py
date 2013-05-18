@@ -42,6 +42,7 @@ class Pixtch(Flask):
 
         try:
             v = __import__(module + '.views')
+            # v.views.bp.template_folder = 'templates/pixtch/' + module
             self.register_blueprint(v.views.bp)
         except ImportError, e:
             print 'module [', module, '] do not have views'
@@ -63,6 +64,7 @@ class Pixtch(Flask):
         @self.errorhandler(401)
         def error401(e):
             return render_template('401.html', e=e)
+
         from module import db
 
         @self.before_request

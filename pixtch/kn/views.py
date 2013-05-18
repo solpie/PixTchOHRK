@@ -7,14 +7,14 @@ from module import db
 from flask.ext.login import login_required
 from werkzeug.utils import secure_filename
 
-bp = Blueprint('kn', __name__,url_prefix='/kn')
+bp = Blueprint('kn', __name__, url_prefix='/kn', template_folder='../templates/pixtch/kn')
 
 
 @bp.route('/<int:kid>')
 def show_kn_post(kid):
     try:
         kn = KnPost.query.filter(KnPost.id == kid).first()
-        return render_template('pixtch/kn/detail.html', kn=kn)
+        return render_template('detail.html', kn=kn)
     except TemplateNotFound:
         # abort(404)
         pass
@@ -25,7 +25,7 @@ def show_kn_post(kid):
 def show():
     try:
         kn = KnPost.query.order_by(KnPost.id)
-        return render_template('pixtch/kn/list.html', kn_list=kn)
+        return render_template('list.html', kn_list=kn)
     except TemplateNotFound:
         abort(404)
         pass
@@ -51,5 +51,5 @@ def add_kn_post():
         return redirect(url)
         pass
     else:
-        return render_template('pixtch/kn/form.html', form=form)
+        return render_template('form.html', form=form)
     pass
