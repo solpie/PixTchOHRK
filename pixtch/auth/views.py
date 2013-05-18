@@ -37,6 +37,10 @@ login_manager.anonymous_user = AnonymousUser
 
 
 def init_auth(app):
+    @app.errorhandler(PermissionDenied)
+    def permissionDenied(error):
+        print '该操作()需要的访问权限为:' + str(error.args[0].needs)
+        return Response('Auth Only if you are an admin')
     login_manager.init_app(app)
     principals = Principal(app)
 
@@ -67,12 +71,6 @@ def logout():
     return redirect(url_for('home.index'))
 
 
-@bp.errorhandler(PermissionDenied)
-def permissionDenied(error):
-    print '该操作()需要的访问权限为:' + str(error.args[0].needs)
-    return Response('Auth Only if you are an admin')
-
-
 @bp.route('/login', methods=['GET', 'POST'])
 @bp.route('/login/', methods=['GET', 'POST'])
 def auth():
@@ -85,7 +83,7 @@ def auth():
     remember = request.values.get('rm', type=int)
     user = get_user(name)
     if user is None:
-        return jsonify(error=_('Invalid user'))
+        return jsonify(error='Invalid user')
     if not user.check_password(password):
         return jsonify(error='Invalid password')
     login_user(user, remember)

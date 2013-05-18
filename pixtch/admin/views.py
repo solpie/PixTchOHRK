@@ -6,14 +6,11 @@ from flask.ext.principal import Identity, Principal, RoleNeed, UserNeed, \
 from flask.ext import login
 
 
-# permission_admin = Permission(RoleNeed('admin'))
-
 class AdminView(AdminIndexView):
     @expose('/')
-    @p_admin.require()
+    # @p_admin.require()
     def index(self):
-        print 'admin index...'
-        return self.render('admin/index2.html')
+        return self.render('admin/index.html')
 
 
 class BackendView(BaseView):
@@ -22,7 +19,7 @@ class BackendView(BaseView):
         return isAuth
 
     @expose('/')
-    @p_admin.require(401)
+    @p_admin.require()
     def index(self):
         url = url_for('.test')
         print 'BackendView'
@@ -34,13 +31,12 @@ class BackendView(BaseView):
         return self.render('pixtch/admin/index.html')
 
 
-admin = Admin(index_view=AdminView())
+admin = Admin(name='Pixtch', index_view=AdminView())
 
 
 def init_admin(app):
     # admin.add_view(BackendView(name='Pixtch Backend', endpoint='testadmin',url=))
-    admin.name = 'Pixtch'
-    # admin.base_template = 'admin/user/layout.html'
+    admin.base_template = 'admin/user/layout.html'
     # admin.index_view = AdminIndexView()
     from flask.ext.admin.contrib.fileadmin import FileAdmin
 
