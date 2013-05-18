@@ -17,13 +17,11 @@ class Pixtch(Flask):
         self.init_path()
         self.init_ext()
         self.init_app()
-        # self.init_bluePrint()
         self.init_error()
 
-    def init_db(self):
-        # from database import create_db
-        #
-        # create_db()
+    def init_db(self, uri=None):
+        if uri:
+            self.config['SQLALCHEMY_DATABASE_URI'] = uri
         pass
 
     def init_app(self):
@@ -36,7 +34,7 @@ class Pixtch(Flask):
     def init_module(self, module):
         try:
             m = __import__(module + '.models')
-            m.models.add_admin()
+            m.models.add_admin(self.admin)
         except ImportError, e:
             print 'module [', module, '] do not have models'
 
@@ -50,8 +48,6 @@ class Pixtch(Flask):
     def init_path(self):
         import sys
         import os
-
-        sys.path.insert(0, os.path.join('.', 'site-packages'))
         import pprint
 
         # pprint.pprint(('[path]', __name__, self.config.root_path, sys.path))
@@ -82,7 +78,7 @@ class Pixtch(Flask):
         from auth.views import init_auth
         from flask.ext.bootstrap import Bootstrap
 
-        init_admin(self)
+        self.admin = init_admin(self)
         init_auth(self)
         Bootstrap(self)
 
@@ -91,7 +87,7 @@ def create_app(db=None, uri=None):
     app = Pixtch(__name__)
     app.config.from_pyfile('settings.py')
     if db and uri:
-        app.config['SQLALCHEMY_DATABASE_URI'] = uri
+        app.init_db(uri=uri)
         db.init_app(app)
         app.setup()
         # db.create_all(app=app)

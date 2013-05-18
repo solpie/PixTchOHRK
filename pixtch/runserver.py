@@ -10,16 +10,17 @@ if __name__ == '__main__':
     #todo flask-sqlalchemy fix sae bug
     #todo permission admin
     #todo manager 脚本命令
+    #todo unit test
     # http://developer.baidu.com/wiki/index.php?title=docs/cplat/rt/python/faq
+    ######
     app = create_app()
     db.init_app(app)
     app.setup()
     db.create_all(app=app)
-    print db
+    ########
     import datetime
 
     t = datetime.datetime.now()
-    print db
     print __name__, '>>init..ok', t, app.config.get('SQLALCHEMY_DATABASE_URI')
     port = int(os.environ.get('PORT', 5000))
     app.debug = True

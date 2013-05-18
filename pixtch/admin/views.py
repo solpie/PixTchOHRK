@@ -1,13 +1,19 @@
-from flask.ext.admin import BaseView, expose
-
+from flask.ext.admin import BaseView, expose, AdminIndexView, Admin
+from permissions import p_admin
 from flask import url_for, Blueprint
 from flask.ext.principal import Identity, Principal, RoleNeed, UserNeed, \
     Permission, identity_changed, identity_loaded
 from flask.ext import login
 
 
-route_admin = Blueprint('adminbackend', __name__)
-permission_admin = Permission(RoleNeed('admin'))
+# permission_admin = Permission(RoleNeed('admin'))
+
+class AdminView(AdminIndexView):
+    @expose('/')
+    @p_admin.require()
+    def index(self):
+        print 'admin index...'
+        return self.render('admin/index2.html')
 
 
 class BackendView(BaseView):
@@ -16,7 +22,7 @@ class BackendView(BaseView):
         return isAuth
 
     @expose('/')
-    @permission_admin.require(401)
+    @p_admin.require(401)
     def index(self):
         url = url_for('.test')
         print 'BackendView'
@@ -28,11 +34,14 @@ class BackendView(BaseView):
         return self.render('pixtch/admin/index.html')
 
 
+admin = Admin(index_view=AdminView())
+
+
 def init_admin(app):
-    from module import admin
-
-    admin.add_view(BackendView(name='Pixtch Backend', endpoint='testadmin'))
-
+    # admin.add_view(BackendView(name='Pixtch Backend', endpoint='testadmin',url=))
+    admin.name = 'Pixtch'
+    # admin.base_template = 'admin/user/layout.html'
+    # admin.index_view = AdminIndexView()
     from flask.ext.admin.contrib.fileadmin import FileAdmin
 
     import os
@@ -40,4 +49,5 @@ def init_admin(app):
     path = os.path.join(app.config.root_path, 'static')
     admin.add_view(FileAdmin(path, '/static/', name='Static Files'))
     admin.init_app(app)
+    return admin
 

@@ -1,7 +1,7 @@
 #coding=utf-8
 __author__ = 'SolPie'
 from datetime import datetime
-from module import db, admin
+from module import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask.ext.admin.contrib.sqlamodel import ModelView
 
@@ -61,5 +61,5 @@ class UserAdmin(ModelView):
     column_filters = ('name', 'email')
 
 
-def add_admin():
+def add_admin(admin):
     admin.add_view(UserAdmin(User, db.session, category='User'))

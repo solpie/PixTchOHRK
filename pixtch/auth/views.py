@@ -21,6 +21,8 @@ from forms import *
 from module import db
 from datetime import datetime
 
+from flask.ext.babelex import gettext, lazy_gettext as _
+
 
 bp = Blueprint('auth', __name__, template_folder='../templates/pixtch/auth')
 # load the extension
@@ -83,7 +85,7 @@ def auth():
     remember = request.values.get('rm', type=int)
     user = get_user(name)
     if user is None:
-        return jsonify(error='Invalid user')
+        return jsonify(error=_('Invalid user'))
     if not user.check_password(password):
         return jsonify(error='Invalid password')
     login_user(user, remember)

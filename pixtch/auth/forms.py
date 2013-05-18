@@ -20,7 +20,7 @@ class RegistrationForm(wtf.Form):
         print self, 'validate sign up'
         if name is None:
             raise wtf.ValidationError('no name')
-        if User.query.filter(User.name == name):
+        if User.query.filter_by(name=name):
             raise wtf.ValidationError('name is exist')
         pass
 
@@ -58,7 +58,7 @@ class LoginForm(wtf.Form):
 
     def get_user(self, name):
         # name = str(self.name.data)
-        user = User.query.filter(User.name == name).first()
+        user = User.query.filter_by(name=name).first()
         print 'query user :', name, 'result:', user
         return user
 

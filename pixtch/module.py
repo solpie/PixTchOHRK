@@ -20,9 +20,9 @@ db = SQLAlchemy()
 ######################
 
 
-from flask.ext.admin import Admin
-
-admin = Admin(name='Pixtch', base_template='admin/user/layout.html')
+# from flask.ext.admin import Admin
+#
+# admin = Admin()
 
 
 def autogenerate():

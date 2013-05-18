@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from module import db, admin
+from module import db
 from datetime import datetime
 from flask.ext.admin.contrib.sqlamodel import ModelView
 from auth.models import User
@@ -58,7 +58,7 @@ class KnPostAdmin(ModelView):
     form_columns = ('title', 'html_content', 'status')
 
 
-def add_admin():
+def add_admin(admin):
     admin.add_view(KnPostAdmin(KnPost, db.session, category='Kn'))
     admin.add_view(ModelView(Tag, db.session, category='Kn'))
 

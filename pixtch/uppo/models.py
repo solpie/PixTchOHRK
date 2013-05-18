@@ -1,5 +1,5 @@
 __author__ = 'SolPie'
-from module import db, admin
+from module import db
 from auth.models import User
 from flask.ext.admin.contrib.sqlamodel import ModelView
 
@@ -31,5 +31,5 @@ class UppoAdmin(ModelView):
     column_list = ('user_id', 'name_p')
 
 
-def add_admin():
+def add_admin(admin):
     admin.add_view(UppoAdmin(Uppo, db.session, category='User'))
