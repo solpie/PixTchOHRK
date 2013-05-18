@@ -95,7 +95,6 @@ def create_app(db=None, uri=None):
         db.init_app(app)
         app.setup()
         # db.create_all(app=app)
-    # app.config.from_object(__name__)
     return app
 
     # @app.route('/view/<regex("[a-zA-Z0-9]+"):uuid>/')

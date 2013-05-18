@@ -16,6 +16,7 @@ class BackendView(BaseView):
         return isAuth
 
     @expose('/')
+    @permission_admin.require(401)
     def index(self):
         url = url_for('.test')
         print 'BackendView'
