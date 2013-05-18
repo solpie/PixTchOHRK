@@ -20,7 +20,7 @@ import sys
 
 sys.path.insert(0, os.path.realpath("."))
 sys.path.insert(0, os.path.realpath("./pixtch"))
-from database import db
+from module import db
 from flaskPixtch import create_app
 
 create_app(db, 'sqlite:///pixtch/db/test.db')

@@ -14,10 +14,10 @@ class Pixtch(Flask):
         super(Pixtch, self).__init__(name)
 
     def setup(self):
-        self.init_app()
         self.init_path()
-        self.init_bluePrint()
         self.init_ext()
+        self.init_app()
+        # self.init_bluePrint()
         self.init_error()
 
     def init_db(self):
@@ -28,6 +28,23 @@ class Pixtch(Flask):
 
     def init_app(self):
         self.url_map.converters['regex'] = RegexConverter
+        self.init_module('home')
+        self.init_module('auth')
+        self.init_module('uppo')
+        self.init_module('kn')
+
+    def init_module(self, module):
+        try:
+            m = __import__(module + '.models')
+            m.models.add_admin()
+        except Exception, e:
+            print 'module [', module, '] do not have models'
+
+        try:
+            v = __import__(module + '.views')
+            self.register_blueprint(v.views.route)
+        except Exception, e:
+            print 'module [', module, '] do not have views'
 
     def init_path(self):
         import sys
@@ -46,21 +63,7 @@ class Pixtch(Flask):
         @self.errorhandler(401)
         def error401(e):
             return render_template('401.html', e=e)
-
-    def init_bluePrint(self):
-        from home.views import route_home
-        from auth.views import route_auth
-        from kn.views import route_kn
-        from admin.views import route_admin as admin
-        from uppo.views import route_uppo
-
-        self.register_blueprint(route_home)
-        self.register_blueprint(route_auth)
-        self.register_blueprint(route_kn, url_prefix='/kn')
-        self.register_blueprint(admin)
-        self.register_blueprint(route_uppo)
-
-        from database import db
+        from module import db
 
         @self.before_request
         def before_request():
@@ -77,8 +80,8 @@ class Pixtch(Flask):
         from auth.views import init_auth
         from flask.ext.bootstrap import Bootstrap
 
-        init_auth(self)
         init_admin(self)
+        init_auth(self)
         Bootstrap(self)
 
 

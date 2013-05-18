@@ -3,11 +3,11 @@ from flask import Blueprint, render_template, abort, session, request, redirect,
 from jinja2 import TemplateNotFound
 from models import KnPost
 from forms import *
-from database import db
+from module import db
 from flask.ext.login import login_required
 from werkzeug.utils import secure_filename
 
-route_kn = Blueprint('kn', __name__)
+route = route_kn = Blueprint('kn', __name__,url_prefix='/kn')
 
 
 @route_kn.route('/<int:kid>')

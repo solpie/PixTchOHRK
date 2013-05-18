@@ -2,7 +2,7 @@ __author__ = 'SolPie'
 from flask import Blueprint, render_template
 from models import Uppo
 
-route_uppo = Blueprint('uppo', __name__, template_folder='../templates/pixtch/uppo')
+route = route_uppo = Blueprint('uppo', __name__, template_folder='../templates/pixtch/uppo')
 
 
 def get_uppo(pid):

@@ -11,13 +11,20 @@ else:
     print "This is local environ"
 ##################################################
 
-#####################new##################
+#####################SQLAlchemy##################
 from flask.ext.sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
 
 ######################
+
+
+from flask.ext.admin import Admin
+
+admin = Admin(name='Pixtch', base_template='admin/user/layout.html')
+
+
 def autogenerate():
     'alembic revision --autogenerate -m "Added account table"'
     pass

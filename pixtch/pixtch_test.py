@@ -5,7 +5,7 @@ import tempfile
 from runserver import app
 from flaskPixtch import Pixtch
 from flask.ext.testing import TestCase
-import database as db
+import module as db
 
 
 class PixtchTest(TestCase):
@@ -15,7 +15,7 @@ class PixtchTest(TestCase):
         return app
 
     def setUp(self):
-        from database import create_db
+        from module import create_db
 
         create_db()
         pass

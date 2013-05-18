@@ -1,8 +1,9 @@
 #coding=utf-8
 __author__ = 'SolPie'
 from datetime import datetime
-from database import db
+from module import db, admin
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask.ext.admin.contrib.sqlamodel import ModelView
 
 
 class User(db.Model):
@@ -43,3 +44,22 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.name
+
+
+# Customized User model admin
+class UserAdmin(ModelView):
+    list_template = 'admin/user/list.html'
+    create_template = 'admin/user/create.html'
+    edit_template = 'admin/user/edit.html'
+    # Show only name and email columns in list view
+    column_list = ('name', 'email', 'register_date', 'last_login_date')
+    # Enable search functionality - it will search for terms in
+    # name and email fields
+    column_searchable_list = ('name', 'email')
+
+    # Add filters for name and email columns
+    column_filters = ('name', 'email')
+
+
+def add_admin():
+    admin.add_view(UserAdmin(User, db.session, category='User'))

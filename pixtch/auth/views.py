@@ -18,11 +18,11 @@ from flask.ext.login import (LoginManager, current_user, login_required,
                              confirm_login, fresh_login_required, logout_user)
 from models import User
 from forms import *
-from database import db
+from module import db
 from datetime import datetime
 
 
-route_auth = Blueprint('auth', __name__, template_folder='../templates/pixtch/auth')
+route = route_auth = Blueprint('auth', __name__, template_folder='../templates/pixtch/auth')
 # load the extension
 principals = Principal(route_auth)
 # Create a permission with a single Need, in this case a RoleNeed.

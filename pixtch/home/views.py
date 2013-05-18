@@ -8,7 +8,7 @@ from flask import (
     render_template)
 from flask.ext import login
 
-route_home = Blueprint('home', __name__, template_folder='../templates/pixtch/')
+route = route_home = Blueprint('home', __name__, template_folder='../templates/pixtch/')
 
 
 @route_home.route('/')

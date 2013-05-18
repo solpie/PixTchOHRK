@@ -1,6 +1,8 @@
 # -*- coding:utf-8 -*-
-from database import db
+from module import db, admin
 from datetime import datetime
+from flask.ext.admin.contrib.sqlamodel import ModelView
+from auth.models import User
 
 
 class Tag(db.Model):
@@ -11,6 +13,8 @@ class Tag(db.Model):
     # Required for administrative interface
     def __unicode__(self):
         return self.name
+
+
 
 
 class KnCategory(db.Model):
@@ -45,6 +49,18 @@ class KnPost(db.Model):
 
     def __repr__(self):
         return '<KnPost %r>' % self.title
+
+
+class KnPostAdmin(ModelView):
+    column_list = ('title', 'created', 'modified')
+    # column_list = ('title', ('owner', User.name), 'created', 'modified')
+    column_searchable_list = ('title', User.name)
+    form_columns = ('title', 'html_content', 'status')
+
+
+def add_admin():
+    admin.add_view(KnPostAdmin(KnPost, db.session, category='Kn'))
+    admin.add_view(ModelView(Tag, db.session, category='Kn'))
 
 
 
