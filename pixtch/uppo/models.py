@@ -4,10 +4,10 @@ from auth.models import User
 
 
 class Uppo(db.Model):
-    __tablename__ = 'uppo'
+    __tablename__ = 'pt_uppo'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    user = db.relation(User, backref=db.backref('uppo', order_by=id))
+    user_id = db.Column(db.Integer, db.ForeignKey('pt_users.id'))
+    user = db.relation(User, backref=db.backref('pt_uppo', order_by=id))
     name_p = db.Column(db.String(20))
     sex = db.Column(db.Integer)
     birthday = db.Column(db.DateTime)
@@ -18,6 +18,9 @@ class Uppo(db.Model):
     avatar = db.Column(db.String(256))
     weibo_id = db.Column(db.Integer)
     brief = db.Column(db.String(256))
+
+    def __init__(self):
+        pass
 
     def __repr__(self):
         return '<Uppo %r>' % self.name_p

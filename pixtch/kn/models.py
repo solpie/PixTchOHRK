@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class Tag(db.Model):
-    __tablename__ = 'kn_tag'
+    __tablename__ = 'pt_kn_tag'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(64))
 
@@ -14,7 +14,7 @@ class Tag(db.Model):
 
 
 class KnCategory(db.Model):
-    __tablename__ = 'kn_category'
+    __tablename__ = 'pt_kn_category'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(40))
 
@@ -24,7 +24,7 @@ class KnCategory(db.Model):
 
 
 class KnPost(db.Model):
-    __tablename__ = 'kn_post'
+    __tablename__ = 'pt_kn_post'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Unicode(40))
     slug = db.Column(db.String(120))

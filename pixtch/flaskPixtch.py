@@ -52,11 +52,13 @@ class Pixtch(Flask):
         from auth.views import route_auth
         from kn.views import route_kn
         from admin.views import route_admin as admin
+        from uppo.views import route_uppo
 
         self.register_blueprint(route_home)
         self.register_blueprint(route_auth)
         self.register_blueprint(route_kn, url_prefix='/kn')
         self.register_blueprint(admin)
+        self.register_blueprint(route_uppo)
 
         from database import db
 
@@ -80,9 +82,14 @@ class Pixtch(Flask):
         Bootstrap(self)
 
 
-def create_app():
+def create_app(db=None, uri=None):
     app = Pixtch(__name__)
     app.config.from_pyfile('settings.py')
+    if db and uri:
+        app.config['SQLALCHEMY_DATABASE_URI'] = uri
+        db.init_app(app)
+        app.setup()
+        # db.create_all(app=app)
     # app.config.from_object(__name__)
     return app
 

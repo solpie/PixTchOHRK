@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = 'pt_users'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True)
     email = db.Column(db.String(120), unique=True)
@@ -40,13 +40,6 @@ class User(db.Model):
 
     def get_id(self):
         return self.id
-
-    @staticmethod
-    def get(id=None, name=None):
-        if id:
-            return User.query.filter(User.id == id)
-        if name:
-            return User.query.filter(User.name == name)
 
     def __repr__(self):
         return '<User %r>' % self.name

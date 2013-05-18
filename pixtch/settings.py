@@ -6,7 +6,7 @@ SECRET_KEY = 'interesting'
 SQLALCHEMY_DATABASE_URI = 'sqlite:///db/test.db'
 SQLALCHEMY_ECHO = False
 
-UPLOADS_DEFAULT_DEST = '/path/to/pypress/static/'
+UPLOADS_DEFAULT_DEST = '/static/'
 UPLOADS_DEFAULT_URL = '/static'
 
 CACHE_TYPE = "simple"
@@ -20,10 +20,6 @@ ACCEPT_LANGUAGES = ['en', 'zh']
 
 BABEL_DEFAULT_LOCALE = 'zh'
 BABEL_DEFAULT_TIMEZONE = 'Asia/Shanghai'
-
-# http://twitter.com/oauth_clients/new
-TWITTER_KEY = ''
-TWITTER_SECRET = ''
 
 PER_PAGE = 20
 
