@@ -2,14 +2,14 @@ __author__ = 'SolPie'
 from flask import Blueprint, render_template
 from models import Uppo
 
-route = route_uppo = Blueprint('uppo', __name__, template_folder='../templates/pixtch/uppo')
+bp = Blueprint('uppo', __name__, template_folder='../templates/pixtch/uppo')
 
 
 def get_uppo(pid):
     return Uppo.query.get(pid)
 
 
-@route_uppo.route('/p/<int:pid>')
+@bp.route('/p/<int:pid>')
 def uppo_view(pid):
     if pid:
         uppo = get_uppo(pid)

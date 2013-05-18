@@ -7,10 +7,10 @@ from module import db
 from flask.ext.login import login_required
 from werkzeug.utils import secure_filename
 
-route = route_kn = Blueprint('kn', __name__,url_prefix='/kn')
+bp = Blueprint('kn', __name__,url_prefix='/kn')
 
 
-@route_kn.route('/<int:kid>')
+@bp.route('/<int:kid>')
 def show_kn_post(kid):
     try:
         kn = KnPost.query.filter(KnPost.id == kid).first()
@@ -20,7 +20,7 @@ def show_kn_post(kid):
         pass
 
 
-@route_kn.route('/')
+@bp.route('/')
 # @admin.require(401)
 def show():
     try:
@@ -31,7 +31,7 @@ def show():
         pass
 
 
-@route_kn.route('/add_kn_post/', methods=['GET', 'POST'])
+@bp.route('/add_kn_post/', methods=['GET', 'POST'])
 @login_required
 def add_kn_post():
     form = KnForm(request.form)

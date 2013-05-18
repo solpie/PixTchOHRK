@@ -22,9 +22,9 @@ from module import db
 from datetime import datetime
 
 
-route = route_auth = Blueprint('auth', __name__, template_folder='../templates/pixtch/auth')
+bp = Blueprint('auth', __name__, template_folder='../templates/pixtch/auth')
 # load the extension
-principals = Principal(route_auth)
+principals = Principal(bp)
 # Create a permission with a single Need, in this case a RoleNeed.
 permission_admin = Permission(RoleNeed('admin'))
 permission_uppo = Permission(RoleNeed('uppo'))
@@ -50,7 +50,7 @@ def get_user(name):
     return User.query.filter(User.name == name).first()
 
 
-@route_auth.route('/logout/')
+@bp.route('/logout/')
 @login_required
 def logout():
     logout_user()
@@ -65,14 +65,14 @@ def logout():
     return redirect(url_for('home.index'))
 
 
-@route_auth.errorhandler(PermissionDenied)
+@bp.errorhandler(PermissionDenied)
 def permissionDenied(error):
     print '该操作()需要的访问权限为:' + str(error.args[0].needs)
     return Response('Auth Only if you are an admin')
 
 
-@route_auth.route('/login', methods=['GET', 'POST'])
-@route_auth.route('/login/', methods=['GET', 'POST'])
+@bp.route('/login', methods=['GET', 'POST'])
+@bp.route('/login/', methods=['GET', 'POST'])
 def auth():
     if request.method == 'GET':
         form = LoginForm(request.form)
@@ -95,8 +95,8 @@ def auth():
     # return jsonify(error='Invalid user')
 
 
-@route_auth.route('/register/', methods=['GET', 'POST'])
-@route_auth.route('/register', methods=['GET', 'POST'])
+@bp.route('/register/', methods=['GET', 'POST'])
+@bp.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -113,6 +113,6 @@ def register():
         return render_template('register.html', form=form)
 
 
-@route_auth.route('/uppo/<upponame>')
+@bp.route('/uppo/<upponame>')
 def show_uppo_profile(upponame):
     return 'uppo %s' % upponame

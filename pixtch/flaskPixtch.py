@@ -37,13 +37,13 @@ class Pixtch(Flask):
         try:
             m = __import__(module + '.models')
             m.models.add_admin()
-        except Exception, e:
+        except ImportError, e:
             print 'module [', module, '] do not have models'
 
         try:
             v = __import__(module + '.views')
-            self.register_blueprint(v.views.route)
-        except Exception, e:
+            self.register_blueprint(v.views.bp)
+        except ImportError, e:
             print 'module [', module, '] do not have views'
 
     def init_path(self):

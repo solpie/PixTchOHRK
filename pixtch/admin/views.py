@@ -27,14 +27,6 @@ class BackendView(BaseView):
         return self.render('pixtch/admin/index.html')
 
 
-def add_admin_view(module):
-    try:
-        m = __import__(module + '.models')
-        m.models.add_admin()
-    except Exception, e:
-        print 'module [', module, '] do not have models'
-
-
 def init_admin(app):
     from module import admin
 
