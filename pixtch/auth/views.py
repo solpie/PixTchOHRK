@@ -19,6 +19,8 @@ from flask.ext.login import (LoginManager, current_user, login_required,
 from models import User
 from forms import *
 from database import db
+from datetime import datetime
+
 
 route_auth = Blueprint('auth', __name__, template_folder='../templates/pixtch/auth')
 # load the extension
@@ -85,6 +87,8 @@ def auth():
     if not user.check_password(password):
         return jsonify(error='Invalid password')
     login_user(user, remember)
+    user.last_login_date = datetime.now()
+    db.session.commit()
     identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
     print __name__, 'Login user ', current_user
     return jsonify(error='')
@@ -92,6 +96,7 @@ def auth():
 
 
 @route_auth.route('/register/', methods=['GET', 'POST'])
+@route_auth.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():

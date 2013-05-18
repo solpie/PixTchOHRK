@@ -28,7 +28,11 @@ class BackendView(BaseView):
         return self.render('pixtch/admin/index.html')
 
 
+from kn.models import KnPost, KnCategory, Tag
 from auth.models import User
+from uppo.models import Uppo
+
+
 # Customized User model admin
 class UserAdmin(ModelView):
     list_template = 'admin/user/list.html'
@@ -45,6 +49,10 @@ class UserAdmin(ModelView):
     column_filters = ('name', 'email')
 
 
+class UppoAdmin(ModelView):
+    column_list = ('user_id', 'name_p')
+
+
 class KnPostAdmin(ModelView):
     column_list = ('title', 'created', 'modified')
     # column_list = ('title', ('owner', User.name), 'created', 'modified')
@@ -54,11 +62,11 @@ class KnPostAdmin(ModelView):
 
 def init_admin(app):
     from database import db
-    from kn.models import KnPost, KnCategory, Tag
 
     admin = Admin(name='Pixtch', base_template='admin/user/layout.html')
     admin.add_view(BackendView(name='Pixtch Backend', endpoint='testadmin'))
     admin.add_view(UserAdmin(User, db.session, category='User'))
+    admin.add_view(UppoAdmin(Uppo, db.session, category='User'))
     admin.add_view(KnPostAdmin(KnPost, db.session, category='Kn'))
     admin.add_view(ModelView(Tag, db.session, category='Kn'))
 
