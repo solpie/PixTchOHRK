@@ -15,8 +15,6 @@ class Tag(db.Model):
         return self.name
 
 
-
-
 class KnCategory(db.Model):
     __tablename__ = 'pt_kn_category'
     id = db.Column(db.Integer, primary_key=True)
@@ -29,18 +27,31 @@ class KnCategory(db.Model):
 
 class KnPost(db.Model):
     __tablename__ = 'pt_kn_post'
+    #ID
     id = db.Column(db.Integer, primary_key=True)
+    #post_author
+    author = db.Column(db.BIGINT(20), default=0)
+    #post_date
+    created = db.Column(db.DateTime)
+    #post_date_gmt
+    #post_content
+    html_content = db.Column(db.TEXT)#allow uppo 自定义部分
+    #post_title
     title = db.Column(db.Unicode(40))
+    #post_excerpt
+    #post_status
+    status = db.Column(db.VARCHAR(20), default='publish')
+    #comment_status
+    comment_status = db.Column(db.VARCHAR(20), default='open')
+    #ping_status
+    ping_status = db.Column(db.VARCHAR(20), default='open')
     slug = db.Column(db.String(120))
 
     category_id = db.Column(db.Integer, db.ForeignKey(KnCategory.id))
     # category = sa.relationship(KnCategory, backref='posts')
 
-    html_content = db.Column(db.String(360))#allow uppo 自定义部分
     # owner = sa.Column(sa.ForeignKey(User))
     cover_url = db.Column(db.String(256))#封面图片
-    status = db.Column(db.Integer)
-    created = db.Column(db.DateTime)
     modified = db.Column(db.DateTime, default=datetime.now)
     pv = db.Column(db.Integer)
 
