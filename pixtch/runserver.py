@@ -3,7 +3,7 @@ __author__ = 'SolPie'
 import os
 from flaskPixtch import create_app
 
-from module import db
+from modules import db
 
 if __name__ == '__main__':
     #todo http://markitup.jaysalvat.com/home/

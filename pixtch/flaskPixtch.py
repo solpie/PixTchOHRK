@@ -14,7 +14,6 @@ class Pixtch(Flask):
         super(Pixtch, self).__init__(name)
 
     def setup(self):
-        self.init_path()
         self.init_ext()
         self.init_app()
         self.init_error()
@@ -61,7 +60,7 @@ class Pixtch(Flask):
         def error401(e):
             return render_template('401.html', e=e)
 
-        from module import db
+        from modules import db
 
         @self.before_request
         def before_request():

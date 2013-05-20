@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, abort, session, request, redirect,
 from jinja2 import TemplateNotFound
 from models import KnPost
 from forms import *
-from module import db
+from modules import db
 from flask.ext.login import login_required
 from werkzeug.utils import secure_filename
 

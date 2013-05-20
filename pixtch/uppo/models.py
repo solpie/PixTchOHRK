@@ -1,5 +1,5 @@
 __author__ = 'SolPie'
-from module import db
+from modules import db
 from auth.models import User
 from flask.ext.admin.contrib.sqlamodel import ModelView
 

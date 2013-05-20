@@ -18,7 +18,7 @@ from flask.ext.login import (LoginManager, current_user, login_required,
                              confirm_login, fresh_login_required, logout_user)
 from models import User
 from forms import *
-from module import db
+from modules import db
 from datetime import datetime
 
 from flask.ext.babelex import gettext, lazy_gettext as _

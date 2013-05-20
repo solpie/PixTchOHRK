@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from module import db
+from modules import db
 from datetime import datetime
 from flask.ext.admin.contrib.sqlamodel import ModelView
 from auth.models import User

@@ -1,7 +1,7 @@
 #coding=utf-8
 __author__ = 'SolPie'
 from datetime import datetime
-from module import db
+from modules import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask.ext.admin.contrib.sqlamodel import ModelView
 

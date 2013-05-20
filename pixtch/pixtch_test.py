@@ -1,6 +1,6 @@
 __author__ = 'SolPie'
 import unittest
-from module import db
+from modules import db
 import tempfile
 from flaskPixtch import create_app
 
