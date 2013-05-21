@@ -3,13 +3,22 @@
 {#<!DOCTYPE html>#}
 {#<html>#}
 {#<head>#}
+
 {#    <title>#}
-        {% block title %}{% endblock %}
-{#    </title>#}
-{#    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">#}
-{#</head>#}
-{#<body>#}
-{% block body %}
+{% block title %}{% endblock %}
+
+{% block style %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='css/standard.css') }}" rel="stylesheet">
 {% endblock %}
+{% block body %}
+    {%- block body_content %}
+    {%- endblock body_content %}
+    {% block bootstrap_js_bottom %}
+        {{ super() }}
+        <p class="copyright">© 2013 PIXTCH, INC. All rights reserved.</p>
+    {% endblock %}
+{% endblock %}
+
 {#</body>#}
 {#</html>#}

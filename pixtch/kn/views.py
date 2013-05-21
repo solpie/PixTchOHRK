@@ -53,3 +53,17 @@ def add_kn_post():
     else:
         return render_template('form.html', form=form)
     pass
+
+
+@bp.route('/upload/<kn_type>', methods=['GET', 'POST'])
+def upload(kn_type):
+    if request.method == 'GET':
+        form = KnForm(request.form)
+        return render_template('form.html', form=form)
+
+    if kn_type == 'music':
+        return 'is music'
+    if kn_type == 'lyric':
+        return 'is lyric'
+    if kn_type == 'photo':
+        return 'is photo'

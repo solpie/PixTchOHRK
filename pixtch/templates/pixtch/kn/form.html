@@ -1,8 +1,315 @@
 {% extends 'base.html' %}
 {% block body %}
+    <div id="top_titlebox">
+        <h2><img src="/images/icon_sprite.png" class="icons ic_doc">新規投稿</h2>
+        <ul class="main_nav">
+            <li class="now"><a href="http://piapro.jp/upload/?view=audio"><img src="/images/sprite.png"
+                                                                               class="icons ic_snd">music</a></li>
+            <li class=""><a href="http://piapro.jp/upload/?view=image"><img src="/images/sprite.png"
+                                                                            class="icons ic_ill">photo</a></li>
+            <li class=""><a href="http://piapro.jp/upload/?view=text"><img src="/images/sprite.png"
+                                                                           class="icons ic_txt">lyric</a></li>
+        </ul>
+    </div>
+    <form action="http://piapro.jp/upload/" method="POST" id="_formUpload" enctype="multipart/form-data">
+    <input type="hidden" name="mode" value="confirm" id="modeUpload">
+    <input type="hidden" name="contentTypeId" value="2">
+
+    <div class="clearfix" style="width:950px; margin:0 auto;">
+    <h2 style="margin-bottom:5px;"><img src="/images/sprite.png" class="icons ic_doc">オンガクの新規投稿</h2>
+
+    <div style="width:620px; float:left;">
+    <table border="0" cellspacing="1" cellpadding="0" class="t_form" width="620px">
+    <tbody>
+    <tr id="thFile">
+        <th width="150" style="padding:15px;"><span class="em">投稿するファイルの指定</span></th>
+        <td>
+            <input type="file" id="UploadAudio_upfile" name="UploadAudio[upfile]" style="width:200px;"
+                   class="bdr_slv">
+            <ul class="txt_sub" style="margin-top:20px;">
+                <li><span class="em">20MB以下のmp3形式</span>のファイルを指定下さい。</li>
+                <li>投稿ファイルはダウンロード時のみ使用され、Web上では自動生成された試聴用mp3が再生されます。</li>
+            </ul>
+
+        </td>
+    </tr>
+    <tr>
+        <th width="150">
+            <span class="em">曲名</span><br>
+            <span class="txt_sub">※後から変更OK</span>
+        </th>
+        <td>
+            <input type="text" id="UploadAudio_title" name="UploadAudio[title]" style="width:380px; padding:2px 0;"
+                   class="bdr_slv">
+
+            <p>(64文字以内)</p>
+
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <span class="em">テーマキャラクター</span><br>
+            <span class="txt_sub">※後から変更OK</span><br>
+        </th>
+        <td>
+            <div style="line-height:2;">
+                <input type="radio" id="UploadAudio_vocaloid_1" name="UploadAudio[vocaloid]"
+                       style="position:relative; top:2px; margin-right:3px;" value="1">
+                <label for="UploadAudio_vocaloid_1">初音ミク</label> <input type="radio" id="UploadAudio_vocaloid_2"
+                                                                        name="UploadAudio[vocaloid]"
+                                                                        style="position:relative; top:2px; margin-right:3px; margin-left:20px;"
+                                                                        value="2">
+                <label for="UploadAudio_vocaloid_2">鏡音リン</label> <input type="radio" id="UploadAudio_vocaloid_3"
+                                                                        name="UploadAudio[vocaloid]"
+                                                                        style="position:relative; top:2px; margin-right:3px; margin-left:20px;"
+                                                                        value="3">
+                <label for="UploadAudio_vocaloid_3">鏡音レン</label> <input type="radio" id="UploadAudio_vocaloid_7"
+                                                                        name="UploadAudio[vocaloid]"
+                                                                        style="position:relative; top:2px; margin-right:3px; margin-left:20px;"
+                                                                        value="7">
+                <label for="UploadAudio_vocaloid_7">巡音ルカ</label><br> <input type="radio" id="UploadAudio_vocaloid_4"
+                                                                            name="UploadAudio[vocaloid]"
+                                                                            style="position:relative; top:2px; margin-right:3px;"
+                                                                            value="4">
+                <label for="UploadAudio_vocaloid_4">MEIKO</label> <input type="radio" id="UploadAudio_vocaloid_5"
+                                                                         name="UploadAudio[vocaloid]"
+                                                                         style="position:relative; top:2px; margin-right:3px; margin-left:20px;"
+                                                                         value="5">
+                <label for="UploadAudio_vocaloid_5">KAITO</label> <input type="radio" id="UploadAudio_vocaloid_6"
+                                                                         name="UploadAudio[vocaloid]"
+                                                                         style="position:relative; top:2px; margin-right:3px; margin-left:20px;"
+                                                                         value="6">
+                <label for="UploadAudio_vocaloid_6">その他</label></div>
+
+        </td>
+    </tr>
+    <tr>
+        <th id="thCategory">
+            <span class="em">category</span><br>
+            <span class="txt_sub">※後から変更OK</span>
+        </th>
+        <td>
+            <div style="line-height:2;">
+                <p style="margin-bottom:10px;">いずれかのカテゴリを必ず1つ選択してください。</p>
+                <input type="radio" id="UploadAudio_categoryId_1" name="UploadAudio[categoryId]"
+                       style="position:relative; top:2px; margin-right:3px;" value="1">
+                <label for="UploadAudio_categoryId_1">音楽</label> <input type="radio" id="UploadAudio_categoryId_2"
+                                                                        name="UploadAudio[categoryId]"
+                                                                        style="position:relative; top:2px; margin-right:3px; margin-left:20px;"
+                                                                        value="2">
+                <label for="UploadAudio_categoryId_2">その他</label></div>
+
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <span class="em">説明文</span><br>
+            <span class="txt_sub">※後から変更OK</span>
+        </th>
+        <td>
+            <textarea id="UploadAudio_explanation" name="UploadAudio[explanation]"
+                      style="width:380px; height:5em; padding:2px 0;" class="bdr_slv"></textarea>
+
+            <p>(1,000文字以内)</p>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <span class="em">tag</span><br>
+            <span class="txt_sub">※後から変更OK</span>
+        </th>
+        <td>
+            <input type="text" id="UploadAudio_contentTags" name="UploadAudio[contentTags]"
+                   style="width:380px; padding:2px 0;" class="bdr_slv">
+
+            <p>(スペース区切りで複数追加可) 例：「ロック スローテンポ」</p>
+
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <span class="em">ライセンス条件</span><br>
+            <span class="txt_sub" style="color:#ff0000;">※後で変更できません</span>
+        </th>
+        <td>
+            <div class="color_box01" id="divLicense">
+                <input type="hidden" name="collaboOnly" value="0">
+
+                <p>ライセンス対象者は、以下のライセンス条件の範囲内で、あなたの投稿作品を再複製・再頒布できるものとします。</p>
+
+                <div class="clearfix" style="margin-top:15px; padding-bottom:5px;">
+                    <img src="/images/sprite.png" width="25" height="25" class="icon_pc nc"
+                         style="float:left; margin-right:5px;">
+
+                    <div class="em">
+                        非営利目的に限ります
+                    </div>
+                    <div style="margin-top:5px;">
+                        <input type="radio" id="UploadImage_ccTypeNc" name="nc" value="0" checked=""
+                               style="position:relative; top:2px; margin-right:3px;">
+                        <label class="em">はい</label>
+                    </div>
+                </div>
+                <div class="clearfix" style="margin-top:20px; margin-bottom:20px;">
+                    <img src="/images/sprite.png" width="45" height="45" class="icon_pc by"
+                         style="float:left; margin-right:5px;">
+
+                    <div class="em">
+                        あなたの氏名表示を省いて良いですか？
+                    </div>
+                    <div style="margin-top:5px;">
+                        <input type="radio" id="UploadAudio_ccTypeName_0" name="UploadAudio[ccTypeName]"
+                               style="position:relative; top:2px; margin-right:3px;" value="0" checked="checked">
+                        <label class="em" for="UploadAudio_ccTypeName_0">はい</label><br>
+                    </div>
+                    <div style="margin-top:5px;">
+                        <input type="radio" id="UploadAudio_ccTypeName_1" name="UploadAudio[ccTypeName]"
+                               style="position:relative; top:2px; margin-right:3px;" value="1">
+                        <label for="UploadAudio_ccTypeName_1">いいえ</label>
+                        &nbsp;&nbsp;&nbsp;氏名表示&nbsp;&nbsp;
+                        <input type="text" id="UploadAudio_ccName" name="UploadAudio[ccName]"
+                               class="bdr_slv input_pdg input_txt_h" style="width:120px;">
+                        &nbsp;（64文字以内）
+                        <div style="padding-left:53px; margin-top:5px;">※本名を入力するときはその後の影響等にご注意下さい。</div>
+                    </div>
+
+                </div>
+                <div class="clearfix" style="margin-top:20px; margin-bottom:10px;">
+                    <img src="/images/sprite.png" width="45" height="45" class="icon_pc nd"
+                         style="float:left; margin-right:5px;">
+
+                    <div class="em">
+                        あなたの作品の改変を許しますか？
+                    </div>
+                    <div style="margin-top:5px;">
+                        <input type="radio" id="UploadAudio_ccTypeMod_0" name="UploadAudio[ccTypeMod]"
+                               style="position:relative; top:2px; margin-right:3px;" value="0" checked="checked">
+                        <label class="em" for="UploadAudio_ccTypeMod_0">はい</label><br>
+                    </div>
+                    <div style="margin-top:5px;">
+                        <input type="radio" id="UploadAudio_ccTypeMod_1" name="UploadAudio[ccTypeMod]"
+                               style="position:relative; top:2px; margin-right:3px;" value="1">
+                        <label for="UploadAudio_ccTypeMod_1">いいえ</label>
+                    </div>
+
+                </div>
+            </div>
+            <div style="margin-top:10px;">
+                <input type="checkbox" id="UploadAudio_noLicense" name="UploadAudio[noLicense]"
+                       style="position:relative; top:2px; margin-right:3px;" value="1">
+                <label for="UploadAudio_noLicense">ライセンス条件を付けずに投稿する</label>
+
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <th id="thLicenseOption">
+            <span class="em">オリジナルライセンス</span><br>
+            <span class="txt_sub">※後から変更OK</span>
+        </th>
+        <td valign="top">
+            <div id="divLicenseOptionCheckbox">
+                <input type="checkbox" id="UploadAudio_isLicenseOptionHide" name="UploadAudio[isLicenseOptionHide]"
+                       style="position:relative; top:2px; margin-right:3px;" value="1" checked="checked">
+                <label for="UploadAudio_isLicenseOptionHide">付けない</label>
+
+            </div>
+            <div class="color_box01" style="margin:10px 0 0 0; display:none;" id="divLicenseOption">
+                <p class="mb05"><a href="http://piapro.jp/help/?view=original_license"
+                                   target="_blank">オリジナルライセンス記入要綱</a>に沿ってご記入下さい。
+                </p>
+                <textarea id="UploadAudio_licenseOption" name="UploadAudio[licenseOption]"
+                          style="padding:2px 0; width:360px; height:3em;"></textarea>
+
+                <p>(200文字以内)</p>
+
+            </div>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+    <div class="color_box01" style="margin-top:20px;">
+        <p style="padding:5px 20px;">投稿には利用規約に同意していただく必要があります。</p>
+        <textarea
+                style="width:550px; height:200px; padding:0 0 0 3px; display:block; margin:0 auto 0 auto; background-color:#fcfcfc; border:1px solid #f2e4c8;">第1条（目的）
+            1. この利用規約（以下「本規約」といいます。）は、クリプトン・フューチャー・メディア株式会社（以下「当社」といいます。）が提供するサイト『ピアプロ』（以下「本サービス」といいます。）の利用について定めるものです。
+            2. 本サービスの利用を希望するお客様（次条に定義）は、本規約内容を全て承諾し、誠実に遵守することを条件として、本サービスを利用することができるものとします。
+            3.
+            当社が本サービスの円滑な運用を図るため必要に応じて作成する本サービスの利用に関する諸規程（コンテンツに関する諸規程を含みます。以下「諸規程」といいます。）は、本規約の一部を構成するものとします。ただし、諸規程の内容が本規約の内容と矛盾抵触する場合には、諸規程の内容が本契約の内容に優先するものとします。
+            4. 本規約（諸規程を含みます。）は、本サービスに関する当社とお客様との間の一切の関係について適用されるものとします。
+        </textarea>
+
+        <div class="txt_r" style="padding:10px 20px 5px 20px;">
+            <input type="checkbox" id="UploadAudio_agree" name="UploadAudio[agree]"
+                   style="position:relative; top:2px; margin-right:3px;" value="1">
+            <label for="UploadAudio_agree">利用規約に同意しました</label>
+
+        </div>
+    </div>
+    <div style="width:245px; padding:20px 0 40px 40px; margin:0 auto;">
+        <a class="button_normal btn_l" href="http://piapro.jp/upload/" id="_uploadReset">リセット</a>
+        <a class="button_bright btn_l" href="http://piapro.jp/upload/" id="_uploadExe">確認する</a>
+    </div>
+    <noscript>&lt;div class="mt05 txt_err"&gt;Java Scriptを有効にして下さい。&lt;/div&gt;</noscript>
+    </div>
+    <div style="float:left; width:320px; padding-bottom:20px;">
+        <div style="position:relative;">
+            <div class="li_note" id="divNote">
+                <p class="em" style="color:#ff0000;">ピアプロでは、以下のような作品は投稿できません。</p>
+                <ul>
+                    <li>自分（達）以外の人が作った作品</li>
+                    <li>TVアニメ、ゲーム、CDなどの内容を使用した作品</li>
+                    <li>商品パッケージ、商品名などが含まれる作品</li>
+                    <li>有名人や他人の似顔絵・個人情報が含まれる作品</li>
+                    <li>誰かのイメージや信用を傷つける作品</li>
+                    <li>性的内容、暴力的内容、残酷な表現などが含まれる作品</li>
+                </ul>
+                <div style="margin-left:20px;"><a href="http://piapro.jp/user_agreement/" target="_blank">利用規約</a>や<a
+                        href="http://piapro.jp/license/character_guideline" target="_blank">キャラクター利用のガイドライン</a>で認めていない作品は削除の対象となります。
+                </div>
+                <div class="parts"></div>
+            </div>
+            <div style="position: absolute; top: 266px; display: block;" id="divCategoryNote">
+                <div class="li_note" style="width:280px;">
+                    <p class="em"><span class="ic_snd ico_pd">作品のカテゴリについて</span></p>
+                    <ul>
+                        <li><span class="em">音楽</span>音楽作品のみ</li>
+                        <li><span class="em">その他</span>喋らせてみた、サウンドロゴ、ＳＥなど</li>
+                    </ul>
+                    <div><span style="background:#cc0000; color:#fff; padding:1px 3px;">HELP</span>&nbsp;<a
+                            href="http://piapro.jp/help/#q_copyright06" target="_blank">投稿できるキャラクターについて</a></div>
+                    <div class="parts"></div>
+                </div>
+            </div>
+            <div style="position: absolute; top: 911px; display: block;" id="divLicenseOptionNote">
+                <div class="li_note">
+                    <p class="em mb05"><span class="ico_help ico_pd">オリジナルライセンスとは</span></p>
+
+                    <div style="line-height:1.4;">
+                        ピアプロ投稿作品に対して投稿者の方が独自に付与したライセンスのことです。たとえば、「動画以外に使わないでください」「使ったときは必ず連絡してください」などの、細かな条件を作品に対してつけることができます。
+                    </div>
+                    <div style="margin-top:10px;"><span
+                            style="background:#cc0000; color:#fff; padding:1px 3px;">HELP</span>&nbsp;<a
+                            href="http://piapro.jp/help/?view=original_license" target="_blank">オリジナルライセンス記入要綱</a></div>
+                    <div class="parts"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <input type="hidden" id="UploadAudio__token" name="UploadAudio[_token]"
+           value="38aa098097e5bdb4bee26fbe17eca1e82d583ebb"><input type="hidden" id="UploadAudio_collaboId"
+                                                                   name="UploadAudio[collaboId]"><input type="hidden"
+                                                                                                        id="UploadAudio_contentTypeId"
+                                                                                                        name="UploadAudio[contentTypeId]"
+                                                                                                        value="2"><input
+            type="hidden" id="UploadAudio_collaboOnly" name="UploadAudio[collaboOnly]" value="0">
+    </form>
+
     <div style="height:300px; width:300px; margin:0 auto;">
         <h2>add kn post</h2>
-        <form method="POST" action=""  enctype="multipart/form-data">
+
+        <form method="POST" action="" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             {% for f in form if f.type != 'CSRFTokenField' %}
                 <div>
@@ -20,4 +327,5 @@
             <input type="submit" value="post a kn"/>
         </form>
     </div>
+
 {% endblock %}

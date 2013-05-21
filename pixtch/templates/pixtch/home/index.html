@@ -1,12 +1,8 @@
 {% extends 'base.html' %}
-{% block head %}
-    {{ super() }}
-    <link href="{{ url_for('static', filename='css/standard.css') }}" rel="stylesheet">
-{% endblock %}
 {% block title %}
     Home
 {% endblock %}
-{% block body %}
+{% block body_content %}
     <div id="header" class="clearfix">
         <ul id="header_nav" class="clearfix">
             <li><h1><a href="http://piapro.jp/"><img src="/images/piapro.png" width="110" alt="ピアプロ"></a></h1></li>
@@ -22,7 +18,7 @@
                 </ul>
             </li>
             <li class="gnav"><a href="http://piapro.jp/collabo_list/">コラボ</a></li>
-            <li class="gnav"><a href="http://piapro.jp/upload/">新規投稿</a></li>
+            <li class="gnav"><a href={{ url_for('kn.add_kn_post') }}>新規投稿</a></li>
             <li class="gnav"><a href="http://blog.piapro.jp/" target="_blank">Blog</a></li>
             <li style="position:relative; font-size:12px; margin-right:0;">
                 <div class="selectbox"><img src="/images/icon_sprite.png?20130507" class="icons ic_ill"
@@ -181,4 +177,5 @@
             <li><a href="/401">401</a></li>
         </ul>
     </div>
+    <img src="http://img2.ph.126.net/3dmxkUGFsMmCqOU3lgXpDA==/588001226365790062.jpg"/>
 {% endblock %}

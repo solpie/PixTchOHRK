@@ -13,6 +13,10 @@ if __name__ == '__main__':
     #todo unit test
     # http://developer.baidu.com/wiki/index.php?title=docs/cplat/rt/python/faq
     ######
+    if 'SERVER_SOFTWARE' in os.environ:
+        print "This is online environ"
+    else:
+        print "This is local environ"
     app = create_app()
     db.init_app(app)
     app.setup()
