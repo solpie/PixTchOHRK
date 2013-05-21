@@ -69,7 +69,6 @@ class Pixtch(Flask):
         @self.teardown_request
         def shutdown_session(exception=None):
             db.session.remove()
-            # print __name__, '>>shutdown_session'
             pass
 
     def init_ext(self):

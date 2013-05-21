@@ -26,7 +26,7 @@ PER_PAGE = 20
 DEBUG_LOG = 'logs/debug.log'
 ERROR_LOG = 'logs/error.log'
 
-ADMINS = ('yourname@domain.com',)
+ADMINS = ('admin@pixtch.com',)
 
 MAIL_SERVER = 'smtp.gmail.com'
 MAIL_PORT = 465
