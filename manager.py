@@ -33,5 +33,12 @@ def init():
     print "create...admin"
 
 
+@manager.command
+def clone():
+    db.session
+    src_uri = ''
+    print 'clone db from', src_uri
+
+
 if __name__ == "__main__":
     manager.run()

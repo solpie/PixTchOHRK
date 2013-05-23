@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}
+    Uppo Dashboard
+{% endblock %}
+{% block style %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body_content %}
+    <h1 id="logo" class="logo "><a href="/dashboard" class="logo_anchor">Tumblr</a></h1>
+    <div id="tabs_outter_container">
+        <div id="user_tools" class="tab_bar">
+            <div class="tab iconic  selected" id="home_button">
+                <a href="http://www.tumblr.com/dashboard"><span>Dashboard</span></a>
+            <span class="tab_notice new_post_notice_container" id="new_post_notice_container" style="display:none"><span
+                    class="tab_notice_value">0</span><span class="tab_notice_nipple"></span></span>
+
+                <div class="selection_nipple"></div>
+            </div>
+
+            <div class="tab iconic " id="inbox_button">
+                <a href="/inbox">Inbox</a>
+
+                <div class="selection_nipple"></div>
+            </div>
+
+            <div class="tab iconic" id="help_button">
+                <a href="http://www.tumblr.com/help">Help</a>
+
+                <div class="selection_nipple white"></div>
+            </div>
+
+            <div class="tab iconic" id="preferences_button">
+                <a href="https://www.tumblr.com/settings">Preferences</a>
+
+                <div class="selection_nipple white"></div>
+            </div>
+
+            <div class="tab iconic" id="logout_button" data-message="Are you sure you want to log out?">
+                <a href="/logout">Log out</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

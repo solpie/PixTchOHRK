@@ -3,6 +3,7 @@
     Home
 {% endblock %}
 {% block body_content %}
+
     <div id="header" class="clearfix">
         <ul id="header_nav" class="clearfix">
             <li><h1><a href="http://piapro.jp/"><img src="/images/piapro.png" width="110" alt="ピアプロ"></a></h1></li>
@@ -163,19 +164,7 @@
     </div>
 
     <p class="text-center"> {{ uppo }}</p>
-    {#    test#}
-    <div class="form-inline">
-        <ul>
-            <li><a href="/admin">admin</a></li>
-            <li><a href="/test">login test</a></li>
-            <li><a href="/kn/add_kn_post">add kn post</a></li>
-            <li><a href="/register">register</a></li>
-            <li><a href="/login">login</a></li>
-            <li><a href="/logout" target="_blank">logout</a></li>
-            <li><a href="/search">search</a></li>
-            <li><a href="/404">404</a></li>
-            <li><a href="/401">401</a></li>
-        </ul>
-    </div>
-    <img src="http://img2.ph.126.net/3dmxkUGFsMmCqOU3lgXpDA==/588001226365790062.jpg"/>
+     {% include 'test/urls.html'%}
+{#     {% include 'test/js163.html'%}#}
+
 {% endblock %}

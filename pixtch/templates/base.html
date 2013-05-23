@@ -1,10 +1,5 @@
 {% extends "bootstrap_responsive.html" %}
 {% import "bootstrap_wtf.html" as wtf %}
-{#<!DOCTYPE html>#}
-{#<html>#}
-{#<head>#}
-
-{#    <title>#}
 {% block title %}{% endblock %}
 
 {% block style %}
@@ -16,9 +11,9 @@
     {%- endblock body_content %}
     {% block bootstrap_js_bottom %}
         {{ super() }}
+
+    {% endblock %}
+    {% block footer %}
         <p class="copyright">© 2013 PIXTCH, INC. All rights reserved.</p>
     {% endblock %}
 {% endblock %}
-
-{#</body>#}
-{#</html>#}
