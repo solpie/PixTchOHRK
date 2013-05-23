@@ -18,6 +18,7 @@ def uppo_view(pid):
     else:
         render_template('list.html')
 
+
 @bp.route('/p/dashboard')
 def uppo_home():
-    return render_template('index.html')
+    return render_template('dashboard.html')

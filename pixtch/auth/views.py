@@ -113,6 +113,6 @@ def register():
         return render_template('register.html', form=form)
 
 
-@bp.route('/uppo/<upponame>')
-def show_uppo_profile(upponame):
-    return 'uppo %s' % upponame
+@bp.route('/activate/<act_key>')
+def activate(act_key):
+    return 'uppo %s' % act_key

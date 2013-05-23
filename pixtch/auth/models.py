@@ -29,6 +29,9 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.pw_hash, password)
 
+    def set_active_key(self, ak):
+        self.active_key = generate_password_hash()
+
     def is_authenticated(self):
         # Flask-Login integration
         return True
