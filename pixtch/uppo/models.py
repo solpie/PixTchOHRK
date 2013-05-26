@@ -20,8 +20,20 @@ class Uppo(db.Model):
     weibo_id = db.Column(db.Integer)
     brief = db.Column(db.String(256))
 
-    def __init__(self):
-        pass
+    def __init__(self, name_p=None, sex=None,
+                 birthday=None, cellphone=None, name_real=None,
+                 qq=None, skill=None, avatar=None,
+                 weibo_id=None, brief=None):
+        self.name_p = name_p
+        self.sex = sex
+        self.birthday = birthday
+        self.cellphone = cellphone
+        self.name_real = name_real
+        self.qq = qq
+        self.skill = skill
+        self.avatar = avatar
+        self.weibo_id = weibo_id
+        self.brief = brief
 
     def __repr__(self):
         return '<Uppo %r>' % self.name_p

@@ -10,7 +10,9 @@ if __name__ == '__main__':
     #todo flask-sqlalchemy fix sae bug
     #todo permission admin
     #todo manager 脚本命令
-    #todo unit test
+    #todo unit test,post ,login
+    #todo pv计数 排行榜
+    #todo less css
     # http://developer.baidu.com/wiki/index.php?title=docs/cplat/rt/python/faq
     ######
     if 'SERVER_SOFTWARE' in os.environ:
