@@ -2,10 +2,13 @@ __author__ = 'SolPie'
 from flask import Blueprint, render_template, abort, session, request, redirect, flash, url_for
 from jinja2 import TemplateNotFound
 from models import KnPost
-from forms import *
+from forms import KnForm
 from modules import db
 from flask.ext.login import login_required
 from werkzeug.utils import secure_filename
+import hashlib
+import tempfile
+import os
 
 bp = Blueprint('kn', __name__, url_prefix='/kn', template_folder='../templates/pixtch/kn')
 
@@ -21,7 +24,6 @@ def show_kn_post(kid):
 
 
 @bp.route('/')
-# @admin.require(401)
 def show():
     try:
         kn = KnPost.query.order_by(KnPost.id)
@@ -56,9 +58,10 @@ def add_kn_post():
 
 
 @bp.route('/upload/<kn_type>', methods=['GET', 'POST'])
+@login_required
 def upload(kn_type):
+    form = KnForm(request.form)
     if request.method == 'GET':
-        form = KnForm(request.form)
         return render_template('form.html', form=form)
 
     if kn_type == 'music':
@@ -66,4 +69,13 @@ def upload(kn_type):
     if kn_type == 'lyric':
         return 'is lyric'
     if kn_type == 'photo':
+        img = request.files[form.img.name]
+        data = img.file.read()
+        tmp = tempfile.mkstemp()
+        md5 = hashlib.md5()
+        md5.update(data)
+        md5num = md5.hexdigest()
+        f = os.fdopen(tmp[0], 'wb+')
+        f.write(data)
+        f.close()
         return 'is photo'

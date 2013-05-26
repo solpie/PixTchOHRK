@@ -1,5 +1,5 @@
 __author__ = 'SolPie'
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from werkzeug.routing import BaseConverter
 
 
@@ -16,7 +16,7 @@ class Pixtch(Flask):
     def setup(self):
         self.init_ext()
         self.init_app()
-        self.init_error()
+        self.init_base_route()
 
     def init_db(self, uri=None):
         if uri:
@@ -51,7 +51,7 @@ class Pixtch(Flask):
 
         # pprint.pprint(('[path]', __name__, self.config.root_path, sys.path))
 
-    def init_error(self):
+    def init_base_route(self):
         @self.errorhandler(404)
         def error404(e):
             return render_template('404.html', e=e)
@@ -70,6 +70,11 @@ class Pixtch(Flask):
         def shutdown_session(exception=None):
             db.session.remove()
             pass
+
+        @self.route('/images/<regex(".*"):path>')
+        def static_images(path):
+            print path
+            return redirect('/static/images/' + path)
 
     def init_ext(self):
         from admin.views import init_admin
