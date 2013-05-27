@@ -16,7 +16,6 @@
         $(function () {
             $('button#login').bind('click', function () {
                 var pw2 = $('input[id="password"]').val();
-                Sha1.hash(pw2);
                 $.post('/login/', {
                     name: $('input[id="name"]').val(),
                     pw: pw2,

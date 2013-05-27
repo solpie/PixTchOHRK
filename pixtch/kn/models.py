@@ -32,7 +32,7 @@ class KnPost(db.Model):
     #post_author
     author = db.Column(db.BIGINT(20), default=0)
     #post_date
-    created = db.Column(db.DateTime)
+    created = db.Column(db.DateTime, default=datetime.now)
     #post_date_gmt
     #post_content
     html_content = db.Column(db.TEXT)#allow uppo 自定义部分
@@ -53,7 +53,10 @@ class KnPost(db.Model):
     # owner = sa.Column(sa.ForeignKey(User))
     cover_url = db.Column(db.String(256))#封面图片
     modified = db.Column(db.DateTime, default=datetime.now)
-    pv = db.Column(db.Integer)
+    #view from user
+    pv = db.Column(db.Integer, default=0)
+    #every get request
+    get_counts = db.Column(db.Integer, default=0)
 
     def __init__(self, title=None):
         self.title = title

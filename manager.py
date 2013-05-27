@@ -38,7 +38,7 @@ def init():
 def post():
     db.init_app(app)
     for i in range(0, 10):
-        p = KnPost('test post ' + str(i))
+        p = KnPost(u'test post ' + str(i))
         p.html_content = 'this is a test post from manager'
         db.session.add(p)
     db.session.commit()

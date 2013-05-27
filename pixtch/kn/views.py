@@ -4,7 +4,7 @@ from jinja2 import TemplateNotFound
 from models import KnPost
 from forms import KnForm
 from modules import db
-from flask.ext.login import login_required
+from flask.ext.login import login_required, current_user
 from werkzeug.utils import secure_filename
 import hashlib
 import tempfile
@@ -17,6 +17,10 @@ bp = Blueprint('kn', __name__, url_prefix='/kn', template_folder='../templates/p
 def show_kn_post(kid):
     try:
         kn = KnPost.query.filter(KnPost.id == kid).first()
+        kn.get_counts += 1
+        if current_user:#todo pv views one user one count
+            kn.pv += 1
+        db.session.commit()#todo database when to sync
         return render_template('detail.html', kn=kn)
     except TemplateNotFound:
         # abort(404)
@@ -39,12 +43,13 @@ def add_kn_post():
     form = KnForm(request.form)
     if form.validate_on_submit():
         kn = KnPost()
-        kn.title = form.title.data
+        kn.title = unicode(form.title.data)
         kn.html_content = form.html_content.data
         if form.img.name:
             img_file = request.files[form.img.name]
-            img_filename = secure_filename(img_file.filename)
-            img_file.save('static/upload/' + img_filename)
+            if img_file.filename:
+                img_filename = secure_filename(img_file.filename)
+                img_file.save('static/upload/' + img_filename)
         kn.status = 1
         db.session.add(kn)
         db.session.commit()
