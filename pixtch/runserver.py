@@ -8,8 +8,6 @@ from modules import db
 if __name__ == '__main__':
     #todo http://markitup.jaysalvat.com/home/
     #todo flask-sqlalchemy fix sae bug
-    #todo permission admin
-    #todo manager 脚本命令
     #todo unit test,post ,login
     #todo pv计数 排行榜
     #todo less css

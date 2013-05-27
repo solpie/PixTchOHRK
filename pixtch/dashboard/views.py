@@ -12,7 +12,7 @@ import os
 bp = Blueprint('dashboard', __name__, template_folder='../templates/pixtch/dashboard')
 
 
-@bp.route('/dashboard')
-def dashboard():
-        pass
+# @bp.route('/dashboard')
+# def dashboard():
+#         pass
 

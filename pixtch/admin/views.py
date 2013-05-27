@@ -8,7 +8,7 @@ from flask.ext import login
 
 class AdminView(AdminIndexView):
     @expose('/')
-    # @p_admin.require()
+    # @p_admin.require()    #todo open me, permission admin
     def index(self):
         return self.render('admin/index.html')
 

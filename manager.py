@@ -8,6 +8,7 @@ from flask.ext.script import Manager
 from flaskPixtch import create_app
 from modules import db
 from auth.models import User
+from kn.models import KnPost
 
 app = create_app()
 
@@ -31,6 +32,17 @@ def init():
     db.session.add(admin)
     db.session.commit()
     print "create...admin"
+
+
+@manager.command
+def post():
+    db.init_app(app)
+    for i in range(0, 10):
+        p = KnPost('test post ' + str(i))
+        p.html_content = 'this is a test post from manager'
+        db.session.add(p)
+    db.session.commit()
+    print 'create test post'
 
 
 @manager.command
