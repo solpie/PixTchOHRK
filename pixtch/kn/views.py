@@ -22,10 +22,11 @@ def show_kn_post(kid):
         rank = RankKnPost.query.filter_by(id=kn.id).first()
         if not rank:
             rank = RankKnPost()
+            rank.related_cls = kn
             db.session.add(rank)
+        rank.get_counts = rank.get_counts or 0 + 1
         if current_user:#todo pv views one user one count
-            rank.get_counts += 1
-            rank.pv += 1
+            rank.pv = rank.pv or 0 + 1
         db.session.commit()#todo database when to sync
         return render_template('detail.html', kn=kn, rank=rank)
     except TemplateNotFound:

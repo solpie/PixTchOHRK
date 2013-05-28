@@ -38,7 +38,8 @@ def init():
 
     uppo = Uppo()
     uppo.name_p = 'admin P'
-    uppo.user = user2
+    uppo.id = 2
+    # uppo.user = user2
     db.session.add(uppo)
 
     p = KnPost(u'test post')

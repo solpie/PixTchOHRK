@@ -5,20 +5,20 @@ import tempfile
 from flaskPixtch import create_app
 
 app = create_app()
+app.setup()
+db.init_app(app)
+db.app = app
+db.drop_all(app=app)
+db.create_all(app=app)
 
 
 class PixtchTestCase(unittest.TestCase):
     def setUp(self):
+        self.app = app.test_client()
         db_uri = 'sqlite:///db/unit_test.db'
         app.testing = True
-        self.app = app.test_client()
-        app.init_db(uri=db_uri)
-        db.init_app(app)
-        db.create_all(app=app)
-        app.setup()
-
-        self.db_fd = tempfile.mkstemp()
         app.config['TESTING'] = True
+        print 'setup...'
 
     def test_index(self):
         rv = self.app.get('/')
@@ -31,14 +31,11 @@ class PixtchTestCase(unittest.TestCase):
 
     def test_addUser(self):
         from auth.models import User
-
-        user = User.query.filter_by(name='admin')
-        if not user:
-            u = User('admin', 'admin@localhost', '-+')
-            db.session.add(u)
-            db.session.commit()
-            print 'create admin user'
-        pass
+        email = app.config.get('ADMINS')[0]
+        admin = User('admin', email, '-+')
+        db.session.add(admin)
+        db.session.commit()
+        assert True
 
     def test_kn_addTag(self):
         from kn.models import Tag

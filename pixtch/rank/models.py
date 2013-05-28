@@ -10,34 +10,28 @@ class RankBase(object):
     #view from user
     pv = db.Column(db.Integer, default=0)
     #every get request
-    get_counts = db.Column(db.Integer, default=0)
+    get_counts = db.Column(name='view counts', type_=db.Integer, default=0)
 
-    ref_cls = None
-
-
-    def __init__(self, ref_cls):
-        if ref_cls:
-            self.ref_cls = db.relationship(ref_cls)
-        pass
+    related_cls = None
 
 
 class RankKnPost(RankBase, db.Model):
     __tablename__ = 'pt_rank_kn_post'
     id = db.Column(db.Integer, db.ForeignKey(KnPost.id), primary_key=True)
-    ref_cls = db.relationship(KnPost)
+    related_cls = db.relationship(KnPost)
 
-    def __init__(self, kn_post=None):
-        super(RankKnPost, self).__init__(None)
-        self.get_counts = 0
-        self.pv = 0
+    # def __init__(self):
+    #     super(RankKnPost, self).__init__()
+    #     self.get_counts = 0
+    #     self.pv = 0
 
     def __repr__(self):
-        return '<KnPost %r>' % self.title
+        return '<RankKnPost %d>' % self.get_counts
 
 
 class RankKnPostAdmin(ModelView):
-    column_list = ('pv', 'get_counts')
-    # column_list = ('title', ('owner', User.name), 'created', 'modified')
+    column_list = ('related_cls', 'pv', 'get_counts')
+    column_labels = dict(related_cls='KnPost')
     # column_searchable_list = ('pv', User.name)
     # form_columns = ('title', 'html_content', 'status')
 

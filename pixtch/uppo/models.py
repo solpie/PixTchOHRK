@@ -10,7 +10,6 @@ class Uppo(db.Model):
     # user_id = db.Column(db.Integer, db.ForeignKey('pt_users.id'))
     # user_id = db.Column(db.Integer, db.ForeignKey(User.id))
     user = db.relationship(User)
-    # user = db.relation(User, backref=db.backref('pt_uppo', order_by=id))
     name_p = db.Column(db.String(20))
     sex = db.Column(db.Integer)
     birthday = db.Column(db.DateTime)
