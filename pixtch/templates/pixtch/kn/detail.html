@@ -9,12 +9,15 @@
     <ul class="thumbnails">
         <li class="span4">
             <div class="thumbnail">
-                <img data-src="holder.js/300x200" alt="" src="{{ url_for('static', filename='upload/img_500.png') }}" class="img-polaroid">
+                <img data-src="holder.js/300x200" alt="" src="{{ url_for('static', filename='upload/img_500.png') }}"
+                     class="img-polaroid">
+
                 <h3>Thumbnail label</h3>
+
                 <p>Thumbnail caption...</p>
             </div>
         </li>
     </ul>
-    <h1>views {{ kn.get_counts }}</h1>
-    <h1>pv {{ kn.pv }}</h1>
+    <h1>views {{ rank.get_counts }}</h1>
+    <h1>pv {{ rank.pv }}</h1>
 {% endblock %}

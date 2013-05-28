@@ -29,6 +29,7 @@ class Pixtch(Flask):
         self.init_module('auth')
         self.init_module('uppo')
         self.init_module('kn')
+        self.init_module('rank')
 
     def init_module(self, module):
         try:

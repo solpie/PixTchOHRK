@@ -6,9 +6,11 @@ from forms import KnForm
 from modules import db
 from flask.ext.login import login_required, current_user
 from werkzeug.utils import secure_filename
+from rank.models import RankKnPost
 import hashlib
 import tempfile
 import os
+
 
 bp = Blueprint('kn', __name__, url_prefix='/kn', template_folder='../templates/pixtch/kn')
 
@@ -16,12 +18,16 @@ bp = Blueprint('kn', __name__, url_prefix='/kn', template_folder='../templates/p
 @bp.route('/<int:kid>')
 def show_kn_post(kid):
     try:
-        kn = KnPost.query.filter(KnPost.id == kid).first()
-        kn.get_counts += 1
+        kn = KnPost.query.filter_by(id=kid).first()
+        rank = RankKnPost.query.filter_by(ref_id=kn.id).first()
+        if not rank:
+            rank = RankKnPost(kn)
+            db.session.add(rank)
         if current_user:#todo pv views one user one count
-            kn.pv += 1
+            rank.get_counts += 1
+            rank.pv += 1
         db.session.commit()#todo database when to sync
-        return render_template('detail.html', kn=kn)
+        return render_template('detail.html', kn=kn, rank=rank)
     except TemplateNotFound:
         # abort(404)
         pass

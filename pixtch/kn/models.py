@@ -53,10 +53,6 @@ class KnPost(db.Model):
     # owner = sa.Column(sa.ForeignKey(User))
     cover_url = db.Column(db.String(256))#封面图片
     modified = db.Column(db.DateTime, default=datetime.now)
-    #view from user
-    pv = db.Column(db.Integer, default=0)
-    #every get request
-    get_counts = db.Column(db.Integer, default=0)
 
     def __init__(self, title=None):
         self.title = title

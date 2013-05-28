@@ -7,7 +7,9 @@ from flask.ext.admin.contrib.sqlamodel import ModelView
 class Uppo(db.Model):
     __tablename__ = 'pt_uppo'
     id = db.Column(db.Integer, primary_key=True)
-    # user_id = db.Column(db.Integer, db.ForeignKey('pt_users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('pt_users.id'))
+    # user_id = db.Column(db.Integer, db.ForeignKey(User.id))
+    # user = db.relationship(User, backref='info')
     # user = db.relation(User, backref=db.backref('pt_uppo', order_by=id))
     name_p = db.Column(db.String(20))
     sex = db.Column(db.Integer)
@@ -40,6 +42,7 @@ class Uppo(db.Model):
 
 
 class UppoAdmin(ModelView):
+    inline_models = (Uppo,)
     column_list = ('user_id', 'name_p')
 
 
