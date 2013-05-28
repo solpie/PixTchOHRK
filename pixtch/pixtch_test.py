@@ -14,16 +14,12 @@ db.drop_all()
 db.create_all()
 
 
-class PixtchTestCase(unittest.TestCase):
+class DatabaseTestCase(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client()
         # app.testing = True
         app.config['TESTING'] = True
         print 'setup...'
-
-    def test_index(self):
-        rv = self.app.get('/')
-        assert 'Home' in rv.data
 
     def tearDown(self):
         # os.close(self.db_fd)
@@ -54,13 +50,26 @@ class PixtchTestCase(unittest.TestCase):
         db.session.add(knPost)
         db.session.commit()
 
-    def test_home(self):
+
+class E_404TestCase(unittest.TestCase):
+    def setUp(self):
+        self.app = app.test_client()
+        # app.testing = True
+        app.config['TESTING'] = True
+
+    def test_index(self):
         rv = self.app.get('/')
         assert 'Home' in rv.data
 
-    def test_kn_index(self):
+    def test_kn_post_list(self):
         rv = self.app.get('/kn/')
         assert 'knnn' in rv.data
+
+    def test_kn_post_detail(self):
+        rv = self.app.get('/kn/1')
+        assert 'pv 1' in rv.data
+
+
 
 
 if __name__ == '__main__':

@@ -3,6 +3,7 @@ __author__ = 'SolPie'
 DEBUG = True
 SECRET_KEY = 'interesting'
 
+SQLALCHEMY_DATABASE_URI = 'sqlite:///db/unit_test.db'
 SQLALCHEMY_DATABASE_URI = 'sqlite:///db/test.db'
 SQLALCHEMY_ECHO = False
 
