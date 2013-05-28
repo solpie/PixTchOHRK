@@ -9,6 +9,7 @@ from flaskPixtch import create_app
 from modules import db
 from auth.models import User
 from kn.models import KnPost
+from uppo.models import Uppo
 
 app = create_app()
 
@@ -27,9 +28,23 @@ def init():
     db.drop_all(app=app)
     db.create_all(app=app)
     print "init...db"
+
     email = app.config.get('ADMINS')[0]
     admin = User('admin', email, '-+')
     db.session.add(admin)
+
+    user2 = User('user2', 'user2@pixtch.com', '-+')
+    db.session.add(user2)
+
+    uppo = Uppo()
+    uppo.name_p = 'admin P'
+    uppo.user = user2
+    db.session.add(uppo)
+
+    p = KnPost(u'test post')
+    p.html_content = 'this is a test post from manager'
+    db.session.add(p)
+
     db.session.commit()
     print "create...admin"
 

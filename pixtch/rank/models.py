@@ -2,6 +2,7 @@
 from modules import db
 from datetime import datetime
 from flask.ext.admin.contrib.sqlamodel import ModelView
+from kn.models import KnPost
 
 
 class RankBase(object):
@@ -11,17 +12,22 @@ class RankBase(object):
     #every get request
     get_counts = db.Column(db.Integer, default=0)
 
-    ref_id = db.Column(db.Integer, default=0)
+    ref_cls = None
 
-    def __init__(self, ref_id):
-        self.ref_id = ref_id
+
+    def __init__(self, ref_cls):
+        if ref_cls:
+            self.ref_cls = db.relationship(ref_cls)
+        pass
 
 
 class RankKnPost(RankBase, db.Model):
     __tablename__ = 'pt_rank_kn_post'
+    id = db.Column(db.Integer, db.ForeignKey(KnPost.id), primary_key=True)
+    ref_cls = db.relationship(KnPost)
 
-    def __init__(self, kn_post):
-        super(RankKnPost, self).__init__(kn_post.id)
+    def __init__(self, kn_post=None):
+        super(RankKnPost, self).__init__(None)
         self.get_counts = 0
         self.pv = 0
 

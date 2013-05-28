@@ -19,9 +19,9 @@ bp = Blueprint('kn', __name__, url_prefix='/kn', template_folder='../templates/p
 def show_kn_post(kid):
     try:
         kn = KnPost.query.filter_by(id=kid).first()
-        rank = RankKnPost.query.filter_by(ref_id=kn.id).first()
+        rank = RankKnPost.query.filter_by(id=kn.id).first()
         if not rank:
-            rank = RankKnPost(kn)
+            rank = RankKnPost()
             db.session.add(rank)
         if current_user:#todo pv views one user one count
             rank.get_counts += 1
