@@ -4,19 +4,20 @@ from modules import db
 import tempfile
 from flaskPixtch import create_app
 
+db_uri = 'sqlite:///db/unit_test.db'
 app = create_app()
+app.init_db(uri=db_uri)
 app.setup()
-db.init_app(app)
 db.app = app
-db.drop_all(app=app)
-db.create_all(app=app)
+db.init_app(app)
+db.drop_all()
+db.create_all()
 
 
 class PixtchTestCase(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client()
-        db_uri = 'sqlite:///db/unit_test.db'
-        app.testing = True
+        # app.testing = True
         app.config['TESTING'] = True
         print 'setup...'
 
@@ -31,6 +32,7 @@ class PixtchTestCase(unittest.TestCase):
 
     def test_addUser(self):
         from auth.models import User
+
         email = app.config.get('ADMINS')[0]
         admin = User('admin', email, '-+')
         db.session.add(admin)
