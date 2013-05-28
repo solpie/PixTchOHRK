@@ -1,8 +1,12 @@
 __author__ = 'SolPie'
+import sys
+import os
+sys.path.insert(0, os.path.join('.', 'pixtch'))
 import unittest
 from modules import db
 import tempfile
 from flaskPixtch import create_app
+
 
 db_uri = 'sqlite:///db/unit_test.db'
 app = create_app()
@@ -73,4 +77,4 @@ class E_404TestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    pixtch_unittest.main()
