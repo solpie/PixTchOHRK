@@ -75,9 +75,20 @@ class E_404TestCase(unittest.TestCase):
         assert 'pv 1' in rv.data
         assert 'views 1' in rv.data
 
+    def test_logout_anonymous(self):
+        rv = self.app.get('/logout/')
+        assert '401' in rv.data
+        # rv = self.app.post('/login/', data={'name': 'admin', 'pw': '-+'})
+        # rv = self.app.get('/logout/')
+        # assert 'Home' in rv.data
+
     def test_login(self):
         rv = self.app.post('/login/', data={'name': 'admin', 'pw': '-+'})
         assert 'sus' in rv.data
+
+    def test_logout_user(self):
+        rv = self.app.get('/logout/')
+        assert 'Home' in rv.data
 
 
 if __name__ == '__main__':

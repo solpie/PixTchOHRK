@@ -2,7 +2,7 @@
 
 {% block head %}
     {{ super() }}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>
     <script>window.jQuery || document.write('<script src="{{
   url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
     <script type=text/javascript>
@@ -21,10 +21,12 @@
                     pw: pw2,
                     rm: $('input[id="remember"]').is(':checked') ? 1 : 0
                 }, function (data) {
-                    if (!data.error)
+                    if (data.error == 'sus')
                         $(location).attr('href', '/');
-                    $("div#alert").text(data.error);
-                    $('div#alert').show();
+                    else {
+                        $("div#alert").text(data.error);
+                        $('div#alert').show();
+                    }
                 });
                 return false;
             })
