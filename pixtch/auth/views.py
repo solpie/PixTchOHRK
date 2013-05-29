@@ -77,7 +77,7 @@ def auth():
     if request.method == 'GET':
         form = LoginForm(request.form)
         return render_template('login.html', form=form)
-        #post
+    #post
     name = request.values.get('name', type=str)
     password = request.values.get('pw', type=str)
     remember = request.values.get('rm', type=int)
@@ -91,7 +91,7 @@ def auth():
     db.session.commit()
     identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
     print __name__, 'Login user ', current_user
-    return jsonify(error='')
+    return jsonify(error='sus')
     # return jsonify(error='Invalid user')
 
 

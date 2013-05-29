@@ -1,6 +1,7 @@
 __author__ = 'SolPie'
 import sys
 import os
+
 sys.path.insert(0, os.path.join('.', 'pixtch'))
 import unittest
 from modules import db
@@ -72,9 +73,12 @@ class E_404TestCase(unittest.TestCase):
     def test_kn_post_detail(self):
         rv = self.app.get('/kn/1')
         assert 'pv 1' in rv.data
+        assert 'views 1' in rv.data
 
-
+    def test_login(self):
+        rv = self.app.post('/login/', data={'name': 'admin', 'pw': '-+'})
+        assert 'sus' in rv.data
 
 
 if __name__ == '__main__':
-    pixtch_unittest.main()
+    unittest.main()
