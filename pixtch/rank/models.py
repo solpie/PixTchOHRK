@@ -10,7 +10,7 @@ class RankBase(object):
     #view from user
     pv = db.Column(db.Integer, default=0)
     #every get request
-    get_counts = db.Column(name='view counts', type_=db.Integer, default=0)
+    view_counts = db.Column(name='view counts', type_=db.Integer, default=0)
 
     related_cls = None
 
@@ -26,7 +26,7 @@ class RankKnPost(RankBase, db.Model):
     #     self.pv = 0
 
     def __repr__(self):
-        return '<RankKnPost %d>' % self.get_counts
+        return '<RankKnPost %d>' % self.view_counts
 
 
 class RankKnPostAdmin(ModelView):

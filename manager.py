@@ -19,7 +19,7 @@ app.setup()
 
 @manager.command
 def hello():
-    print "hello"
+    print("hello")
 
 
 @manager.command
@@ -27,7 +27,7 @@ def init():
     db.init_app(app)
     db.drop_all(app=app)
     db.create_all(app=app)
-    print "init...db"
+    print("init...db")
 
     email = app.config.get('ADMINS')[0]
     admin = User('admin', email, '-+')
@@ -47,7 +47,7 @@ def init():
     db.session.add(p)
 
     db.session.commit()
-    print "create...admin"
+    print("create...admin")
 
 
 @manager.command
@@ -58,14 +58,13 @@ def post():
         p.html_content = 'this is a test post from manager'
         db.session.add(p)
     db.session.commit()
-    print 'create test post'
-
+    print('create test post')
 
 @manager.command
 def clone():
     db.session
     src_uri = ''
-    print 'clone db from', src_uri
+    print('clone db from', src_uri)
 
 
 if __name__ == "__main__":

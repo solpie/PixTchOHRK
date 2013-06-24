@@ -14,7 +14,7 @@ from flask import (
 
 from flask.ext.principal import Principal, Permission, RoleNeed, PermissionDenied, identity_changed, Identity, AnonymousIdentity
 from flask.ext.login import (LoginManager, current_user, login_required,
-                             login_user, logout_user, UserMixin, AnonymousUser,
+                             login_user, logout_user, UserMixin,
                              confirm_login, fresh_login_required, logout_user)
 from models import User
 from forms import *
@@ -33,7 +33,7 @@ permission_uppo = Permission(RoleNeed('uppo'))
 
 login_manager = LoginManager()
 
-login_manager.anonymous_user = AnonymousUser
+# login_manager.anonymous_user = AnonymousUser
 
 
 def init_auth(app):
