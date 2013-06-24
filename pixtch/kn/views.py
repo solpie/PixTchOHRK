@@ -1,15 +1,17 @@
 __author__ = 'SolPie'
-from flask import Blueprint, render_template, abort, session, request, redirect, flash, url_for
-from jinja2 import TemplateNotFound
-from models import KnPost
-from forms import KnForm
-from modules import db
-from flask.ext.login import login_required, current_user
-from werkzeug.utils import secure_filename
-from rank.models import RankKnPost
 import hashlib
 import tempfile
 import os
+
+from flask import Blueprint, render_template, abort, request, redirect, flash
+from jinja2 import TemplateNotFound
+from flask.ext.login import login_required, current_user
+from werkzeug.utils import secure_filename
+
+from models import KnPost
+from forms import KnForm
+from modules import db
+from rank.models import RankKnPost
 
 
 bp = Blueprint('kn', __name__, url_prefix='/kn', template_folder='../templates/pixtch/kn')
@@ -24,9 +26,9 @@ def show_kn_post(kid):
             rank = RankKnPost()
             rank.related_cls = kn
             db.session.add(rank)
-        rank.view_counts = (rank.view_counts + 1) or 0
-        if not current_user.is_anonymous:#todo pv views one user one count
-            rank.pv = rank.pv or 0 + 1
+        rank.view_counts += 1# (rank.view_counts + 1) or 0
+        if not current_user.is_anonymous():#todo pv views one user one count
+            rank.pv += 1
         db.session.commit()#todo database when to sync
         return render_template('detail.html', kn=kn, rank=rank)
     except TemplateNotFound:
