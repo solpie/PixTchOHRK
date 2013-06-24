@@ -26,8 +26,8 @@ def show_kn_post(kid):
             rank = RankKnPost()
             rank.related_cls = kn
             db.session.add(rank)
-        rank.view_counts += 1# (rank.view_counts + 1) or 0
-        if not current_user.is_anonymous():#todo pv views one user one count
+        rank.view_counts += 1
+        if not current_user.is_anonymous():
             rank.pv += 1
         db.session.commit()#todo database when to sync
         return render_template('detail.html', kn=kn, rank=rank)

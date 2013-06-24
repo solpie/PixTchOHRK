@@ -80,6 +80,7 @@ def auth():
     name = request.values.get('name', type=str)
     password = request.values.get('pw', type=str)
     remember = request.values.get('rm', type=int)
+    print('user: ', name, 'pw: ', password)
     user = get_user(name)
     if user is None:
         return jsonify(error='Invalid user')

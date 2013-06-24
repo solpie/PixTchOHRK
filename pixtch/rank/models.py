@@ -5,16 +5,6 @@ from modules import db
 from kn.models import KnPost
 
 
-# class RankBase(object):
-#     id = db.Column(db.Integer, primary_key=True)
-#     #view from user
-#     pv = db.Column(db.Integer, default=0)
-#     #every get request
-#     view_counts = db.Column(name='view counts', db.Integer, default=0)
-#
-#     related_cls = None
-
-
 class RankKnPost(db.Model):
     __tablename__ = 'pt_rank_kn_post'
     id = db.Column(db.Integer, db.ForeignKey(KnPost.id), primary_key=True)

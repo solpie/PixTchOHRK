@@ -82,7 +82,8 @@ class E_404TestCase(unittest.TestCase):
         # assert 'Home' in rv.data
 
     def test_login(self):
-        rv = self.app.post('/login', data={'name': 'admin', 'pw': '-+'})
+        pw = "-+"
+        rv = self.app.post('/login/', data={'name': 'admin', 'pw': pw})
         assert 'sus' in rv.data
 
     def test_kn_post_pv(self):
