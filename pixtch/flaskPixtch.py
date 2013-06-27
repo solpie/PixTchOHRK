@@ -41,7 +41,8 @@ class Pixtch(Flask):
         try:
             v = __import__(module + '.views')
             # v.views.bp.template_folder = 'templates/pixtch/' + module
-            self.register_blueprint(v.views.bp)
+            if v.views.bp:
+                self.register_blueprint(v.views.bp)
         except ImportError, e:
             print 'module [', module, '] do not have views'
 

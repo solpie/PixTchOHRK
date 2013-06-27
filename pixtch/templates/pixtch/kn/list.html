@@ -69,6 +69,7 @@
                                                                height="48"></a>
                             </div>
                             <a href="/kn/{{ kn.id }}" class="_item_play playbtn">play</a>
+
                             <div class="databox">
                                 <table>
                                     <tbody>
@@ -77,7 +78,7 @@
                                         <td class="username"><a href="/zivar"><img src="/images/sprite.png?20130507"
                                                                                    class="icons ic_user_snd">solpieさん</a>
                                         </td>
-                                        <td class="post">2013/04/20<br>18:09</td>
+                                        <td class="post">{{ kn.created.strftime('%Y/%m/%d') }}<br>{{ kn.created.strftime('%H:%M') }}</td>
                                         <td class="time">03:12</td>
                                     </tr>
                                     </tbody>
