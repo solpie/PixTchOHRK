@@ -14,7 +14,7 @@ from flask import (
 
 from flask.ext.principal import Principal, Permission, RoleNeed, PermissionDenied, identity_changed, Identity, AnonymousIdentity
 from flask.ext.login import (LoginManager, current_user, login_required,
-                             login_user, logout_user, UserMixin,
+                             login_user, logout_user,
                              confirm_login, fresh_login_required, logout_user)
 from models import User
 from forms import *
