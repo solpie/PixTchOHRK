@@ -40,7 +40,9 @@ def show_kn_post(kid):
 def show():
     try:
         kn = KnPost.query.order_by(KnPost.id)
-        return render_template('list.html', kn_list=kn)
+        #fixme rank 
+        rank = RankKnPost.query.order_by(RankKnPost.view_counts).order_by(RankKnPost.pv).all()
+        return render_template('list.html', kn_list=kn, rank=rank)
     except TemplateNotFound:
         abort(404)
         pass

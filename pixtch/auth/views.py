@@ -79,6 +79,8 @@ def auth():
     #post
     name = request.values.get('name', type=str)
     password = request.values.get('pw', type=str)
+    #fixme login post static jquery
+    password = request.values.get('password', type=str)
     remember = request.values.get('rm', type=int)
     print('user: ', name, 'pw: ', password)
     user = get_user(name)

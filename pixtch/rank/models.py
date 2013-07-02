@@ -20,7 +20,7 @@ class RankKnPost(db.Model):
         self.pv = 0
 
     def __repr__(self):
-        return '<RankKnPost %d>' % self.view_counts
+        return '<RankKnPost views:%d>' % self.view_counts
 
 
 class RankKnPostAdmin(ModelView):
